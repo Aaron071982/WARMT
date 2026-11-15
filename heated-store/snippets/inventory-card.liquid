@@ -1,0 +1,59 @@
+{% comment %}
+  Inventory product card with unglow → glow hover flip.
+  Params: title, color, url, image_base, image_glow, price_label, heat_label
+{% endcomment %}
+
+{%- liquid
+  assign card_title = title | default: 'Heated Jacket'
+  assign card_color = color | default: 'black'
+  assign card_url = url | default: '#'
+  assign base_src = image_base
+  assign glow_src = image_glow
+  assign price_text = price_label | default: ''
+  assign heat_text = heat_label | default: '2–9 heat zones'
+-%}
+
+<a
+  class="inventory-card"
+  href="{{ card_url }}"
+  data-inventory-card
+  data-color="{{ card_color }}"
+  style="--card-accent: {% case card_color %}{% when 'red' %}#8B1E1E{% when 'blue' %}#1A2A44{% when 'pink' %}#D48A9B{% else %}#1a1a1a{% endcase %};"
+>
+  <div class="inventory-card__media">
+    <div class="inventory-card__stage">
+      <img
+        class="inventory-card__img inventory-card__img--base"
+        src="{{ base_src }}"
+        alt="{{ card_title | escape }} — inactive"
+        width="1199"
+        height="1312"
+        loading="lazy"
+        decoding="async"
+      >
+      <img
+        class="inventory-card__img inventory-card__img--glow"
+        src="{{ glow_src }}"
+        alt=""
+        width="1199"
+        height="1312"
+        loading="lazy"
+        decoding="async"
+        aria-hidden="true"
+      >
+      <span class="inventory-card__heat-hint" aria-hidden="true">
+        <span class="inventory-card__heat-dot"></span>
+        Heat on
+      </span>
+    </div>
+  </div>
+
+  <div class="inventory-card__meta">
+    <h3 class="inventory-card__title">{{ card_title }}</h3>
+    <p class="inventory-card__color">{{ card_color | capitalize }}</p>
+    {%- if price_text != blank -%}
+      <p class="inventory-card__price">{{ price_text }}</p>
+    {%- endif -%}
+    <p class="inventory-card__zones">{{ heat_text }}</p>
+  </div>
+</a>

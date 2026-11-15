@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>WARMTH — Inventory Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/base.css">
+    <link rel="stylesheet" href="../assets/editorial.css">
+    <link rel="stylesheet" href="../assets/animations.css">
+    <link rel="stylesheet" href="../assets/product.css">
+    <link rel="stylesheet" href="../assets/inventory.css">
+    <style>
+      :root {
+        --color-bg: #0B0B0B;
+        --color-soft-black: #171717;
+        --color-white: #FFFFFF;
+        --color-editorial: #FAFAF8;
+        --color-muted: #8A8A8A;
+        --color-light-gray: #E9E9E9;
+        --color-heat: #FF5A1F;
+        --color-amber: #FFB347;
+        --color-deep-heat: #D62828;
+        --page-width: 1440px;
+        --heading-scale: 1;
+        --body-scale: 1;
+        --font-heading: 'Cormorant Garamond', 'Times New Roman', serif;
+        --font-body: 'DM Sans', system-ui, sans-serif;
+        --header-height: 4.5rem;
+      }
+      .preview-banner {
+        position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+        z-index: 100; padding: 0.65rem 1rem; background: rgba(11,11,11,0.88);
+        border: 1px solid rgba(255,255,255,0.12); font-size: 0.7rem;
+        letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75);
+        max-width: calc(100% - 2rem); text-align: center;
+      }
+    </style>
+  </head>
+  <body class="template-collection">
+    <header class="site-header" data-site-header data-transparent="false">
+      <div class="site-header__inner">
+        <a class="site-header__logo" href="index.html">WARMTH</a>
+        <nav class="site-header__nav" aria-label="Primary">
+          <ul class="site-header__nav-list list-reset">
+            <li><a class="site-header__nav-link" href="#inventory">Shop</a></li>
+            <li><a class="site-header__nav-link" href="#product-black">Jackets</a></li>
+          </ul>
+        </nav>
+        <div class="site-header__actions">
+          <button type="button" class="icon-btn icon-btn--cart" data-cart-open aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 11H7L6 8z"/><path d="M9 8a3 3 0 016 0"/></svg>
+            <span class="cart-count" data-cart-count hidden></span>
+          </button>
+          <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="mobile-nav" data-mobile-nav>
+      <button type="button" class="icon-btn mobile-nav__close" data-mobile-nav-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <ul class="mobile-nav__list list-reset">
+        <li><a class="mobile-nav__link" href="#inventory">Shop</a></li>
+        <li><a class="mobile-nav__link" href="#product-black">Product</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="inventory-section" id="inventory" data-inventory-section>
+        <div class="page-width">
+          <header class="inventory-section__header">
+            <h1 class="inventory-section__title h2">THE COLLECTION.</h1>
+            <p class="inventory-section__sub">Engineered for comfort.</p>
+          </header>
+          <div class="inventory-grid">
+            <a class="inventory-card" href="#product-black" data-inventory-card data-color="black">
+              <div class="inventory-card__media"><div class="inventory-card__stage">
+                <img class="inventory-card__img inventory-card__img--base" src="../assets/inventory/black-unglowfront.png" alt="Black heated jacket" width="1199" height="1312">
+                <img class="inventory-card__img inventory-card__img--glow" src="../assets/inventory/black-glowfront.png" alt="" width="1199" height="1312" aria-hidden="true">
+                <span class="inventory-card__heat-hint" aria-hidden="true"><span class="inventory-card__heat-dot"></span>Heat on</span>
+              </div></div>
+              <div class="inventory-card__meta">
+                <h2 class="inventory-card__title">Heated Jacket</h2>
+                <p class="inventory-card__color">Black</p>
+                <p class="inventory-card__zones">2–9 heat zones</p>
+              </div>
+            </a>
+            <a class="inventory-card" href="#product-red" data-inventory-card data-color="red">
+              <div class="inventory-card__media"><div class="inventory-card__stage">
+                <img class="inventory-card__img inventory-card__img--base" src="../assets/inventory/red-unglowfront.png" alt="Red heated jacket" width="1199" height="1312">
+                <img class="inventory-card__img inventory-card__img--glow" src="../assets/inventory/red-glowfront.png" alt="" width="1199" height="1312" aria-hidden="true">
+                <span class="inventory-card__heat-hint" aria-hidden="true"><span class="inventory-card__heat-dot"></span>Heat on</span>
+              </div></div>
+              <div class="inventory-card__meta">
+                <h2 class="inventory-card__title">Heated Jacket</h2>
+                <p class="inventory-card__color">Red</p>
+                <p class="inventory-card__zones">2–9 heat zones</p>
+              </div>
+            </a>
+            <a class="inventory-card" href="#product-blue" data-inventory-card data-color="blue">
+              <div class="inventory-card__media"><div class="inventory-card__stage">
+                <img class="inventory-card__img inventory-card__img--base" src="../assets/inventory/blue-unglowfront.png" alt="Blue heated jacket" width="1199" height="1312">
+                <img class="inventory-card__img inventory-card__img--glow" src="../assets/inventory/blue-glowfront.png" alt="" width="1199" height="1312" aria-hidden="true">
+                <span class="inventory-card__heat-hint" aria-hidden="true"><span class="inventory-card__heat-dot"></span>Heat on</span>
+              </div></div>
+              <div class="inventory-card__meta">
+                <h2 class="inventory-card__title">Heated Jacket</h2>
+                <p class="inventory-card__color">Blue</p>
+                <p class="inventory-card__zones">2–9 heat zones</p>
+              </div>
+            </a>
+          </div>
+          <p class="inventory-section__hint">Hover to reveal heat. Click to explore every view.</p>
+        </div>
+      </section>
+
+      <section class="product inventory-product" id="product-black" data-product-section data-inventory-product data-color="black">
+        <div class="page-width product__layout">
+          <div class="product__gallery" data-product-gallery data-inventory-gallery>
+            <button type="button" class="product__gallery-main inventory-gallery__main" data-gallery-main data-open-slideshow aria-label="Open image slideshow">
+              <img data-gallery-active src="../assets/inventory/black-unglowfront.png" alt="Black jacket front" width="1199" height="1312">
+              <span class="inventory-gallery__cue"><span class="inventory-gallery__cue-dot"></span>View gallery</span>
+            </button>
+            <div class="product__thumbs inventory-gallery__thumbs">
+              <button type="button" class="product__thumb is-active" data-gallery-thumb data-src="../assets/inventory/black-unglowfront.png" data-alt="Black jacket front" aria-label="Front">
+                <img src="../assets/inventory/black-unglowfront.png" alt="" width="200" height="220">
+              </button>
+              <button type="button" class="product__thumb" data-gallery-thumb data-src="../assets/inventory/black-glowfront.png" data-alt="Black jacket front — heat on" aria-label="Front heat">
+                <img src="../assets/inventory/black-glowfront.png" alt="" width="200" height="220">
+              </button>
+              <button type="button" class="product__thumb" data-gallery-thumb data-src="../assets/inventory/black-unglowback.png" data-alt="Black jacket back" aria-label="Back">
+                <img src="../assets/inventory/black-unglowback.png" alt="" width="200" height="220">
+              </button>
+              <button type="button" class="product__thumb" data-gallery-thumb data-src="../assets/inventory/black-glowback.png" data-alt="Black jacket back — heat on" aria-label="Back heat">
+                <img src="../assets/inventory/black-glowback.png" alt="" width="200" height="220">
+              </button>
+            </div>
+          </div>
+
+          <div class="product__info">
+            <p class="product__vendor">WARMTH</p>
+            <h1 class="product__title">Heated Jacket</h1>
+            <div class="product__price">Price set in Shopify</div>
+            <div class="product__description">
+              <p>Premium heated puffer with selectable heat-zone configurations. Choose 2, 4, 8, or 9 zones for the warmth you need.</p>
+            </div>
+
+            <div class="inventory-product__form">
+              <div class="field">
+                <span class="field__label">Color</span>
+                <div class="color-pills">
+                  <button type="button" class="color-pill color-pill--black is-selected" data-color-pill data-color="black" aria-label="Black" aria-pressed="true"></button>
+                  <button type="button" class="color-pill color-pill--red" data-color-pill data-color="red" aria-label="Red" aria-pressed="false"></button>
+                  <button type="button" class="color-pill color-pill--blue" data-color-pill data-color="blue" aria-label="Blue" aria-pressed="false"></button>
+                </div>
+              </div>
+
+              <div class="field">
+                <span class="field__label">Size</span>
+                <div class="variant-pills variant-pills--animated" data-size-pills>
+                  <button type="button" class="variant-pill" data-size-pill data-value="XS"><span class="variant-pill__ring"></span><span class="variant-pill__label">XS</span></button>
+                  <button type="button" class="variant-pill" data-size-pill data-value="S"><span class="variant-pill__ring"></span><span class="variant-pill__label">S</span></button>
+                  <button type="button" class="variant-pill is-selected" data-size-pill data-value="M"><span class="variant-pill__ring"></span><span class="variant-pill__label">M</span></button>
+                  <button type="button" class="variant-pill" data-size-pill data-value="L"><span class="variant-pill__ring"></span><span class="variant-pill__label">L</span></button>
+                  <button type="button" class="variant-pill" data-size-pill data-value="XL"><span class="variant-pill__ring"></span><span class="variant-pill__label">XL</span></button>
+                </div>
+              </div>
+
+              <div class="field" data-heat-option>
+                <span class="field__label">Heat zones</span>
+                <div class="heat-zone-pills" data-heat-pills>
+                  <button type="button" class="heat-zone-pill" data-heat-zones="2" aria-pressed="false"><span class="heat-zone-pill__count">2</span><span class="heat-zone-pill__map" data-zone-map="2"></span></button>
+                  <button type="button" class="heat-zone-pill is-selected" data-heat-zones="4" aria-pressed="true"><span class="heat-zone-pill__count">4</span><span class="heat-zone-pill__map" data-zone-map="4"></span></button>
+                  <button type="button" class="heat-zone-pill" data-heat-zones="8" aria-pressed="false"><span class="heat-zone-pill__count">8</span><span class="heat-zone-pill__map" data-zone-map="8"></span></button>
+                  <button type="button" class="heat-zone-pill" data-heat-zones="9" aria-pressed="false"><span class="heat-zone-pill__count">9</span><span class="heat-zone-pill__map" data-zone-map="9"></span></button>
+                </div>
+                <p class="heat-zone-note" data-heat-note>4 zones — balanced core coverage</p>
+              </div>
+
+              <div class="product__actions" style="margin-top:1.5rem;">
+                <button type="button" class="btn btn--dark" data-demo-add style="width:100%;">Add to cart</button>
+              </div>
+            </div>
+
+            <div class="product__meta-blocks">
+              <details class="accordion" open>
+                <summary class="accordion__trigger">Specifications <span class="accordion__icon">+</span></summary>
+                <div class="accordion__content">
+                  <div class="spec-list">
+                    <div class="spec-list__row"><span class="spec-list__label">Heat zones</span><span data-spec-zones>4</span></div>
+                    <div class="spec-list__row"><span class="spec-list__label">Heat settings</span><span>3 levels</span></div>
+                    <div class="spec-list__row"><span class="spec-list__label">Colors</span><span>Black · Red · Blue</span></div>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="slideshow" data-slideshow hidden>
+      <div class="slideshow__overlay" data-slideshow-close></div>
+      <div class="slideshow__panel" role="dialog" aria-modal="true" aria-label="Product gallery">
+        <button type="button" class="slideshow__close icon-btn" data-slideshow-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <button type="button" class="slideshow__nav slideshow__nav--prev" data-slideshow-prev aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <div class="slideshow__stage">
+          <img class="slideshow__img is-active" data-slideshow-img alt="" width="1199" height="1312">
+          <img class="slideshow__img" data-slideshow-img-next alt="" width="1199" height="1312" aria-hidden="true">
+        </div>
+        <button type="button" class="slideshow__nav slideshow__nav--next" data-slideshow-next aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="slideshow__meta">
+          <p class="slideshow__caption" data-slideshow-caption></p>
+          <div class="slideshow__progress" data-slideshow-progress></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-drawer" data-cart-drawer>
+      <div class="cart-drawer__overlay" data-cart-close></div>
+      <aside class="cart-drawer__panel" role="dialog" aria-modal="true" aria-label="Cart">
+        <div class="cart-drawer__header">
+          <h2 class="cart-drawer__title">Cart</h2>
+          <button type="button" class="icon-btn" data-cart-close aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="cart-drawer__body"><p class="cart-drawer__empty">Your cart is empty</p></div>
+      </aside>
+    </div>
+
+    <div id="CartToast" class="cart-toast" hidden role="status"></div>
+    <p class="preview-banner">Inventory preview · Hover cards · Click image for slideshow</p>
+
+    <script type="application/json" data-inventory-catalog>
+    {
+      "black": {
+        "title": "Heated Jacket",
+        "images": [
+          {"src": "../assets/inventory/black-unglowfront.png", "alt": "Black jacket front"},
+          {"src": "../assets/inventory/black-glowfront.png", "alt": "Black jacket front — heat on"},
+          {"src": "../assets/inventory/black-unglowback.png", "alt": "Black jacket back"},
+          {"src": "../assets/inventory/black-glowback.png", "alt": "Black jacket back — heat on"}
+        ]
+      },
+      "red": {
+        "title": "Heated Jacket",
+        "images": [
+          {"src": "../assets/inventory/red-unglowfront.png", "alt": "Red jacket front"},
+          {"src": "../assets/inventory/red-glowfront.png", "alt": "Red jacket front — heat on"},
+          {"src": "../assets/inventory/red-unglowback.png", "alt": "Red jacket back"},
+          {"src": "../assets/inventory/red-glowback.png", "alt": "Red jacket back — heat on"}
+        ]
+      },
+      "blue": {
+        "title": "Heated Jacket",
+        "images": [
+          {"src": "../assets/inventory/blue-unglowfront.png", "alt": "Blue jacket front"},
+          {"src": "../assets/inventory/blue-glowfront.png", "alt": "Blue jacket front — heat on"},
+          {"src": "../assets/inventory/blue-unglowback.png", "alt": "Blue jacket back"},
+          {"src": "../assets/inventory/blue-glowback.png", "alt": "Blue jacket back — heat on"}
+        ]
+      }
+    }
+    </script>
+    <script>
+      window.theme = {
+        routes: { cart_url: '#', cart_add_url: '#', cart_change_url: '#', cart_update_url: '#' },
+        strings: { addToCart: 'Add to cart', soldOut: 'Sold out', unavailable: 'Unavailable', cartError: 'Cart requires Shopify' },
+        moneyFormat: '${{amount}}',
+        cartDrawer: true
+      };
+    </script>
+    <script src="../assets/theme.js" defer></script>
+    <script src="../assets/media-controller.js" defer></script>
+  </body>
+</html>

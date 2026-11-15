@@ -1,0 +1,119 @@
+{
+  "sections": {
+    "hero": {
+      "type": "cinematic-hero",
+      "settings": {
+        "headline": "WARMTH. REDEFINED.",
+        "supporting_text": "Engineered comfort for wherever life takes you.",
+        "cta_label": "EXPLORE JACKETS",
+        "cta_link": "/#jackets",
+        "text_alignment": "left",
+        "text_color": "#FFFFFF",
+        "show_scroll_indicator": true,
+        "media_alt": "Cinematic heated jacket campaign",
+        "media_position": "center center",
+        "overlay_strength": 35,
+        "section_height": "100svh",
+        "heat_mode": "prerendered",
+        "enable_heat_animation": true
+      }
+    },
+    "city": {
+      "type": "cinematic-story",
+      "settings": {
+        "slot_label": "CITY_CAMPAIGN",
+        "placeholder_asset": "placeholder-media/city-campaign.gif",
+        "headline": "THE CITY DOESN'T STOP.",
+        "supporting_text": "NEITHER SHOULD YOU.",
+        "cta_label": "DISCOVER HEATED JACKETS",
+        "cta_link": "/#jackets",
+        "text_alignment": "left",
+        "media_alt": "City heated jacket campaign",
+        "media_position": "center center",
+        "overlay_strength": 30,
+        "section_height": "100svh",
+        "heat_mode": "prerendered"
+      }
+    },
+    "outdoors": {
+      "type": "cinematic-story",
+      "settings": {
+        "slot_label": "OUTDOOR_CAMPAIGN",
+        "placeholder_asset": "placeholder-media/outdoor-campaign.gif",
+        "headline": "STAY FOR THE MOMENT.",
+        "supporting_text": "Warmth that keeps pace with the outdoors.",
+        "cta_label": "EXPLORE OUTDOOR WARMTH",
+        "cta_link": "/#jackets",
+        "text_alignment": "left",
+        "media_alt": "Umbrella heated jacket campaign",
+        "media_position": "center 42%",
+        "media_zoom": 82,
+        "overlay_strength": 28,
+        "section_height": "100svh",
+        "heat_mode": "prerendered"
+      }
+    },
+    "jackets": {
+      "type": "inventory-grid",
+      "settings": {
+        "heading": "JACKETS.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "price_label": "Select color & heat zones",
+        "section_id": "jackets",
+        "black_link": "/#product-black",
+        "red_link": "/#product-red",
+        "blue_link": "/#product-blue",
+        "show_hint": true
+      }
+    },
+    "jacket_product": {
+      "type": "inventory-product",
+      "settings": {
+        "default_color": "black",
+        "price_label": "Price set in Shopify",
+        "description": "Premium heated puffer with selectable heat-zone configurations. Choose 2, 4, 8, or 9 zones for the warmth you need."
+      }
+    },
+    "gloves": {
+      "type": "gloves-grid",
+      "settings": {
+        "heading": "GLOVES.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "section_id": "gloves",
+        "price_label": "Select color",
+        "black_link": "/#product-gloves-black",
+        "pink_link": "/#product-gloves-pink",
+        "show_hint": true
+      }
+    },
+    "gloves_product": {
+      "type": "gloves-product",
+      "settings": {
+        "default_color": "black",
+        "price_label": "Price set in Shopify",
+        "description": "Heated gloves with dual-zone warmth across the palm and back of hand. Choose black or pink."
+      }
+    },
+    "featured": {
+      "type": "featured-product",
+      "settings": {
+        "eyebrow": "Featured",
+        "heading": "BUILT FOR THE COLD.",
+        "text": "Premium heated apparel designed for everyday comfort.",
+        "cta_label": "VIEW PRODUCT",
+        "heat_mode": "overlay",
+        "enable_heat_animation": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "city",
+    "outdoors",
+    "jackets",
+    "jacket_product",
+    "gloves",
+    "gloves_product",
+    "featured"
+  ]
+}

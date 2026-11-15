@@ -1,0 +1,373 @@
+{%- liquid
+  assign height = section.settings.section_height | default: '100svh'
+  assign align = section.settings.text_alignment | default: 'left'
+  assign text_color = section.settings.text_color | default: '#FFFFFF'
+  assign overlay = section.settings.overlay_strength | default: 30
+  assign position = section.settings.media_position | default: 'center center'
+  assign heat_mode = section.settings.heat_mode | default: 'prerendered'
+  assign slot = section.settings.slot_label | default: 'CAMPAIGN'
+  assign placeholder = section.settings.placeholder_asset | default: 'placeholder-media/city-campaign.gif'
+  assign media_zoom = section.settings.media_zoom | default: 100
+  assign zoom_factor = media_zoom | divided_by: 100.0
+  assign zoom_class = ''
+  if media_zoom < 100
+    assign zoom_class = 'media-zoom-out'
+  endif
+-%}
+
+<section
+  class="cinematic cinematic-story{% if height != '100svh' %} cinematic--short{% endif %}"
+  style="min-height: {{ height }}; color: {{ text_color }}; --media-zoom: {{ zoom_factor }}; --media-position: {{ position }};"
+  data-cinematic-media
+>
+  <div class="cinematic__media {% if zoom_class != blank %}is-zoomed-out{% endif %}">
+    {% render 'heat-animation',
+      mode: heat_mode,
+      enable_animation: section.settings.enable_heat_animation,
+      desktop_image: section.settings.desktop_image,
+      mobile_image: section.settings.mobile_image,
+      desktop_video: section.settings.desktop_video,
+      mobile_video: section.settings.mobile_video,
+      media_url: section.settings.media_url,
+      poster_image: section.settings.poster_image,
+      overlay_image: section.settings.heat_overlay,
+      heat_color: section.settings.heat_color,
+      opacity: section.settings.heat_opacity | divided_by: 100.0,
+      glow: section.settings.heat_glow | divided_by: 100.0,
+      duration: section.settings.heat_duration,
+      heat_x: section.settings.heat_x,
+      heat_y: section.settings.heat_y,
+      heat_width: section.settings.heat_width,
+      heat_height: section.settings.heat_height,
+      heat_x_mobile: section.settings.heat_x_mobile,
+      heat_y_mobile: section.settings.heat_y_mobile,
+      heat_width_mobile: section.settings.heat_width_mobile,
+      heat_height_mobile: section.settings.heat_height_mobile,
+      position: position,
+      alt: section.settings.media_alt,
+      loading: 'lazy',
+      slot_label: slot,
+      placeholder_asset: placeholder,
+      class: zoom_class
+    %}
+  </div>
+
+  <div
+    class="cinematic__overlay{% if align == 'left' %} cinematic__overlay--left{% elsif align == 'center' %} cinematic__overlay--center{% endif %}"
+    style="opacity: {{ overlay | divided_by: 100.0 }};"
+  ></div>
+
+  <div class="cinematic__content cinematic__content--{{ align }}">
+    {%- if section.settings.headline != blank -%}
+      <h2 class="cinematic__headline h2 reveal">{{ section.settings.headline }}</h2>
+    {%- endif -%}
+    {%- if section.settings.supporting_text != blank -%}
+      <p class="cinematic__text reveal reveal-delay-1">{{ section.settings.supporting_text }}</p>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <div class="cinematic__actions reveal reveal-delay-2">
+        <a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cinematic story",
+  "tag": "section",
+  "class": "section-cinematic-story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "slot_label",
+      "label": "Media slot label",
+      "default": "CAMPAIGN",
+      "info": "Developer identifier shown only on placeholders"
+    },
+    {
+      "type": "select",
+      "id": "placeholder_asset",
+      "label": "Built-in placeholder asset",
+      "options": [
+        { "value": "placeholder-media/city-campaign.gif", "label": "City campaign GIF" },
+        { "value": "placeholder-media/outdoor-campaign.gif", "label": "Outdoor campaign GIF" },
+        { "value": "placeholder-media/everyday-placeholder.svg", "label": "Everyday SVG" },
+        { "value": "placeholder-media/wellness-placeholder.svg", "label": "Wellness SVG" },
+        { "value": "placeholder-media/hero-city.gif", "label": "Hero city GIF" }
+      ],
+      "default": "placeholder-media/city-campaign.gif"
+    },
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline",
+      "default": "THE CITY DOESN'T STOP."
+    },
+    {
+      "type": "textarea",
+      "id": "supporting_text",
+      "label": "Supporting text",
+      "default": "NEITHER SHOULD YOU."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "DISCOVER HEATED JACKETS"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image / GIF"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image / GIF"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop video"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile video"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster / reduced-motion fallback"
+    },
+    {
+      "type": "text",
+      "id": "media_url",
+      "label": "External media URL (GIF / WebP / MP4 / WebM)"
+    },
+    {
+      "type": "text",
+      "id": "media_alt",
+      "label": "Media alt text",
+      "default": "Campaign scene"
+    },
+    {
+      "type": "text",
+      "id": "media_position",
+      "label": "Media focal position",
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "media_zoom",
+      "min": 70,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Media zoom",
+      "default": 100,
+      "info": "Below 100% zooms out to show more of the frame (useful for tall campaign images)."
+    },
+    {
+      "type": "range",
+      "id": "overlay_strength",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay strength",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "options": [
+        { "value": "100svh", "label": "Full screen" },
+        { "value": "90svh", "label": "90%" },
+        { "value": "85svh", "label": "85%" }
+      ],
+      "default": "100svh"
+    },
+    {
+      "type": "header",
+      "content": "Heating animation"
+    },
+    {
+      "type": "select",
+      "id": "heat_mode",
+      "label": "Heat mode",
+      "options": [
+        { "value": "prerendered", "label": "Pre-rendered animation" },
+        { "value": "overlay", "label": "Static image + heat overlay" }
+      ],
+      "default": "prerendered"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_heat_animation",
+      "label": "Enable heat overlay animation",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "heat_overlay",
+      "label": "Heat mask overlay"
+    },
+    {
+      "type": "color",
+      "id": "heat_color",
+      "label": "Heat color",
+      "default": "#FF5A1F"
+    },
+    {
+      "type": "range",
+      "id": "heat_opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "heat_glow",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Glow intensity",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "heat_duration",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "s",
+      "label": "Animation duration",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "heat_x",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat X",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heat_y",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat Y",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "heat_width",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat width",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "heat_height",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat height",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heat_x_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat X",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "heat_y_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat Y",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "heat_width_mobile",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat width",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "heat_height_mobile",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat height",
+      "default": 46
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic story"
+    }
+  ]
+}
+{% endschema %}

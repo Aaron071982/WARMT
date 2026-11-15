@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "inventory": {
+      "type": "inventory-grid",
+      "settings": {
+        "heading": "THE COLLECTION.",
+        "subheading": "Engineered for comfort.",
+        "price_label": "Select color & heat zones",
+        "black_link": "#product-black",
+        "red_link": "#product-red",
+        "blue_link": "#product-blue",
+        "show_hint": true
+      }
+    },
+    "product": {
+      "type": "inventory-product",
+      "settings": {
+        "default_color": "black",
+        "price_label": "Price set in Shopify",
+        "description": "Premium heated puffer with selectable heat-zone configurations. Choose 2, 4, 8, or 9 zones for the warmth you need."
+      }
+    }
+  },
+  "order": ["inventory", "product"]
+}

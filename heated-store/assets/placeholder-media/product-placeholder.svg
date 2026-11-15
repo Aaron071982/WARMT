@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-label="Product media placeholder">
+  <defs>
+    <linearGradient id="p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8d8d6"/>
+      <stop offset="100%" stop-color="#a8a8a6"/>
+    </linearGradient>
+    <radialGradient id="ph" cx="50%" cy="42%" r="28%">
+      <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#p)"/>
+  <path d="M420 280h360l40 120v620c0 40-30 70-70 70H450c-40 0-70-30-70-70V400l40-120z" fill="#6e6e6c"/>
+  <ellipse cx="600" cy="520" rx="120" ry="180" fill="url(#ph)"/>
+  <text x="120" y="140" fill="rgba(11,11,11,0.35)" font-family="Helvetica, Arial, sans-serif" font-size="28" letter-spacing="6">PRODUCT_MEDIA</text>
+</svg>

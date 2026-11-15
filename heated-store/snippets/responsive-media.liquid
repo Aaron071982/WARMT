@@ -1,0 +1,145 @@
+{% comment %}
+  Reusable cinematic / campaign media.
+  Accepts: desktop_image, mobile_image, desktop_video, mobile_video,
+  poster_image, media_url (external animated gif/webp/mp4),
+  position, alt, loading, class, slot_label, prefer_placeholder
+{% endcomment %}
+
+{%- liquid
+  assign media_position = position | default: 'center center'
+  assign media_alt = alt | default: shop.name
+  assign media_loading = loading | default: 'lazy'
+  assign slot = slot_label | default: 'CAMPAIGN_MEDIA'
+  assign has_mobile = false
+  if mobile_image != blank or mobile_video != blank
+    assign has_mobile = true
+  endif
+
+  assign external = media_url | strip
+  if external != blank
+    if external contains 'javascript:' or external contains 'data:text'
+      assign external = blank
+    endif
+  endif
+
+  assign has_media = false
+  if desktop_image != blank or mobile_image != blank or desktop_video != blank or mobile_video != blank or external != blank
+    assign has_media = true
+  endif
+-%}
+
+<div
+  class="responsive-media{% if has_mobile %} has-mobile{% endif %} {{ class }}"
+  style="--media-position: {{ media_position }};{% if class contains 'media-zoom-out' %} --media-zoom: var(--media-zoom, 0.82);{% endif %}"
+  data-responsive-media
+>
+  {%- if has_media -%}
+    {%- if desktop_video != blank -%}
+      {{
+        desktop_video
+        | video_tag:
+          image_size: '1920x',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true,
+          class: 'responsive-media__asset responsive-media__asset--desktop',
+          data-autoplay: 'true'
+      }}
+    {%- elsif external != blank -%}
+      {%- if external contains '.mp4' or external contains '.webm' -%}
+        <video
+          class="responsive-media__asset responsive-media__asset--desktop"
+          src="{{ external | escape }}"
+          {% if poster_image != blank %}poster="{{ poster_image | image_url: width: 1920 }}"{% endif %}
+          autoplay
+          muted
+          loop
+          playsinline
+          data-autoplay="true"
+          aria-label="{{ media_alt | escape }}"
+        ></video>
+      {%- else -%}
+        <img
+          class="responsive-media__asset responsive-media__asset--desktop"
+          src="{{ external | escape }}"
+          alt="{{ media_alt | escape }}"
+          loading="{{ media_loading }}"
+          decoding="async"
+          width="1920"
+          height="1080"
+        >
+      {%- endif -%}
+    {%- elsif desktop_image != blank -%}
+      {{
+        desktop_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'responsive-media__asset responsive-media__asset--desktop',
+          widths: '750, 1100, 1500, 1920, 2400',
+          sizes: '100vw',
+          alt: media_alt,
+          loading: media_loading,
+          fetchpriority: fetchpriority
+      }}
+    {%- endif -%}
+
+    {%- if mobile_video != blank -%}
+      {{
+        mobile_video
+        | video_tag:
+          image_size: '1200x',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true,
+          class: 'responsive-media__asset responsive-media__asset--mobile',
+          data-autoplay: 'true'
+      }}
+    {%- elsif mobile_image != blank -%}
+      {{
+        mobile_image
+        | image_url: width: 1200
+        | image_tag:
+          class: 'responsive-media__asset responsive-media__asset--mobile',
+          widths: '375, 750, 1100, 1200',
+          sizes: '100vw',
+          alt: media_alt,
+          loading: media_loading
+      }}
+    {%- endif -%}
+
+    {%- if poster_image != blank -%}
+      <img
+        class="responsive-media__asset"
+        data-reduced-fallback
+        src="{{ poster_image | image_url: width: 1920 }}"
+        alt="{{ media_alt | escape }}"
+        loading="lazy"
+        hidden
+        width="1920"
+        height="1080"
+      >
+    {%- endif -%}
+  {%- else -%}
+    <div class="responsive-media__placeholder" role="img" aria-label="{{ slot | escape }} placeholder">
+      {%- if placeholder_asset != blank -%}
+        <img
+          class="responsive-media__asset"
+          src="{{ placeholder_asset | asset_url }}"
+          alt=""
+          loading="{{ media_loading }}"
+          width="1600"
+          height="900"
+        >
+      {%- else -%}
+        <div class="responsive-media__placeholder-frame">
+          <div class="responsive-media__placeholder-label">{{ slot }}</div>
+          <div class="responsive-media__placeholder-hint">Upload media in Theme Editor</div>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

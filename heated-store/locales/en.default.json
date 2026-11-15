@@ -1,0 +1,98 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "cart": "Cart",
+      "search": "Search",
+      "account": "Account",
+      "menu": "Menu",
+      "loading": "Loading"
+    },
+    "meta": {
+      "page": "Page {{ page }}",
+      "tags": "Tagged \"{{ tags }}\""
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "continue_shopping": "Continue shopping",
+    "search": {
+      "placeholder": "Search",
+      "submit": "Search",
+      "no_results": "No results found"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "price": "Price",
+      "from_price_html": "From {{ price }}",
+      "unit_price_label": "Unit price",
+      "size_guide": "Size guide",
+      "see_the_heat": "See the heat",
+      "shipping": "Shipping",
+      "returns": "Returns",
+      "specifications": "Specifications",
+      "care": "Care",
+      "faq": "FAQ",
+      "buy_now": "Buy it now",
+      "in_stock": "In stock",
+      "low_stock": "Low stock",
+      "out_of_stock": "Out of stock",
+      "variant": "Variant"
+    }
+  },
+  "collections": {
+    "general": {
+      "empty": "No products found in this collection.",
+      "items_with_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "empty": "Your cart is empty",
+      "subtotal": "Subtotal",
+      "taxes_and_shipping": "Taxes and shipping calculated at checkout",
+      "checkout": "Checkout",
+      "update": "Update",
+      "remove": "Remove",
+      "quantity": "Quantity",
+      "note": "Order note"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Account",
+      "log_in": "Log in",
+      "log_out": "Log out"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gift card",
+      "subtext": "Your gift card"
+    }
+  },
+  "404": {
+    "title": "Page not found",
+    "subtext": "The page you requested does not exist.",
+    "link": "Continue shopping"
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu"
+    },
+    "footer": {
+      "payment": "Payment methods"
+    }
+  }
+}

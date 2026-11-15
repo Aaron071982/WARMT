@@ -1,0 +1,241 @@
+{%- liquid
+  assign color = section.settings.default_color | default: 'black'
+  assign prefix = 'inventory/' | append: color
+-%}
+
+<section
+  class="product inventory-product surface-editorial"
+  id="product-{{ color }}"
+  data-product-section
+  data-inventory-product
+  data-id-prefix="product-"
+  data-color="{{ color }}"
+>
+  <div class="page-width product__layout">
+    <div class="product__gallery" data-product-gallery data-inventory-gallery>
+      <button
+        type="button"
+        class="product__gallery-main inventory-gallery__main"
+        data-gallery-main
+        data-open-slideshow
+        aria-label="Open image slideshow"
+      >
+        <img
+          data-gallery-active
+          src="{{ prefix | append: '-unglowfront.png' | asset_url }}"
+          alt="Heated Jacket {{ color }} front"
+          width="1199"
+          height="1312"
+        >
+        <span class="inventory-gallery__cue">
+          <span class="inventory-gallery__cue-dot"></span>
+          View gallery
+        </span>
+      </button>
+
+      <div class="product__thumbs inventory-gallery__thumbs" role="list">
+        {%- assign views = 'unglowfront,glowfront,unglowback,glowback' | split: ',' -%}
+        {%- assign labels = 'Front,Front heat,Back,Back heat' | split: ',' -%}
+        {%- for view in views -%}
+          <button
+            type="button"
+            class="product__thumb{% if forloop.first %} is-active{% endif %}"
+            data-gallery-thumb
+            data-src="{{ 'inventory/' | append: color | append: '-' | append: view | append: '.png' | asset_url }}"
+            data-alt="Heated Jacket {{ color }} — {{ labels[forloop.index0] }}"
+            aria-label="{{ labels[forloop.index0] }}"
+            role="listitem"
+          >
+            <img
+              src="{{ 'inventory/' | append: color | append: '-' | append: view | append: '.png' | asset_url }}"
+              alt=""
+              width="200"
+              height="220"
+              loading="lazy"
+            >
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="product__info">
+      <p class="product__vendor">{{ settings.brand_name | default: 'WARMTH' }}</p>
+      <h1 class="product__title">Heated Jacket</h1>
+      <div class="product__price">{{ section.settings.price_label }}</div>
+      <div class="product__description">
+        <p>{{ section.settings.description }}</p>
+      </div>
+
+      <div class="product__form inventory-product__form">
+        <div class="field" data-color-option>
+          <span class="field__label">Color</span>
+          <div class="color-pills" role="list">
+            {%- assign colors = 'black,red,blue' | split: ',' -%}
+            {%- for c in colors -%}
+              <button
+                type="button"
+                class="color-pill color-pill--{{ c }}{% if c == color %} is-selected{% endif %}"
+                data-color-pill
+                data-color="{{ c }}"
+                aria-label="{{ c | capitalize }}"
+                aria-pressed="{% if c == color %}true{% else %}false{% endif %}"
+              ></button>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="field" data-option-index="0">
+          <span class="field__label">Size</span>
+          <div class="variant-pills variant-pills--animated" data-size-pills>
+            {%- assign sizes = 'XS,S,M,L,XL' | split: ',' -%}
+            {%- for size in sizes -%}
+              <button
+                type="button"
+                class="variant-pill{% if size == 'M' %} is-selected{% endif %}"
+                data-value="{{ size }}"
+                data-size-pill
+              >
+                <span class="variant-pill__ring" aria-hidden="true"></span>
+                <span class="variant-pill__label">{{ size }}</span>
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="field" data-heat-option>
+          <span class="field__label">Heat zones</span>
+          <div class="heat-zone-pills" data-heat-pills>
+            {%- assign zones = '2,4,8,9' | split: ',' -%}
+            {%- for z in zones -%}
+              <button
+                type="button"
+                class="heat-zone-pill{% if z == '4' %} is-selected{% endif %}"
+                data-heat-zones="{{ z }}"
+                aria-pressed="{% if z == '4' %}true{% else %}false{% endif %}"
+              >
+                <span class="heat-zone-pill__count">{{ z }}</span>
+                <span class="heat-zone-pill__map" data-zone-map="{{ z }}" aria-hidden="true"></span>
+              </button>
+            {%- endfor -%}
+          </div>
+          <p class="heat-zone-note" data-heat-note>4 zones — balanced core coverage</p>
+        </div>
+
+        <div class="product__actions">
+          <button type="button" class="btn btn--dark" data-demo-add>
+            {{ 'products.product.add_to_cart' | t }}
+          </button>
+        </div>
+      </div>
+
+      <div class="product__meta-blocks">
+        <details class="accordion" open>
+          <summary class="accordion__trigger">
+            {{ 'products.product.specifications' | t }}
+            <span class="accordion__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="accordion__content">
+            <div class="spec-list">
+              <div class="spec-list__row"><span class="spec-list__label">Heat zones</span><span data-spec-zones>4</span></div>
+              <div class="spec-list__row"><span class="spec-list__label">Heat settings</span><span>3 levels</span></div>
+              <div class="spec-list__row"><span class="spec-list__label">Colors</span><span>Black · Red · Blue</span></div>
+              <div class="spec-list__row"><span class="spec-list__label">Views</span><span>Front &amp; back · heat on/off</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-inventory-catalog>
+  {
+    "black": {
+      "title": "Heated Jacket",
+      "images": [
+        {"src": "{{ 'inventory/black-unglowfront.png' | asset_url }}", "alt": "Black jacket front"},
+        {"src": "{{ 'inventory/black-glowfront.png' | asset_url }}", "alt": "Black jacket front — heat on"},
+        {"src": "{{ 'inventory/black-unglowback.png' | asset_url }}", "alt": "Black jacket back"},
+        {"src": "{{ 'inventory/black-glowback.png' | asset_url }}", "alt": "Black jacket back — heat on"}
+      ]
+    },
+    "red": {
+      "title": "Heated Jacket",
+      "images": [
+        {"src": "{{ 'inventory/red-unglowfront.png' | asset_url }}", "alt": "Red jacket front"},
+        {"src": "{{ 'inventory/red-glowfront.png' | asset_url }}", "alt": "Red jacket front — heat on"},
+        {"src": "{{ 'inventory/red-unglowback.png' | asset_url }}", "alt": "Red jacket back"},
+        {"src": "{{ 'inventory/red-glowback.png' | asset_url }}", "alt": "Red jacket back — heat on"}
+      ]
+    },
+    "blue": {
+      "title": "Heated Jacket",
+      "images": [
+        {"src": "{{ 'inventory/blue-unglowfront.png' | asset_url }}", "alt": "Blue jacket front"},
+        {"src": "{{ 'inventory/blue-glowfront.png' | asset_url }}", "alt": "Blue jacket front — heat on"},
+        {"src": "{{ 'inventory/blue-unglowback.png' | asset_url }}", "alt": "Blue jacket back"},
+        {"src": "{{ 'inventory/blue-glowback.png' | asset_url }}", "alt": "Blue jacket back — heat on"}
+      ]
+    }
+  }
+  </script>
+</section>
+
+{% comment %} Slideshow lightbox — shared across inventory product sections {% endcomment %}
+<div class="slideshow" data-slideshow hidden>
+  <div class="slideshow__overlay" data-slideshow-close></div>
+  <div class="slideshow__panel" role="dialog" aria-modal="true" aria-label="Product gallery">
+    <button type="button" class="slideshow__close icon-btn" data-slideshow-close aria-label="{{ 'general.accessibility.close' | t }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button type="button" class="slideshow__nav slideshow__nav--prev" data-slideshow-prev aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="slideshow__stage">
+      <img class="slideshow__img is-active" data-slideshow-img alt="" width="1199" height="1312">
+      <img class="slideshow__img" data-slideshow-img-next alt="" width="1199" height="1312" aria-hidden="true">
+    </div>
+    <button type="button" class="slideshow__nav slideshow__nav--next" data-slideshow-next aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <div class="slideshow__meta">
+      <p class="slideshow__caption" data-slideshow-caption></p>
+      <div class="slideshow__progress" data-slideshow-progress></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Inventory product",
+  "settings": [
+    {
+      "type": "select",
+      "id": "default_color",
+      "label": "Default color",
+      "options": [
+        { "value": "black", "label": "Black" },
+        { "value": "red", "label": "Red" },
+        { "value": "blue", "label": "Blue" }
+      ],
+      "default": "black"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price label",
+      "default": "Price set in Shopify"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Premium heated puffer with selectable heat-zone configurations. Choose 2, 4, 8, or 9 zones for the warmth you need."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inventory product"
+    }
+  ]
+}
+{% endschema %}

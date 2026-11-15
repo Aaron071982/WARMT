@@ -1,0 +1,93 @@
+{%- liquid
+  assign featured = product.featured_media
+  assign glow_media = blank
+  assign secondary = product.media[1]
+
+  for media in product.media
+    assign alt_down = media.alt | downcase
+    if alt_down contains 'glow' and alt_down contains 'front'
+      assign glow_media = media
+      break
+    endif
+  endfor
+
+  if glow_media == blank and product.metafields.custom.glow_image != blank
+    assign glow_media = product.metafields.custom.glow_image.value
+  endif
+
+  assign show_glow = false
+  if glow_media != blank
+    assign show_glow = true
+  elsif secondary != blank
+    assign show_glow = true
+    assign glow_media = secondary
+  endif
+-%}
+
+<a class="product-card inventory-card" href="{{ product.url }}" data-inventory-card>
+  <div class="inventory-card__media product-card__media">
+    <div class="inventory-card__stage">
+      {%- if featured != blank -%}
+        {{
+          featured
+          | image_url: width: 900
+          | image_tag:
+            class: 'inventory-card__img inventory-card__img--base product-card__img product-card__img--primary',
+            widths: '300, 450, 600, 900',
+            sizes: '(min-width: 990px) 30vw, 50vw',
+            alt: product.featured_media.alt | default: product.title,
+            loading: 'lazy'
+        }}
+        {%- if show_glow -%}
+          {{
+            glow_media
+            | image_url: width: 900
+            | image_tag:
+              class: 'inventory-card__img inventory-card__img--glow product-card__img product-card__img--hover',
+              widths: '300, 450, 600, 900',
+              sizes: '(min-width: 990px) 30vw, 50vw',
+              alt: '',
+              loading: 'lazy'
+          }}
+          <span class="inventory-card__heat-hint" aria-hidden="true">
+            <span class="inventory-card__heat-dot"></span>
+            Heat on
+          </span>
+        {%- endif -%}
+      {%- else -%}
+        <div class="product-card__placeholder">
+          <img
+            src="{{ 'placeholder-media/product-placeholder.svg' | asset_url }}"
+            alt=""
+            width="400"
+            height="500"
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="inventory-card__meta">
+    <h3 class="inventory-card__title product-card__title">{{ product.title }}</h3>
+    <div class="product-card__price inventory-card__price">
+      {% render 'price', product: product %}
+    </div>
+
+    {%- if product.options_with_values.size > 0 -%}
+      {%- for option in product.options_with_values -%}
+        {%- assign option_down = option.name | downcase -%}
+        {%- if option_down == 'color' or option_down == 'colour' -%}
+          <div class="product-card__swatches" aria-label="{{ option.name }}">
+            {%- for value in option.values limit: 5 -%}
+              <span
+                class="product-card__swatch product-card__swatch--{{ value | handle }}"
+                title="{{ value | escape }}"
+              ></span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</a>

@@ -1,0 +1,21 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_cards.issued.title' | t }}</title>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+  </head>
+  <body class="surface-editorial" style="min-height:100svh;display:grid;place-items:center;padding:2rem;">
+    <div style="max-width:28rem;text-align:center;">
+      <h1 class="h3">{{ shop.name }}</h1>
+      <p style="margin:1rem 0;color:var(--color-muted);">{{ 'gift_cards.issued.subtext' | t }}</p>
+      <p style="font-size:2rem;letter-spacing:0.08em;">{{ gift_card.balance | money }}</p>
+      {%- if gift_card.enabled == false or gift_card.expired -%}
+        <p>{{ 'products.product.unavailable' | t }}</p>
+      {%- endif -%}
+      <p style="margin-top:1.5rem;letter-spacing:0.2em;">{{ gift_card.code | format_code }}</p>
+    </div>
+  </body>
+</html>
