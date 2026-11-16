@@ -6,7 +6,7 @@
   assign position = section.settings.media_position | default: 'center center'
   assign heat_mode = section.settings.heat_mode | default: 'prerendered'
   assign slot = section.settings.slot_label | default: 'CAMPAIGN'
-  assign placeholder = section.settings.placeholder_asset | default: 'ph-city-campaign.webp'
+  assign placeholder = section.settings.placeholder_asset | default: 'ph-city-campaign.mp4'
   assign media_zoom = section.settings.media_zoom | default: 100
   assign zoom_factor = media_zoom | divided_by: 100.0
   assign zoom_class = ''
@@ -98,14 +98,14 @@
       "id": "placeholder_asset",
       "label": "Built-in placeholder asset",
       "options": [
-        { "value": "ph-city-campaign.webp", "label": "City campaign GIF" },
-        { "value": "ph-outdoor-campaign.webp", "label": "Outdoor campaign GIF" },
+        { "value": "ph-city-campaign.mp4", "label": "City campaign" },
+        { "value": "ph-outdoor-campaign.mp4", "label": "Outdoor campaign" },
         { "value": "ph-everyday-placeholder.svg", "label": "Everyday SVG" },
         { "value": "ph-wellness-placeholder.svg", "label": "Wellness SVG" },
-        { "value": "ph-hero-city.webp", "label": "Hero city GIF" },
-        { "value": "ph-vest-fireside.webp", "label": "Vest fireside GIF" }
+        { "value": "ph-hero-city.mp4", "label": "Hero city" },
+        { "value": "ph-vest-fireside.mp4", "label": "Vest fireside" }
       ],
-      "default": "ph-city-campaign.webp"
+      "default": "ph-city-campaign.mp4"
     },
     {
       "type": "textarea",
