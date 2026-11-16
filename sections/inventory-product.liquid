@@ -4,6 +4,7 @@
   id_prefix: 'product-',
   default_color: section.settings.default_color,
   blurb: section.settings.description,
+  size_note: section.settings.size_note,
   fallback_title: 'Heated Jacket'
 %}
 
@@ -68,8 +69,14 @@
       "type": "textarea",
       "id": "description",
       "label": "Short intro",
-      "default": "A lightweight hooded jacket that heats up in seconds. Carbon-fiber heating across the core and collar, 3 heat levels, unisex sizes S to 6XL.",
+      "default": "A lightweight hooded jacket with built-in carbon-fiber heating. Warm in seconds at the press of a button, 3 heat levels, unisex sizes S to 6XL.",
       "info": "Keep this consistent with the product listing. Full product description shows below the buy box."
+    },
+    {
+      "type": "text",
+      "id": "size_note",
+      "label": "Fit note under Size",
+      "default": "Runs 1\u20132 sizes small. We recommend ordering one size up."
     }
   ],
   "presets": [

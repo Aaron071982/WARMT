@@ -69,7 +69,8 @@
       "settings": {
         "product": "heated-jacket",
         "default_color": "black",
-        "description": "A lightweight hooded jacket that heats up in seconds. Carbon-fiber heating across the core and collar, 3 heat levels, unisex sizes S to 6XL."
+        "description": "A lightweight hooded jacket with built-in carbon-fiber heating. Warm in seconds at the press of a button, 3 heat levels, unisex sizes S to 6XL.",
+        "size_note": "Runs 1\u20132 sizes small. We recommend ordering one size up."
       }
     },
     "gloves": {
@@ -124,7 +125,8 @@
       "settings": {
         "product": "usb-heated-vest",
         "default_color": "black",
-        "description": "A light, warm layer that heats your core at the press of a button. Wear it on its own or under a coat."
+        "description": "A light, warm layer that heats your core at the press of a button. Wear it on its own or under a coat.",
+        "size_note": "Runs 1\u20132 sizes small. Order one or two sizes up."
       }
     },
     "featured": {
