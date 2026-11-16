@@ -16,7 +16,7 @@
     "body_scale": 100,
     "page_width": 1440,
     "cart_drawer_enable": true,
-    "shipping_info_default": "Shipping details will be confirmed at checkout. Replace this text with your actual shipping policy.",
-    "returns_info_default": "Return policy details are editable in theme settings. Replace this placeholder with your actual returns policy."
+    "shipping_info_default": "",
+    "returns_info_default": ""
   }
 }
