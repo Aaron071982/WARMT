@@ -28,7 +28,7 @@
           </span>
         {%- else -%}
           <div class="gallery-placeholder">
-            <img src="{{ 'placeholder-media/product-placeholder.svg' | asset_url }}" alt="" width="800" height="1000" data-gallery-active>
+            <img src="{{ 'ph-product-placeholder.svg' | asset_url }}" alt="" width="800" height="1000" data-gallery-active>
           </div>
         {%- endif -%}
       </button>
@@ -58,6 +58,8 @@
         <div class="product-heat-demo">
           <h2 class="product-heat-demo__title">{{ 'products.product.see_the_heat' | t }}</h2>
           <div class="product-heat-demo__frame" data-cinematic-media>
+            {%- assign rarg_opacity = section.settings.heat_opacity | divided_by: 100.0 -%}
+            {%- assign rarg_alt = product.title | append: ' heating demonstration' -%}
             {% render 'heat-animation',
               mode: section.settings.heat_mode,
               enable_animation: section.settings.enable_heat_animation,
@@ -65,16 +67,16 @@
               media_url: section.settings.heat_demo_url,
               overlay_image: section.settings.heat_overlay,
               heat_color: section.settings.heat_color,
-              opacity: section.settings.heat_opacity | divided_by: 100.0,
+              opacity: rarg_opacity,
               duration: section.settings.heat_duration,
               heat_x: section.settings.heat_x,
               heat_y: section.settings.heat_y,
               heat_width: section.settings.heat_width,
               heat_height: section.settings.heat_height,
-              alt: product.title | append: ' heating demonstration',
+              alt: rarg_alt,
               loading: 'lazy',
               slot_label: 'PRODUCT_HEAT_DEMO',
-              placeholder_asset: 'placeholder-media/product-placeholder.svg'
+              placeholder_asset: 'ph-product-placeholder.svg'
             %}
           </div>
           {%- if section.settings.heat_caption != blank -%}
@@ -85,9 +87,7 @@
     </div>
 
     <div class="product__info">
-      {%- if product.vendor != blank -%}
-        <p class="product__vendor">{{ product.vendor }}</p>
-      {%- endif -%}
+      <p class="product__vendor">{{ settings.brand_name | default: shop.name }}</p>
       <h1 class="product__title">{{ product.title }}</h1>
       <div class="product__price">
         {% render 'price', product: product, use_variant: true %}
@@ -111,22 +111,22 @@
             <div class="field" data-option-index="{{ forloop.index0 }}">
               <label class="field__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
 
-              {%- if option_down == 'heat zones' or option_down == 'heat spots' or option_down == 'heat zone' -%}
+              {%- if option_down contains 'zone' or option_down == 'heat spots' -%}
                 <div class="heat-zone-pills" data-heat-pills>
                   {%- for value in option.values -%}
                     <button
                       type="button"
                       class="heat-zone-pill{% if option.selected_value == value %} is-selected{% endif %}"
                       data-value="{{ value | escape }}"
-                      data-heat-zones="{{ value | escape }}"
+                      data-heat-zones="{{ value | split: ' ' | first | escape }}"
                       aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}"
                     >
-                      <span class="heat-zone-pill__count">{{ value }}</span>
-                      <span class="heat-zone-pill__map" data-zone-map="{{ value | escape }}" aria-hidden="true"></span>
+                      <span class="heat-zone-pill__count">{{ value | split: ' ' | first }}</span>
+                      <span class="heat-zone-pill__map" data-zone-map="{{ value | split: ' ' | first | escape }}" aria-hidden="true"></span>
                     </button>
                   {%- endfor -%}
                 </div>
-                <p class="heat-zone-note" data-heat-note>Select heat zone configuration</p>
+                <p class="heat-zone-note" data-heat-note>{{ option.selected_value }}</p>
 
               {%- elsif option_down == 'size' -%}
                 <div class="variant-pills variant-pills--animated" data-size-pills>
@@ -412,7 +412,7 @@
       "type": "checkbox",
       "id": "show_default_heat_zones",
       "label": "Show heat zone selector when product has no Heat Zones option",
-      "default": true,
+      "default": false,
       "info": "Creates a line-item property for 2 / 4 / 8 / 9 zones. Prefer a real Shopify variant option named Heat Zones."
     },
     {

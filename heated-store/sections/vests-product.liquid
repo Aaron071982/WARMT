@@ -1,210 +1,55 @@
-{%- liquid
-  assign color = section.settings.default_color | default: 'black'
--%}
-
-<section
-  class="product inventory-product inventory-product--vests surface-editorial"
-  id="product-vest-{{ color }}"
-  data-product-section
-  data-inventory-product
-  data-id-prefix="product-vest-"
-  data-color="{{ color }}"
->
-  <div class="page-width product__layout">
-    <div class="product__gallery" data-product-gallery data-inventory-gallery>
-      <button
-        type="button"
-        class="product__gallery-main inventory-gallery__main"
-        data-gallery-main
-        data-open-slideshow
-        aria-label="Open image slideshow"
-      >
-        <img
-          data-gallery-active
-          src="{{ 'inventory/vests/' | append: color | append: '-vestunglow.png' | asset_url }}"
-          alt="Heated Vest {{ color }}"
-          width="1199"
-          height="1312"
-        >
-        <span class="inventory-gallery__cue">
-          <span class="inventory-gallery__cue-dot"></span>
-          View gallery
-        </span>
-      </button>
-
-      <div class="product__thumbs inventory-gallery__thumbs" role="list">
-        <button
-          type="button"
-          class="product__thumb is-active"
-          data-gallery-thumb
-          data-src="{{ 'inventory/vests/' | append: color | append: '-vestunglow.png' | asset_url }}"
-          data-alt="Heated Vest {{ color }}"
-          aria-label="Heat off"
-          role="listitem"
-        >
-          <img
-            src="{{ 'inventory/vests/' | append: color | append: '-vestunglow.png' | asset_url }}"
-            alt=""
-            width="200"
-            height="220"
-            loading="lazy"
-          >
-        </button>
-        <button
-          type="button"
-          class="product__thumb"
-          data-gallery-thumb
-          data-src="{{ 'inventory/vests/' | append: color | append: '-vestglow.png' | asset_url }}"
-          data-alt="Heated Vest {{ color }} — heat on"
-          aria-label="Heat on"
-          role="listitem"
-        >
-          <img
-            src="{{ 'inventory/vests/' | append: color | append: '-vestglow.png' | asset_url }}"
-            alt=""
-            width="200"
-            height="220"
-            loading="lazy"
-          >
-        </button>
-      </div>
-    </div>
-
-    <div class="product__info">
-      <p class="product__vendor">{{ settings.brand_name | default: 'WARMT' }}</p>
-      <h1 class="product__title" data-product-title>Heated Vest</h1>
-      <div class="product__price">{{ section.settings.price_label }}</div>
-      <div class="product__description">
-        <p>{{ section.settings.description }}</p>
-      </div>
-
-      <div class="product__form inventory-product__form">
-        <div class="field" data-color-option>
-          <span class="field__label">Color</span>
-          <div class="color-pills" role="list">
-            {%- assign colors = 'black,red,blue' | split: ',' -%}
-            {%- for c in colors -%}
-              <button
-                type="button"
-                class="color-pill color-pill--{{ c }}{% if c == color %} is-selected{% endif %}"
-                data-color-pill
-                data-color="{{ c }}"
-                aria-label="{{ c | capitalize }}"
-                aria-pressed="{% if c == color %}true{% else %}false{% endif %}"
-              ></button>
-            {%- endfor -%}
-          </div>
-        </div>
-
-        <div class="field" data-option-index="0">
-          <span class="field__label">Size</span>
-          <div class="variant-pills variant-pills--animated" data-size-pills>
-            {%- assign sizes = 'XS,S,M,L,XL' | split: ',' -%}
-            {%- for size in sizes -%}
-              <button
-                type="button"
-                class="variant-pill{% if size == 'M' %} is-selected{% endif %}"
-                data-value="{{ size }}"
-                data-size-pill
-              >
-                <span class="variant-pill__ring" aria-hidden="true"></span>
-                <span class="variant-pill__label">{{ size }}</span>
-              </button>
-            {%- endfor -%}
-          </div>
-        </div>
-
-        <div class="field">
-          <span class="field__label">Heat coverage</span>
-          <p class="heat-zone-note">Collar &amp; core — built-in heat</p>
-        </div>
-
-        <div class="product__actions">
-          <button type="button" class="btn btn--dark" data-demo-add>
-            {{ 'products.product.add_to_cart' | t }}
-          </button>
-        </div>
-      </div>
-
-      <div class="product__meta-blocks">
-        <details class="accordion" open>
-          <summary class="accordion__trigger">
-            {{ 'products.product.specifications' | t }}
-            <span class="accordion__icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="accordion__content">
-            <div class="spec-list">
-              <div class="spec-list__row"><span class="spec-list__label">Heat zones</span><span>Collar &amp; core</span></div>
-              <div class="spec-list__row"><span class="spec-list__label">Heat settings</span><span>3 levels</span></div>
-              <div class="spec-list__row"><span class="spec-list__label">Colors</span><span>Black · Red · Blue</span></div>
-              <div class="spec-list__row"><span class="spec-list__label">Views</span><span>Heat on / off</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
-  </div>
-
-  <script type="application/json" data-inventory-catalog>
-  {
-    "black": {
-      "title": "Heated Vest",
-      "images": [
-        {"src": "{{ 'inventory/vests/black-vestunglow.png' | asset_url }}", "alt": "Black heated vest"},
-        {"src": "{{ 'inventory/vests/black-vestglow.png' | asset_url }}", "alt": "Black heated vest — heat on"}
-      ]
-    },
-    "red": {
-      "title": "Heated Vest",
-      "images": [
-        {"src": "{{ 'inventory/vests/red-vestunglow.png' | asset_url }}", "alt": "Red heated vest"},
-        {"src": "{{ 'inventory/vests/red-vestglow.png' | asset_url }}", "alt": "Red heated vest — heat on"}
-      ]
-    },
-    "blue": {
-      "title": "Heated Vest",
-      "images": [
-        {"src": "{{ 'inventory/vests/blue-vestunglow.png' | asset_url }}", "alt": "Blue heated vest"},
-        {"src": "{{ 'inventory/vests/blue-vestglow.png' | asset_url }}", "alt": "Blue heated vest — heat on"}
-      ]
-    }
-  }
-  </script>
-</section>
+{% render 'showcase-product',
+  product: section.settings.product,
+  kind: 'vest',
+  id_prefix: 'product-vest-',
+  default_color: section.settings.default_color,
+  blurb: section.settings.description,
+  fallback_title: 'Heated Vest'
+%}
 
 {% schema %}
 {
-  "name": "Vests product",
+  "name": "Vest product",
   "tag": "section",
   "class": "section-vests-product",
   "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Variants, prices, stock and Add to cart come from this product."
+    },
     {
       "type": "select",
       "id": "default_color",
       "label": "Default color",
       "options": [
-        { "value": "black", "label": "Black" },
-        { "value": "red", "label": "Red" },
-        { "value": "blue", "label": "Blue" }
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "red",
+          "label": "Red"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        }
       ],
       "default": "black"
     },
     {
-      "type": "text",
-      "id": "price_label",
-      "label": "Price label",
-      "default": "Price set in Shopify"
-    },
-    {
       "type": "textarea",
       "id": "description",
-      "label": "Description",
-      "default": "Heated vest with warmth across the collar and core. Choose black, red, or blue."
+      "label": "Short intro",
+      "default": "A light, warm layer that heats your core at the press of a button. Wear it on its own or under a coat.",
+      "info": "Keep this consistent with the product listing. Full product description shows below the buy box."
     }
   ],
   "presets": [
     {
-      "name": "Vests product"
+      "name": "Vest product"
     }
   ]
 }

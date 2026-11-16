@@ -14,9 +14,9 @@
           {%- endfor -%}
         {%- else -%}
           <li><a class="site-footer__link" href="{{ routes.all_products_collection_url }}">Shop</a></li>
-          <li><a class="site-footer__link" href="/pages/about">About</a></li>
-          <li><a class="site-footer__link" href="/pages/our-technology">Our Technology</a></li>
-          <li><a class="site-footer__link" href="/pages/contact">Contact</a></li>
+          {%- if pages["about"] != empty -%}<li><a class="site-footer__link" href="/pages/about">About</a></li>{%- endif -%}
+          {%- if pages["our-technology"] != empty -%}<li><a class="site-footer__link" href="/pages/our-technology">Our Technology</a></li>{%- endif -%}
+          {%- if pages["contact"] != empty -%}<li><a class="site-footer__link" href="/pages/contact">Contact</a></li>{%- endif -%}
         {%- endif -%}
       </ul>
     </div>
@@ -24,7 +24,7 @@
     <div>
       <h2 class="site-footer__heading">Policies</h2>
       <ul class="site-footer__list list-reset">
-        <li><a class="site-footer__link" href="/pages/shipping-and-returns">Shipping & Returns</a></li>
+        {%- if pages["shipping-and-returns"] != empty -%}<li><a class="site-footer__link" href="/pages/shipping-and-returns">Shipping & Returns</a></li>{%- endif -%}
         <li><a class="site-footer__link" href="/policies/privacy-policy">Privacy Policy</a></li>
         <li><a class="site-footer__link" href="/policies/terms-of-service">Terms of Service</a></li>
       </ul>

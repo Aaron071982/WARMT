@@ -606,3 +606,64 @@ body.slideshow-open {
 .product__gallery-main img {
   object-fit: contain;
 }
+
+/* ---- Live product wiring (Shopify variants) ---- */
+.inventory-section--vest {
+  border-top: 1px solid rgba(11, 11, 11, 0.06);
+}
+
+.variant-pill.is-unavailable,
+.heat-zone-pill.is-unavailable,
+.color-pill.is-unavailable {
+  opacity: 0.38;
+}
+
+.variant-pill.is-unavailable .variant-pill__label {
+  text-decoration: line-through;
+}
+
+.color-pill.is-unavailable::after {
+  content: '';
+  position: absolute;
+  inset: 45% -2px auto;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(-45deg);
+}
+
+.field__value {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-muted, #8a8a8a);
+  font-weight: 400;
+}
+
+.inventory-product .price s {
+  color: var(--color-muted, #8a8a8a);
+  margin-right: 0.5rem;
+}
+
+.product__full-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  color: inherit;
+}
+
+.product__setup-note {
+  padding: 1rem;
+  border: 1px dashed rgba(11, 11, 11, 0.25);
+  font-size: 0.875rem;
+}
+
+.inventory-product .heat-zone-pills {
+  flex-wrap: wrap;
+}
+
+.inventory-product .variant-pills--animated {
+  flex-wrap: wrap;
+}

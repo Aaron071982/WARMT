@@ -260,10 +260,13 @@
       if (!form) return;
       const section = form.closest('[data-product-section]') || form;
       const priceEl = section.querySelector('[data-product-price]');
+      const compareEl = section.querySelector('[data-product-compare]');
       const availEl = section.querySelector('[data-product-availability]');
       const submitBtn = form.querySelector('[data-add-to-cart]');
       const variantInput = form.querySelector('[name="id"]');
       const variantsScript = section.querySelector('[data-product-variants-json]');
+      const updateUrl = !section.hasAttribute('data-inventory-product');
+      const PILL = '.variant-pill, .heat-zone-pill, .color-pill';
       let variants = [];
       try {
         if (variantsScript) {
@@ -275,25 +278,116 @@
         variants = [];
       }
 
+      const groups = () => Array.from(form.querySelectorAll('[data-option-index]'));
+
+      function pillValue(pill) {
+        return pill.dataset.value || pill.dataset.heatZones;
+      }
+
       function selectedOptions() {
-        return Array.from(form.querySelectorAll('[data-option-index]')).map((group) => {
-          const selected = group.querySelector(
-            '.variant-pill.is-selected, .heat-zone-pill.is-selected, select'
-          );
-          if (selected && selected.tagName === 'SELECT') return selected.value;
-          if (selected) return selected.dataset.value || selected.dataset.heatZones;
-          return null;
+        return groups().map((group) => {
+          const select = group.querySelector('select');
+          if (select) return select.value;
+          const selected = group.querySelector('.variant-pill.is-selected, .heat-zone-pill.is-selected, .color-pill.is-selected');
+          return selected ? pillValue(selected) : null;
         });
       }
 
-      function findVariant() {
-        const opts = selectedOptions();
-        if (!variants.length) return { id: variantInput && variantInput.value, available: !submitBtn.disabled, price: null, options: opts };
+      function setGroupValue(group, value) {
+        const select = group.querySelector('select');
+        if (select) {
+          select.value = value;
+          return;
+        }
+        group.querySelectorAll(PILL).forEach((p) => {
+          const on = pillValue(p) === value;
+          p.classList.toggle('is-selected', on);
+          if (p.hasAttribute('aria-pressed')) p.setAttribute('aria-pressed', String(on));
+        });
+        const label = group.querySelector('[data-selected-label]');
+        if (label) label.textContent = value;
+        const note = group.querySelector('[data-heat-note]');
+        if (note && value) note.textContent = value;
+      }
+
+      function exactMatch(opts) {
         return variants.find((v) => v.options.every((opt, i) => opt === opts[i]));
       }
 
-      function updateUI() {
-        const variant = findVariant();
+      /* When a combination doesn't exist, keep the option just chosen and
+         change as few of the others as possible (preferring in-stock). */
+      function closestVariant(opts, fixedIndex) {
+        let best = null;
+        let bestScore = -1;
+        variants.forEach((v) => {
+          if (fixedIndex != null && v.options[fixedIndex] !== opts[fixedIndex]) return;
+          let score = 0;
+          v.options.forEach((o, i) => {
+            if (o === opts[i]) score += 10;
+          });
+          if (v.available) score += 5;
+          if (score > bestScore) {
+            best = v;
+            bestScore = score;
+          }
+        });
+        return best;
+      }
+
+      function markAvailability(opts) {
+        if (!variants.length) return;
+        groups().forEach((group, gi) => {
+          group.querySelectorAll(PILL).forEach((p) => {
+            const trial = opts.slice();
+            trial[gi] = pillValue(p);
+            const v = exactMatch(trial);
+            const ok = !!(v && v.available);
+            p.classList.toggle('is-unavailable', !ok);
+            p.title = ok ? (p.getAttribute('aria-label') || '') : `${pillValue(p)} — not available with this selection`;
+          });
+        });
+      }
+
+      function syncColorImages() {
+        const colorGroup = form.querySelector('[data-color-option]');
+        if (!colorGroup || typeof section._applyColor !== 'function') return;
+        const sel = colorGroup.querySelector('.color-pill.is-selected');
+        if (sel && sel.dataset.color && sel.dataset.color !== section.dataset.color) {
+          section._applyColor(sel.dataset.color, true);
+        }
+      }
+
+      function syncZoneSpec() {
+        const pill = form.querySelector('.heat-zone-pill.is-selected');
+        if (!pill) return;
+        const map = pill.querySelector('[data-zone-map]');
+        if (map && !map.children.length) buildZoneMap(map, pill.dataset.heatZones);
+      }
+
+      function updateUI(changedIndex) {
+        let opts = selectedOptions();
+        let variant = variants.length ? exactMatch(opts) : null;
+
+        if (variants.length && (!variant || !variant.available)) {
+          const fallback = closestVariant(opts, changedIndex);
+          if (fallback && (!variant || fallback.available)) {
+            variant = fallback;
+            groups().forEach((g, i) => setGroupValue(g, variant.options[i]));
+            opts = variant.options.slice();
+          }
+        }
+        if (!variants.length) {
+          variant = { id: variantInput && variantInput.value, available: submitBtn ? !submitBtn.disabled : true, price: null };
+        }
+
+        groups().forEach((g, i) => {
+          const label = g.querySelector('[data-selected-label]');
+          if (label && opts[i]) label.textContent = opts[i];
+        });
+        markAvailability(opts);
+        syncColorImages();
+        syncZoneSpec();
+
         if (!variant || !variant.id) {
           if (submitBtn) {
             submitBtn.disabled = true;
@@ -308,6 +402,11 @@
 
         if (variantInput) variantInput.value = variant.id;
         if (priceEl && variant.price != null) priceEl.innerHTML = formatMoney(variant.price);
+        if (compareEl) {
+          const onSale = variant.compare_at_price && variant.compare_at_price > variant.price;
+          compareEl.hidden = !onSale;
+          if (onSale) compareEl.innerHTML = formatMoney(variant.compare_at_price);
+        }
         if (availEl) {
           availEl.dataset.available = String(variant.available);
           availEl.textContent = variant.available ? 'In stock' : window.theme.strings.soldOut;
@@ -319,31 +418,37 @@
             : window.theme.strings.soldOut;
         }
 
-        if (variants.length) {
+        if (variants.length && updateUrl) {
           const url = new URL(window.location.href);
           url.searchParams.set('variant', variant.id);
           window.history.replaceState({}, '', url);
         }
       }
 
-      form.querySelectorAll('.variant-pill, .heat-zone-pill').forEach((pill) => {
+      form.querySelectorAll(PILL).forEach((pill) => {
         pill.addEventListener('click', () => {
           const group = pill.closest('[data-option-index]');
           if (!group) return;
-          group
-            .querySelectorAll('.variant-pill, .heat-zone-pill')
-            .forEach((p) => {
-              p.classList.remove('is-selected');
-              if (p.hasAttribute('aria-pressed')) p.setAttribute('aria-pressed', 'false');
-            });
-          pill.classList.add('is-selected');
-          if (pill.hasAttribute('aria-pressed')) pill.setAttribute('aria-pressed', 'true');
-          updateUI();
+          setGroupValue(group, pillValue(pill));
+          updateUI(Number(group.dataset.optionIndex));
         });
       });
 
       form.querySelectorAll('select[data-option-select]').forEach((select) => {
-        select.addEventListener('change', updateUI);
+        select.addEventListener('change', () => {
+          const group = select.closest('[data-option-index]');
+          updateUI(group ? Number(group.dataset.optionIndex) : undefined);
+        });
+      });
+
+      /* Color chosen from outside the form (grid card link / #hash) */
+      section.addEventListener('warmt:color', (e) => {
+        const colorGroup = form.querySelector('[data-color-option]');
+        if (!colorGroup) return;
+        const pill = colorGroup.querySelector(`.color-pill[data-color="${e.detail}"]`);
+        if (!pill) return;
+        setGroupValue(colorGroup, pillValue(pill));
+        updateUI(Number(colorGroup.dataset.optionIndex));
       });
 
       form.addEventListener('submit', async (e) => {
@@ -351,6 +456,8 @@
         if (submitBtn) submitBtn.disabled = true;
         try {
           await Cart.add(form);
+        } catch (err) {
+          /* toast already shown */
         } finally {
           updateUI();
         }
@@ -420,10 +527,13 @@
   function initHeatZones() {
     document.querySelectorAll('[data-heat-pills]').forEach((group) => {
       const note = group.parentElement.querySelector('[data-heat-note]');
-      const spec = document.querySelector('[data-spec-zones]');
+      const scope = group.closest('[data-product-section]') || document;
+      const spec = scope.querySelector('[data-spec-zones]');
+      const inForm = !!group.closest('[data-option-index]');
       group.querySelectorAll('[data-heat-zones]').forEach((pill) => {
         const map = pill.querySelector('[data-zone-map]');
         if (map) buildZoneMap(map, pill.dataset.heatZones);
+        if (inForm) return; /* product form owns selection */
         pill.addEventListener('click', () => {
           group.querySelectorAll('[data-heat-zones]').forEach((p) => {
             p.classList.remove('is-selected');
@@ -432,7 +542,7 @@
           pill.classList.add('is-selected');
           pill.setAttribute('aria-pressed', 'true');
           const z = pill.dataset.heatZones;
-          if (note) note.textContent = HEAT_NOTES[z] || `${z} heat zones`;
+          if (note && !inForm) note.textContent = HEAT_NOTES[z] || `${z} heat zones`;
           if (spec) spec.textContent = z;
           // sync hidden form input if present
           const input = document.querySelector('[data-heat-input]');
@@ -472,9 +582,13 @@
 
       const idPrefix = section.dataset.idPrefix || 'product-';
 
-      function applyColor(color) {
+      function applyColor(color, fromForm) {
         const entry = catalog[color];
         if (!entry) return;
+        if (!fromForm && section.querySelector('[data-product-form]')) {
+          section.dispatchEvent(new CustomEvent('warmt:color', { detail: color }));
+          return;
+        }
         section.dataset.color = color;
         section.id = idPrefix + color;
 
@@ -494,7 +608,10 @@
           mainImg.alt = entry.images[0].alt;
         }
         if (titleEl && entry.title) titleEl.textContent = entry.title;
-        thumbs.forEach((t, i) => t.classList.toggle('is-active', i === 0));
+        thumbs.forEach((t, i) => {
+          t.classList.toggle('is-active', i === 0);
+          t.hidden = i >= entry.images.length;
+        });
 
         section.querySelectorAll('[data-color-pill]').forEach((pill) => {
           const on = pill.dataset.color === color;
@@ -503,9 +620,12 @@
         });
       }
 
-      section.querySelectorAll('[data-color-pill]').forEach((pill) => {
-        pill.addEventListener('click', () => applyColor(pill.dataset.color));
-      });
+      section._applyColor = applyColor;
+      if (!section.querySelector('[data-product-form]')) {
+        section.querySelectorAll('[data-color-pill]').forEach((pill) => {
+          pill.addEventListener('click', () => applyColor(pill.dataset.color));
+        });
+      }
 
       function fromHash() {
         const hash = (window.location.hash || '').replace(/^#/, '');

@@ -13,6 +13,8 @@
   data-cinematic-media
 >
   <div class="cinematic__media">
+    {%- assign rarg_opacity = section.settings.heat_opacity | divided_by: 100.0 -%}
+    {%- assign rarg_glow = section.settings.heat_glow | divided_by: 100.0 -%}
     {% render 'heat-animation',
       mode: heat_mode,
       enable_animation: section.settings.enable_heat_animation,
@@ -24,8 +26,8 @@
       poster_image: section.settings.poster_image,
       overlay_image: section.settings.heat_overlay,
       heat_color: section.settings.heat_color,
-      opacity: section.settings.heat_opacity | divided_by: 100.0,
-      glow: section.settings.heat_glow | divided_by: 100.0,
+      opacity: rarg_opacity,
+      glow: rarg_glow,
       duration: section.settings.heat_duration,
       heat_x: section.settings.heat_x,
       heat_y: section.settings.heat_y,
@@ -40,7 +42,7 @@
       loading: 'eager',
       fetchpriority: 'high',
       slot_label: 'HERO_MAIN',
-      placeholder_asset: 'placeholder-media/hero-city.gif'
+      placeholder_asset: 'ph-hero-city.gif'
     %}
   </div>
 

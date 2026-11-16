@@ -1,0 +1,333 @@
+{% comment %}
+  Showcase product — the homepage "buy box" for a real Shopify product,
+  styled with the WARMT glow / un-glow theme imagery.
+
+  Params:
+    product            Shopify product object (required to sell; without it the block shows a setup notice)
+    kind               'jacket' | 'vest' | 'gloves'  → picks theme imagery (assets/<kind>-<color>-<view>.webp)
+    id_prefix          anchor prefix, e.g. 'product-' → #product-black
+    default_color      color handle to open on
+    blurb              short copy shown under the title
+    fallback_title     title shown when no product is linked
+{% endcomment %}
+
+{%- liquid
+  assign p = product
+  assign kind = kind | default: 'jacket'
+  assign prefix = id_prefix | default: 'product-'
+
+  if kind == 'jacket'
+    assign views = 'unglowfront,glowfront,unglowback,glowback' | split: ','
+    assign view_labels = 'Front,Front — heat on,Back,Back — heat on' | split: ','
+    assign themed_colors = 'black,red,blue' | split: ','
+  elsif kind == 'gloves'
+    assign views = 'unglow,glow' | split: ','
+    assign view_labels = 'Heat off,Heat on' | split: ','
+    assign themed_colors = 'black,pink' | split: ','
+  else
+    assign views = 'unglow,glow' | split: ','
+    assign view_labels = 'Heat off,Heat on' | split: ','
+    assign themed_colors = 'black,red,blue' | split: ','
+  endif
+
+  assign color_index = -1
+  assign zone_index = -1
+  if p != blank
+    for option in p.options_with_values
+      assign oname = option.name | downcase
+      if oname contains 'color' or oname contains 'colour'
+        assign color_index = forloop.index0
+      elsif oname contains 'zone' or oname contains 'heat'
+        assign zone_index = forloop.index0
+      endif
+    endfor
+
+    comment
+      Opening variant: default color, size M if offered, 4 zones if offered, available first.
+    endcomment
+    assign current = blank
+    assign wanted_color = default_color | default: 'black'
+    for v in p.variants
+      if v.available == false
+        continue
+      endif
+      if color_index >= 0
+        assign vc = v.options[color_index] | handleize
+        if vc != wanted_color
+          continue
+        endif
+      endif
+      if current == blank
+        assign current = v
+      endif
+      if v.options contains 'M'
+        if zone_index < 0 or v.options[zone_index] contains '4'
+          assign current = v
+          break
+        endif
+      endif
+    endfor
+    if current == blank
+      assign current = p.selected_or_first_available_variant
+    endif
+
+    if color_index >= 0
+      assign color = current.options[color_index] | handleize
+    else
+      assign color = wanted_color
+    endif
+  else
+    assign color = default_color | default: 'black'
+  endif
+-%}
+
+<section
+  class="product inventory-product inventory-product--{{ kind }} surface-editorial"
+  id="{{ prefix }}{{ color }}"
+  data-product-section
+  data-inventory-product
+  data-id-prefix="{{ prefix }}"
+  data-color="{{ color }}"
+>
+  <div class="page-width product__layout">
+    {%- comment -%} Gallery {%- endcomment -%}
+    <div class="product__gallery" data-product-gallery data-inventory-gallery>
+      {%- liquid
+        assign first_src = ''
+        if themed_colors contains color
+          assign first_src = kind | append: '-' | append: color | append: '-' | append: views[0] | append: '.webp' | asset_url
+        elsif current.featured_image != blank
+          assign first_src = current.featured_image | image_url: width: 1400
+        elsif p.featured_image != blank
+          assign first_src = p.featured_image | image_url: width: 1400
+        else
+          assign first_src = 'ph-product-placeholder.svg' | asset_url
+        endif
+      -%}
+      <button
+        type="button"
+        class="product__gallery-main inventory-gallery__main"
+        data-gallery-main
+        data-open-slideshow
+        aria-label="Open image slideshow"
+      >
+        <img
+          data-gallery-active
+          src="{{ first_src }}"
+          alt="{{ p.title | default: fallback_title | escape }} — {{ color }}"
+          width="1199"
+          height="1312"
+          loading="lazy"
+        >
+        <span class="inventory-gallery__cue">
+          <span class="inventory-gallery__cue-dot"></span>
+          View gallery
+        </span>
+      </button>
+
+      <div class="product__thumbs inventory-gallery__thumbs" role="list">
+        {%- if themed_colors contains color -%}
+          {%- for view in views -%}
+            {%- assign src = kind | append: '-' | append: color | append: '-' | append: view | append: '.webp' | asset_url -%}
+            <button
+              type="button"
+              class="product__thumb{% if forloop.first %} is-active{% endif %}"
+              data-gallery-thumb
+              data-src="{{ src }}"
+              data-alt="{{ p.title | default: fallback_title | escape }} {{ color }} — {{ view_labels[forloop.index0] }}"
+              aria-label="{{ view_labels[forloop.index0] }}"
+              role="listitem"
+            >
+              <img src="{{ src }}" alt="" width="200" height="220" loading="lazy">
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          <button type="button" class="product__thumb is-active" data-gallery-thumb data-src="{{ first_src }}" data-alt="{{ p.title | escape }}" role="listitem">
+            <img src="{{ first_src }}" alt="" width="200" height="220" loading="lazy">
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Buy box {%- endcomment -%}
+    <div class="product__info">
+      <p class="product__vendor">{{ settings.brand_name | default: 'WARMT' }}</p>
+      <h2 class="product__title h1" data-product-title>{{ p.title | default: fallback_title }}</h2>
+
+      {%- if p != blank -%}
+        <div class="product__price" data-product-price-wrap>
+          <div class="price{% if current.compare_at_price > current.price %} price--on-sale{% endif %}">
+            <s data-product-compare{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
+            <span data-product-price>{{ current.price | money }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if blurb != blank -%}
+        <div class="product__description"><p>{{ blurb }}</p></div>
+      {%- endif -%}
+
+      {%- if p == blank -%}
+        <p class="product__setup-note">Choose a product for this section in the theme editor to enable checkout.</p>
+      {%- else -%}
+        <script type="application/json" data-product-variants-json>
+          {{ p.variants | json }}
+        </script>
+
+        {%- assign form_id = 'ShowcaseForm-' | append: kind | append: '-' | append: p.id -%}
+        {%- form 'product', p, class: 'product__form inventory-product__form', id: form_id -%}
+          <div data-product-form>
+            <input type="hidden" name="id" value="{{ current.id }}">
+
+            {%- unless p.has_only_default_variant -%}
+              {%- for option in p.options_with_values -%}
+                {%- assign oname = option.name | downcase -%}
+                {%- assign selected_value = current.options[forloop.index0] -%}
+                <div class="field" data-option-index="{{ forloop.index0 }}"{% if forloop.index0 == color_index %} data-color-option{% endif %}>
+                  <span class="field__label">
+                    {{ option.name }}
+                    {%- if forloop.index0 == color_index -%}: <span class="field__value" data-selected-label>{{ selected_value }}</span>{%- endif -%}
+                  </span>
+
+                  {%- if forloop.index0 == color_index -%}
+                    <div class="color-pills" role="list">
+                      {%- for value in option.values -%}
+                        {%- assign vh = value | handleize -%}
+                        <button
+                          type="button"
+                          class="color-pill color-pill--{{ vh }}{% if value == selected_value %} is-selected{% endif %}"
+                          data-color-pill
+                          data-color="{{ vh }}"
+                          data-value="{{ value | escape }}"
+                          aria-label="{{ value | escape }}"
+                          title="{{ value | escape }}"
+                          aria-pressed="{% if value == selected_value %}true{% else %}false{% endif %}"
+                        ></button>
+                      {%- endfor -%}
+                    </div>
+
+                  {%- elsif forloop.index0 == zone_index -%}
+                    <div class="heat-zone-pills" data-heat-pills>
+                      {%- for value in option.values -%}
+                        {%- assign zn = value | split: ' ' | first -%}
+                        <button
+                          type="button"
+                          class="heat-zone-pill{% if value == selected_value %} is-selected{% endif %}"
+                          data-value="{{ value | escape }}"
+                          data-heat-zones="{{ zn | escape }}"
+                          aria-label="{{ value | escape }}"
+                          aria-pressed="{% if value == selected_value %}true{% else %}false{% endif %}"
+                        >
+                          <span class="heat-zone-pill__count">{{ zn }}</span>
+                          <span class="heat-zone-pill__map" data-zone-map="{{ zn | escape }}" aria-hidden="true"></span>
+                        </button>
+                      {%- endfor -%}
+                    </div>
+                    <p class="heat-zone-note" data-heat-note>{{ selected_value }}</p>
+
+                  {%- else -%}
+                    <div class="variant-pills variant-pills--animated"{% if oname == 'size' %} data-size-pills{% endif %}>
+                      {%- for value in option.values -%}
+                        <button
+                          type="button"
+                          class="variant-pill{% if value == selected_value %} is-selected{% endif %}"
+                          data-value="{{ value | escape }}"
+                          {% if oname == 'size' %}data-size-pill{% endif %}
+                        >
+                          <span class="variant-pill__ring" aria-hidden="true"></span>
+                          <span class="variant-pill__label">{{ value }}</span>
+                        </button>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <p class="product__availability" data-product-availability data-available="{{ current.available }}">
+              {%- if current.available -%}In stock{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+            </p>
+
+            <div class="product__actions">
+              <button type="submit" class="btn btn--dark" data-add-to-cart{% unless current.available %} disabled{% endunless %}>
+                {%- if current.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+              </button>
+            </div>
+          </div>
+        {%- endform -%}
+
+        <a class="product__full-link" href="{{ p.url }}">View full product details</a>
+      {%- endif -%}
+
+      <div class="product__meta-blocks">
+        {%- if p.description != blank -%}
+          <details class="accordion" open>
+            <summary class="accordion__trigger">
+              Product details
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="accordion__content rte">{{ p.description }}</div>
+          </details>
+        {%- endif -%}
+
+        {%- if p != blank -%}
+          <details class="accordion">
+            <summary class="accordion__trigger">
+              {{ 'products.product.specifications' | t }}
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="accordion__content">
+              <div class="spec-list">
+                {%- for option in p.options_with_values -%}
+                  {%- unless option.values.size == 1 and option.values.first == 'Default Title' -%}
+                    <div class="spec-list__row"><span class="spec-list__label">{{ option.name }}</span><span>{{ option.values | join: ' · ' }}</span></div>
+                  {%- endunless -%}
+                {%- endfor -%}
+                {%- assign spec_keys = 'heat_settings,battery_capacity,battery_included,tested_runtime,charging_info,material,washing_instructions,weather_resistance,warranty' | split: ',' -%}
+                {%- assign spec_labels = 'Heat settings,Battery,Battery included,Runtime,Charging,Material,Washing,Weather resistance,Warranty' | split: ',' -%}
+                {%- for key in spec_keys -%}
+                  {%- assign mf = p.metafields.custom[key] -%}
+                  {%- if mf != blank -%}
+                    <div class="spec-list__row"><span class="spec-list__label">{{ spec_labels[forloop.index0] }}</span><span>{{ mf | metafield_tag }}</span></div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Per-color image sets for the color switcher {%- endcomment -%}
+  {%- if p != blank and color_index >= 0 -%}
+    <script type="application/json" data-inventory-catalog>
+    {
+      {%- for value in p.options_with_values[color_index].values -%}
+        {%- assign vh = value | handleize -%}
+        {{ vh | json }}: {
+          "title": {{ p.title | json }},
+          "label": {{ value | json }},
+          "images": [
+            {%- if themed_colors contains vh -%}
+              {%- for view in views -%}
+                {"src": {{ kind | append: '-' | append: vh | append: '-' | append: view | append: '.webp' | asset_url | json }}, "alt": {{ p.title | append: ' ' | append: value | append: ' — ' | append: view_labels[forloop.index0] | json }}}{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign img = blank -%}
+              {%- for v in p.variants -%}
+                {%- if v.options[color_index] == value and v.featured_image != blank -%}
+                  {%- assign img = v.featured_image -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if img == blank -%}{%- assign img = p.featured_image -%}{%- endif -%}
+              {"src": {{ img | image_url: width: 1400 | json }}, "alt": {{ p.title | append: ' ' | append: value | json }}}
+            {%- endif -%}
+          ]
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    }
+    </script>
+  {%- endif -%}
+</section>

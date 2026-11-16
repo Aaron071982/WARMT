@@ -1,66 +1,28 @@
-{%- liquid
-  assign heading = section.settings.heading | default: 'THE COLLECTION.'
-  assign subheading = section.settings.subheading | default: 'Engineered for comfort.'
-  assign section_anchor = section.settings.section_id | default: 'jackets' | handle
-  assign black_base = 'inventory/black-unglowfront.png' | asset_url
-  assign black_glow = 'inventory/black-glowfront.png' | asset_url
-  assign red_base = 'inventory/red-unglowfront.png' | asset_url
-  assign red_glow = 'inventory/red-glowfront.png' | asset_url
-  assign blue_base = 'inventory/blue-unglowfront.png' | asset_url
-  assign blue_glow = 'inventory/blue-glowfront.png' | asset_url
--%}
-
-<section class="inventory-section" id="{{ section_anchor }}" data-inventory-section>
-  <div class="page-width">
-    <header class="inventory-section__header">
-      <h2 class="inventory-section__title h2">{{ heading }}</h2>
-      {%- if subheading != blank -%}
-        <p class="inventory-section__sub">{{ subheading }}</p>
-      {%- endif -%}
-    </header>
-
-    <div class="inventory-grid">
-      {% render 'inventory-card',
-        title: 'Heated Jacket',
-        color: 'black',
-        url: section.settings.black_link | default: '#product-black',
-        image_base: black_base,
-        image_glow: black_glow,
-        price_label: section.settings.price_label,
-        heat_label: '2–9 heat zones'
-      %}
-      {% render 'inventory-card',
-        title: 'Heated Jacket',
-        color: 'red',
-        url: section.settings.red_link | default: '#product-red',
-        image_base: red_base,
-        image_glow: red_glow,
-        price_label: section.settings.price_label,
-        heat_label: '2–9 heat zones'
-      %}
-      {% render 'inventory-card',
-        title: 'Heated Jacket',
-        color: 'blue',
-        url: section.settings.blue_link | default: '#product-blue',
-        image_base: blue_base,
-        image_glow: blue_glow,
-        price_label: section.settings.price_label,
-        heat_label: '2–9 heat zones'
-      %}
-    </div>
-
-    {%- if section.settings.show_hint -%}
-      <p class="inventory-section__hint">Hover to reveal heat. Click to explore every view.</p>
-    {%- endif -%}
-  </div>
-</section>
+{%- assign grid_anchor = section.settings.section_id | default: 'jackets' | handle -%}
+{% render 'showcase-grid',
+  product: section.settings.product,
+  kind: 'jacket',
+  anchor: grid_anchor,
+  heading: section.settings.heading,
+  subheading: section.settings.subheading,
+  link_prefix: '#product-',
+  heat_label: section.settings.heat_label,
+  show_hint: section.settings.show_hint,
+  fallback_title: 'Heated Jacket'
+%}
 
 {% schema %}
 {
-  "name": "Inventory grid",
+  "name": "Jackets grid",
   "tag": "section",
   "class": "section-inventory-grid",
   "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Shopify product whose colors, prices and stock power these cards."
+    },
     {
       "type": "text",
       "id": "heading",
@@ -82,25 +44,10 @@
     },
     {
       "type": "text",
-      "id": "price_label",
-      "label": "Price label",
-      "default": "Select options",
-      "info": "Leave blank to hide. Replace when live prices are connected."
-    },
-    {
-      "type": "url",
-      "id": "black_link",
-      "label": "Black jacket link"
-    },
-    {
-      "type": "url",
-      "id": "red_link",
-      "label": "Red jacket link"
-    },
-    {
-      "type": "url",
-      "id": "blue_link",
-      "label": "Blue jacket link"
+      "id": "heat_label",
+      "label": "Card detail line",
+      "default": "",
+      "info": "Shown when the product has no heat-zone option."
     },
     {
       "type": "checkbox",
@@ -111,7 +58,7 @@
   ],
   "presets": [
     {
-      "name": "Inventory grid"
+      "name": "Jackets grid"
     }
   ]
 }
