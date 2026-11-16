@@ -8,6 +8,7 @@
     id_prefix          anchor prefix, e.g. 'product-' → #product-black
     default_color      color handle to open on
     blurb              short copy shown under the title
+    size_note          optional fit note shown under the Size option
     fallback_title     title shown when no product is linked
 {% endcomment %}
 
@@ -239,6 +240,9 @@
                         </button>
                       {%- endfor -%}
                     </div>
+                    {%- if oname == 'size' and size_note != blank -%}
+                      <p class="heat-zone-note">{{ size_note }}</p>
+                    {%- endif -%}
                   {%- endif -%}
                 </div>
               {%- endfor -%}
