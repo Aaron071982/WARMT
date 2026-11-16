@@ -3,7 +3,7 @@
     "hero": {
       "type": "cinematic-hero",
       "settings": {
-        "headline": "WARMTH. REDEFINED.",
+        "headline": "WARMT. REDEFINED.",
         "supporting_text": "Engineered comfort for wherever life takes you.",
         "cta_label": "EXPLORE JACKETS",
         "cta_link": "/#jackets",
@@ -94,6 +94,44 @@
         "description": "Heated gloves with dual-zone warmth across the palm and back of hand. Choose black or pink."
       }
     },
+    "vest_story": {
+      "type": "cinematic-story",
+      "settings": {
+        "slot_label": "VEST_FIRESIDE",
+        "placeholder_asset": "placeholder-media/vest-fireside.gif",
+        "headline": "THE FIRE STAYS WITH YOU.",
+        "supporting_text": "Warmth for the cabin, and the cold beyond it.",
+        "cta_label": "EXPLORE HEATED VESTS",
+        "cta_link": "/#vests",
+        "text_alignment": "left",
+        "media_alt": "Heated vest by the fireside",
+        "media_position": "center center",
+        "overlay_strength": 32,
+        "section_height": "100svh",
+        "heat_mode": "prerendered"
+      }
+    },
+    "vests": {
+      "type": "vests-grid",
+      "settings": {
+        "heading": "VESTS.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "section_id": "vests",
+        "price_label": "Select color",
+        "black_link": "/#product-vest-black",
+        "red_link": "/#product-vest-red",
+        "blue_link": "/#product-vest-blue",
+        "show_hint": true
+      }
+    },
+    "vest_product": {
+      "type": "vests-product",
+      "settings": {
+        "default_color": "black",
+        "price_label": "Price set in Shopify",
+        "description": "Heated vest with warmth across the collar and core. Choose black, red, or blue."
+      }
+    },
     "featured": {
       "type": "featured-product",
       "settings": {
@@ -114,6 +152,9 @@
     "jacket_product",
     "gloves",
     "gloves_product",
+    "vest_story",
+    "vests",
+    "vest_product",
     "featured"
   ]
 }

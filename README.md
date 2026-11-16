@@ -19,3 +19,4 @@ cd heated-store && python3 -m http.server 8765
 | `inventory/` | Original jacket PNGs (black / red / blue) |
 | `gloves/` | Original glove PNGs (black / pink) |
 | `*.gif` / `*.png` | Campaign stills and motion references |
+# WARMT

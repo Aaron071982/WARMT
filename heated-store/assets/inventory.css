@@ -57,7 +57,8 @@
   background: #d48a9b;
 }
 
-.inventory-section--gloves {
+.inventory-section--gloves,
+.inventory-section--vests {
   border-top: 1px solid rgba(11, 11, 11, 0.06);
 }
 
@@ -148,7 +149,7 @@
   padding: 0.4rem 0.7rem;
   background: rgba(11, 11, 11, 0.55);
   color: rgba(255, 255, 255, 0.75);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0;
@@ -198,7 +199,7 @@
 
 .inventory-card__zones {
   margin: 0.45rem 0 0;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-heat);
@@ -261,7 +262,7 @@
   padding: 0.45rem 0.75rem;
   background: rgba(11, 11, 11, 0.6);
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   pointer-events: none;
