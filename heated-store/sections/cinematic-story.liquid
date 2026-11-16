@@ -6,7 +6,7 @@
   assign position = section.settings.media_position | default: 'center center'
   assign heat_mode = section.settings.heat_mode | default: 'prerendered'
   assign slot = section.settings.slot_label | default: 'CAMPAIGN'
-  assign placeholder = section.settings.placeholder_asset | default: 'placeholder-media/city-campaign.gif'
+  assign placeholder = section.settings.placeholder_asset | default: 'placeholder-media/city-campaign.mp4'
   assign media_zoom = section.settings.media_zoom | default: 100
   assign zoom_factor = media_zoom | divided_by: 100.0
   assign zoom_class = ''
@@ -96,13 +96,14 @@
       "id": "placeholder_asset",
       "label": "Built-in placeholder asset",
       "options": [
-        { "value": "placeholder-media/city-campaign.gif", "label": "City campaign GIF" },
-        { "value": "placeholder-media/outdoor-campaign.gif", "label": "Outdoor campaign GIF" },
+        { "value": "placeholder-media/city-campaign.mp4", "label": "City campaign" },
+        { "value": "placeholder-media/outdoor-campaign.mp4", "label": "Outdoor campaign" },
+        { "value": "placeholder-media/vest-fireside.mp4", "label": "Vest fireside" },
+        { "value": "placeholder-media/hero-city.mp4", "label": "Hero city" },
         { "value": "placeholder-media/everyday-placeholder.svg", "label": "Everyday SVG" },
-        { "value": "placeholder-media/wellness-placeholder.svg", "label": "Wellness SVG" },
-        { "value": "placeholder-media/hero-city.gif", "label": "Hero city GIF" }
+        { "value": "placeholder-media/wellness-placeholder.svg", "label": "Wellness SVG" }
       ],
-      "default": "placeholder-media/city-campaign.gif"
+      "default": "placeholder-media/city-campaign.mp4"
     },
     {
       "type": "textarea",

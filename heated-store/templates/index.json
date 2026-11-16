@@ -22,7 +22,7 @@
       "type": "cinematic-story",
       "settings": {
         "slot_label": "CITY_CAMPAIGN",
-        "placeholder_asset": "placeholder-media/city-campaign.gif",
+        "placeholder_asset": "placeholder-media/city-campaign.mp4",
         "headline": "THE CITY DOESN'T STOP.",
         "supporting_text": "NEITHER SHOULD YOU.",
         "cta_label": "DISCOVER HEATED JACKETS",
@@ -39,7 +39,7 @@
       "type": "cinematic-story",
       "settings": {
         "slot_label": "OUTDOOR_CAMPAIGN",
-        "placeholder_asset": "placeholder-media/outdoor-campaign.gif",
+        "placeholder_asset": "placeholder-media/outdoor-campaign.mp4",
         "headline": "STAY FOR THE MOMENT.",
         "supporting_text": "Warmth that keeps pace with the outdoors.",
         "cta_label": "EXPLORE OUTDOOR WARMTH",
@@ -98,7 +98,7 @@
       "type": "cinematic-story",
       "settings": {
         "slot_label": "VEST_FIRESIDE",
-        "placeholder_asset": "placeholder-media/vest-fireside.gif",
+        "placeholder_asset": "placeholder-media/vest-fireside.mp4",
         "headline": "THE FIRE STAYS WITH YOU.",
         "supporting_text": "Warmth for the cabin, and the cold beyond it.",
         "cta_label": "EXPLORE HEATED VESTS",
