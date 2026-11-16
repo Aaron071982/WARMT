@@ -126,14 +126,28 @@
   {%- else -%}
     <div class="responsive-media__placeholder" role="img" aria-label="{{ slot | escape }} placeholder">
       {%- if placeholder_asset != blank -%}
-        <img
-          class="responsive-media__asset"
-          src="{{ placeholder_asset | asset_url }}"
-          alt=""
-          loading="{{ media_loading }}"
-          width="1600"
-          height="900"
-        >
+        {%- if placeholder_asset contains '.mp4' or placeholder_asset contains '.webm' -%}
+          <video
+            class="responsive-media__asset"
+            src="{{ placeholder_asset | asset_url }}"
+            autoplay
+            muted
+            loop
+            playsinline
+            data-autoplay="true"
+            width="2400"
+            height="1350"
+          ></video>
+        {%- else -%}
+          <img
+            class="responsive-media__asset"
+            src="{{ placeholder_asset | asset_url }}"
+            alt=""
+            loading="{{ media_loading }}"
+            width="2400"
+            height="1350"
+          >
+        {%- endif -%}
       {%- else -%}
         <div class="responsive-media__placeholder-frame">
           <div class="responsive-media__placeholder-label">{{ slot }}</div>
