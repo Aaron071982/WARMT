@@ -241,32 +241,40 @@
         </div>
       {% endform %}
 
-      {%- if section.settings.show_size_guide -%}
+      {%- if section.settings.show_size_guide and product.metafields.custom.size_guide != blank -%}
         <button type="button" class="product__size-guide" data-size-guide-open>
           {{ 'products.product.size_guide' | t }}
         </button>
       {%- endif -%}
 
       <div class="product__meta-blocks">
-        <details class="accordion" open>
-          <summary class="accordion__trigger">
-            {{ 'products.product.shipping' | t }}
-            <span class="accordion__icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="accordion__content">
-            {{ product.metafields.custom.shipping_info.value | default: settings.shipping_info_default }}
-          </div>
-        </details>
+        {%- liquid
+          assign ship_text = product.metafields.custom.shipping_info.value | default: settings.shipping_info_default
+          assign return_text = product.metafields.custom.returns_info.value | default: settings.returns_info_default
+        -%}
+        {%- if ship_text != blank or shop.shipping_policy != blank -%}
+          <details class="accordion">
+            <summary class="accordion__trigger">
+              {{ 'products.product.shipping' | t }}
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="accordion__content">
+              {%- if ship_text != blank -%}{{ ship_text }}{%- else -%}<a href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title }}</a>{%- endif -%}
+            </div>
+          </details>
+        {%- endif -%}
 
-        <details class="accordion">
-          <summary class="accordion__trigger">
-            {{ 'products.product.returns' | t }}
-            <span class="accordion__icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="accordion__content">
-            {{ product.metafields.custom.returns_info.value | default: settings.returns_info_default }}
-          </div>
-        </details>
+        {%- if return_text != blank or shop.refund_policy != blank -%}
+          <details class="accordion">
+            <summary class="accordion__trigger">
+              {{ 'products.product.returns' | t }}
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="accordion__content">
+              {%- if return_text != blank -%}{{ return_text }}{%- else -%}<a href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title }}</a>{%- endif -%}
+            </div>
+          </details>
+        {%- endif -%}
 
         {%- liquid
           assign specs = blank

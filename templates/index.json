@@ -48,7 +48,7 @@
         "media_alt": "Umbrella heated jacket campaign",
         "media_position": "center 42%",
         "media_zoom": 82,
-        "overlay_strength": 28,
+        "overlay_strength": 30,
         "section_height": "100svh",
         "heat_mode": "prerendered"
       }
@@ -104,7 +104,7 @@
         "text_alignment": "left",
         "media_alt": "Heated vest by the fireside",
         "media_position": "center center",
-        "overlay_strength": 32,
+        "overlay_strength": 30,
         "section_height": "100svh",
         "heat_mode": "prerendered"
       }
