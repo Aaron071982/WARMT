@@ -1,0 +1,81 @@
+{% render 'showcase-product',
+  product: section.settings.product,
+  kind: 'jacket',
+  id_prefix: 'product-',
+  default_color: section.settings.default_color,
+  blurb: section.settings.description,
+  fallback_title: 'Heated Jacket'
+%}
+
+{% comment %} Slideshow lightbox — shared across inventory product sections {% endcomment %}
+<div class="slideshow" data-slideshow hidden>
+  <div class="slideshow__overlay" data-slideshow-close></div>
+  <div class="slideshow__panel" role="dialog" aria-modal="true" aria-label="Product gallery">
+    <button type="button" class="slideshow__close icon-btn" data-slideshow-close aria-label="{{ 'general.accessibility.close' | t }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button type="button" class="slideshow__nav slideshow__nav--prev" data-slideshow-prev aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="slideshow__stage">
+      <img class="slideshow__img is-active" data-slideshow-img alt="" width="1199" height="1312">
+      <img class="slideshow__img" data-slideshow-img-next alt="" width="1199" height="1312" aria-hidden="true">
+    </div>
+    <button type="button" class="slideshow__nav slideshow__nav--next" data-slideshow-next aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <div class="slideshow__meta">
+      <p class="slideshow__caption" data-slideshow-caption></p>
+      <div class="slideshow__progress" data-slideshow-progress></div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Jacket product",
+  "tag": "section",
+  "class": "section-inventory-product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Variants, prices, stock and Add to cart come from this product."
+    },
+    {
+      "type": "select",
+      "id": "default_color",
+      "label": "Default color",
+      "options": [
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "red",
+          "label": "Red"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        }
+      ],
+      "default": "black"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Short intro",
+      "default": "A lightweight hooded jacket that heats up in seconds. Carbon-fiber heating across the core and collar, 3 heat levels, unisex sizes S to 6XL.",
+      "info": "Keep this consistent with the product listing. Full product description shows below the buy box."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Jacket product"
+    }
+  ]
+}
+{% endschema %}

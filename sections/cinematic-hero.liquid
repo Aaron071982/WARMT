@@ -1,0 +1,360 @@
+{%- liquid
+  assign height = section.settings.section_height | default: '100svh'
+  assign align = section.settings.text_alignment | default: 'left'
+  assign text_color = section.settings.text_color | default: '#FFFFFF'
+  assign overlay = section.settings.overlay_strength | default: 35
+  assign position = section.settings.media_position | default: 'center center'
+  assign heat_mode = section.settings.heat_mode | default: 'prerendered'
+-%}
+
+<section
+  class="cinematic cinematic-hero"
+  style="min-height: {{ height }}; color: {{ text_color }};"
+  data-cinematic-media
+>
+  <div class="cinematic__media">
+    {%- assign rarg_opacity = section.settings.heat_opacity | divided_by: 100.0 -%}
+    {%- assign rarg_glow = section.settings.heat_glow | divided_by: 100.0 -%}
+    {% render 'heat-animation',
+      mode: heat_mode,
+      enable_animation: section.settings.enable_heat_animation,
+      desktop_image: section.settings.desktop_image,
+      mobile_image: section.settings.mobile_image,
+      desktop_video: section.settings.desktop_video,
+      mobile_video: section.settings.mobile_video,
+      media_url: section.settings.media_url,
+      poster_image: section.settings.poster_image,
+      overlay_image: section.settings.heat_overlay,
+      heat_color: section.settings.heat_color,
+      opacity: rarg_opacity,
+      glow: rarg_glow,
+      duration: section.settings.heat_duration,
+      heat_x: section.settings.heat_x,
+      heat_y: section.settings.heat_y,
+      heat_width: section.settings.heat_width,
+      heat_height: section.settings.heat_height,
+      heat_x_mobile: section.settings.heat_x_mobile,
+      heat_y_mobile: section.settings.heat_y_mobile,
+      heat_width_mobile: section.settings.heat_width_mobile,
+      heat_height_mobile: section.settings.heat_height_mobile,
+      position: position,
+      alt: section.settings.media_alt,
+      loading: 'eager',
+      fetchpriority: 'high',
+      slot_label: 'HERO_MAIN',
+      placeholder_asset: 'ph-hero-city.gif'
+    %}
+  </div>
+
+  <div
+    class="cinematic__overlay{% if align == 'left' %} cinematic__overlay--left{% elsif align == 'center' %} cinematic__overlay--center{% endif %}"
+    style="opacity: {{ overlay | divided_by: 100.0 }};"
+  ></div>
+
+  <div class="cinematic__content cinematic__content--{{ align }}">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="cinematic__eyebrow reveal">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.headline != blank -%}
+      <h1 class="cinematic__headline h1 reveal reveal-delay-1">{{ section.settings.headline }}</h1>
+    {%- endif -%}
+    {%- if section.settings.supporting_text != blank -%}
+      <p class="cinematic__text reveal reveal-delay-2">{{ section.settings.supporting_text }}</p>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <div class="cinematic__actions reveal reveal-delay-3">
+        <a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_scroll_indicator -%}
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="scroll-indicator__line"></span>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Cinematic hero",
+  "tag": "section",
+  "class": "section-cinematic-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline",
+      "default": "WARMT. REDEFINED."
+    },
+    {
+      "type": "textarea",
+      "id": "supporting_text",
+      "label": "Supporting text",
+      "default": "Engineered comfort for wherever life takes you."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "EXPLORE COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show scroll indicator",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image / GIF"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image / GIF"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop video"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile video"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster / reduced-motion fallback"
+    },
+    {
+      "type": "text",
+      "id": "media_url",
+      "label": "External media URL (GIF / WebP / MP4 / WebM)",
+      "info": "Use when Shopify image picker strips animation. HTTPS only."
+    },
+    {
+      "type": "text",
+      "id": "media_alt",
+      "label": "Media alt text",
+      "default": "Cinematic heated apparel campaign"
+    },
+    {
+      "type": "text",
+      "id": "media_position",
+      "label": "Media focal position",
+      "default": "center center",
+      "info": "CSS object-position value, e.g. center top"
+    },
+    {
+      "type": "range",
+      "id": "overlay_strength",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay strength",
+      "default": 35
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "options": [
+        { "value": "100svh", "label": "Full screen" },
+        { "value": "90svh", "label": "90%" },
+        { "value": "85svh", "label": "85%" }
+      ],
+      "default": "100svh"
+    },
+    {
+      "type": "header",
+      "content": "Heating animation"
+    },
+    {
+      "type": "select",
+      "id": "heat_mode",
+      "label": "Heat mode",
+      "options": [
+        { "value": "prerendered", "label": "Pre-rendered animation (GIF/video)" },
+        { "value": "overlay", "label": "Static image + heat overlay" }
+      ],
+      "default": "prerendered"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_heat_animation",
+      "label": "Enable heat overlay animation",
+      "default": true,
+      "info": "Only applies in overlay mode. Pre-rendered media already contains heat."
+    },
+    {
+      "type": "image_picker",
+      "id": "heat_overlay",
+      "label": "Heat mask overlay (transparent PNG/SVG)"
+    },
+    {
+      "type": "color",
+      "id": "heat_color",
+      "label": "Heat color",
+      "default": "#FF5A1F"
+    },
+    {
+      "type": "range",
+      "id": "heat_opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "heat_glow",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Glow intensity",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heat_duration",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "s",
+      "label": "Animation duration",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "heat_x",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat X",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "heat_y",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat Y",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "heat_width",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat width",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heat_height",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Desktop heat height",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "heat_x_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat X",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "heat_y_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat Y",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "heat_width_mobile",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat width",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "heat_height_mobile",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "label": "Mobile heat height",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic hero"
+    }
+  ]
+}
+{% endschema %}

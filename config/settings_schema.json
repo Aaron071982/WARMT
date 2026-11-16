@@ -1,0 +1,194 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Heated Store",
+    "theme_version": "1.0.0",
+    "theme_author": "Heated Apparel",
+    "theme_documentation_url": "https://shopify.dev/docs/themes",
+    "theme_support_url": "https://shopify.dev/docs/themes"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand name",
+        "default": "WARMT"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 60,
+        "max": 220,
+        "step": 4,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 120
+      },
+      {
+        "type": "textarea",
+        "id": "brand_tagline",
+        "label": "Brand tagline",
+        "default": "Cold is the environment. Warmth is the experience."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background black",
+        "default": "#0B0B0B"
+      },
+      {
+        "type": "color",
+        "id": "color_soft_black",
+        "label": "Soft black",
+        "default": "#171717"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Pure white",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_editorial",
+        "label": "Editorial off-white",
+        "default": "#FAFAF8"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted gray",
+        "default": "#8A8A8A"
+      },
+      {
+        "type": "color",
+        "id": "color_light_gray",
+        "label": "Light gray",
+        "default": "#E9E9E9"
+      },
+      {
+        "type": "color",
+        "id": "color_heat",
+        "label": "Primary heat orange",
+        "default": "#FF5A1F"
+      },
+      {
+        "type": "color",
+        "id": "color_amber",
+        "label": "Warm amber",
+        "default": "#FFB347"
+      },
+      {
+        "type": "color",
+        "id": "color_deep_heat",
+        "label": "Deep heat red",
+        "default": "#D62828"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "font_heading",
+        "label": "Heading font",
+        "options": [
+          { "value": "editorial", "label": "Editorial (Cormorant Garamond + fallbacks)" },
+          { "value": "sans", "label": "Modern sans (DM Sans + fallbacks)" }
+        ],
+        "default": "editorial"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 90,
+        "max": 120,
+        "step": 2,
+        "unit": "%",
+        "label": "Heading scale",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 90,
+        "max": 110,
+        "step": 1,
+        "unit": "%",
+        "label": "Body scale",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "label": "Maximum page width",
+        "default": 1440
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_drawer_enable",
+        "label": "Enable cart drawer",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_x",
+        "label": "X / Twitter URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      }
+    ]
+  },
+  {
+    "name": "Product defaults",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "shipping_info_default",
+        "label": "Default shipping information",
+        "default": "Shipping details will be confirmed at checkout. Replace this text with your actual shipping policy."
+      },
+      {
+        "type": "textarea",
+        "id": "returns_info_default",
+        "label": "Default returns information",
+        "default": "Return policy details are editable in theme settings. Replace this placeholder with your actual returns policy."
+      }
+    ]
+  }
+]

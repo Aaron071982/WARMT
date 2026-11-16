@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "inventory": {
+      "type": "inventory-grid",
+      "settings": {
+        "heading": "JACKETS.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "section_id": "jackets",
+        "price_label": "Select color & heat zones",
+        "show_hint": true
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "heading": "ALL PRODUCTS",
+        "subheading": "Live Shopify catalog",
+        "products_per_page": 12
+      }
+    }
+  },
+  "order": ["inventory", "main"]
+}

@@ -1,0 +1,22 @@
+{
+  "current": {
+    "brand_name": "WARMT",
+    "brand_tagline": "Cold is the environment. Warmth is the experience.",
+    "color_background": "#0B0B0B",
+    "color_soft_black": "#171717",
+    "color_text": "#FFFFFF",
+    "color_editorial": "#FAFAF8",
+    "color_muted": "#8A8A8A",
+    "color_light_gray": "#E9E9E9",
+    "color_heat": "#FF5A1F",
+    "color_amber": "#FFB347",
+    "color_deep_heat": "#D62828",
+    "font_heading": "editorial",
+    "heading_scale": 100,
+    "body_scale": 100,
+    "page_width": 1440,
+    "cart_drawer_enable": true,
+    "shipping_info_default": "Shipping details will be confirmed at checkout. Replace this text with your actual shipping policy.",
+    "returns_info_default": "Return policy details are editable in theme settings. Replace this placeholder with your actual returns policy."
+  }
+}

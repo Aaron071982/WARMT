@@ -1,0 +1,178 @@
+{% comment %}
+  Heating media component — Mode A (prerendered) or Mode B (static + overlay).
+
+  Parameters:
+  - mode: prerendered | overlay
+  - enable_animation: boolean
+  - desktop_image, mobile_image, desktop_video, mobile_video, media_url, poster_image
+  - overlay_image: transparent heat mask
+  - heat_color, opacity, glow, duration
+  - heat_x, heat_y, heat_width, heat_height (+ mobile variants)
+  - position, alt, loading, class, slot_label, placeholder_asset
+{% endcomment %}
+
+{%- liquid
+  assign heat_mode = mode | default: 'prerendered'
+  assign animate = enable_animation
+  if animate == nil
+    assign animate = true
+  endif
+  assign heat_color = heat_color | default: settings.color_heat
+  assign heat_opacity = opacity | default: 0.55
+  assign heat_glow = glow | default: 0.4
+  assign heat_duration = duration | default: 5
+  assign hx = heat_x | default: 30
+  assign hy = heat_y | default: 25
+  assign hw = heat_width | default: 40
+  assign hh = heat_height | default: 50
+  assign hx_m = heat_x_mobile | default: hx
+  assign hy_m = heat_y_mobile | default: hy
+  assign hw_m = heat_width_mobile | default: hw
+  assign hh_m = heat_height_mobile | default: hh
+  assign media_position = position | default: 'center center'
+  assign media_alt = alt | default: shop.name
+  assign slot = slot_label | default: 'HEAT_MEDIA'
+  assign has_mobile = false
+  if mobile_image != blank or mobile_video != blank
+    assign has_mobile = true
+  endif
+
+  assign external = media_url | strip
+  if external != blank
+    if external contains 'javascript:' or external contains 'data:text'
+      assign external = blank
+    endif
+  endif
+
+  assign has_base = false
+  if desktop_image != blank or mobile_image != blank or desktop_video != blank or mobile_video != blank or external != blank
+    assign has_base = true
+  endif
+
+  comment
+    Mode A: show prerendered animation only — never double-apply overlay glow.
+    Mode B: static base + optional positioned overlay/mask.
+  endcomment
+-%}
+
+<div
+  class="heat-media{% if has_mobile %} has-mobile{% endif %}{% if animate and heat_mode == 'overlay' %} is-animated{% endif %} {{ class }}"
+  style="
+    --media-position: {{ media_position }};
+    --heat-color: {{ heat_color }};
+    --heat-duration: {{ heat_duration }}s;
+    --heat-opacity-min: {{ heat_opacity | times: 0.3 }};
+    --heat-opacity-mid: {{ heat_opacity | times: 0.7 }};
+    --heat-opacity-max: {{ heat_opacity }};
+    --heat-x: {{ hx }}%;
+    --heat-y: {{ hy }}%;
+    --heat-width: {{ hw }}%;
+    --heat-height: {{ hh }}%;
+    --heat-x-mobile: {{ hx_m }}%;
+    --heat-y-mobile: {{ hy_m }}%;
+    --heat-width-mobile: {{ hw_m }}%;
+    --heat-height-mobile: {{ hh_m }}%;
+  "
+  data-heat-media
+  data-heat-mode="{{ heat_mode }}"
+  data-heat-enabled="{{ animate }}"
+>
+  {%- if has_base -%}
+    {%- if heat_mode == 'prerendered' -%}
+      {% render 'responsive-media',
+        desktop_image: desktop_image,
+        mobile_image: mobile_image,
+        desktop_video: desktop_video,
+        mobile_video: mobile_video,
+        media_url: external,
+        poster_image: poster_image,
+        position: media_position,
+        alt: media_alt,
+        loading: loading,
+        fetchpriority: fetchpriority,
+        slot_label: slot,
+        placeholder_asset: placeholder_asset,
+        class: class
+      %}
+    {%- else -%}
+      {%- if desktop_image != blank -%}
+        {{
+          desktop_image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'heat-media__base heat-media__base--desktop',
+            widths: '750, 1100, 1500, 1920, 2400',
+            sizes: '100vw',
+            alt: media_alt,
+            loading: loading
+        }}
+      {%- elsif external != blank -%}
+        <img
+          class="heat-media__base heat-media__base--desktop"
+          src="{{ external | escape }}"
+          alt="{{ media_alt | escape }}"
+          loading="{{ loading | default: 'lazy' }}"
+          width="1920"
+          height="1080"
+        >
+      {%- endif -%}
+
+      {%- if mobile_image != blank -%}
+        {{
+          mobile_image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'heat-media__base heat-media__base--mobile',
+            widths: '375, 750, 1100',
+            sizes: '100vw',
+            alt: media_alt,
+            loading: loading
+        }}
+      {%- endif -%}
+
+      {%- if animate -%}
+        <div class="heat-media__glow" aria-hidden="true" style="opacity: {{ heat_glow }};"></div>
+        {%- if overlay_image != blank -%}
+          {{
+            overlay_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'heat-media__overlay',
+              alt: '',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img
+            class="heat-media__overlay"
+            src="{{ 'ph-heat-mask-jacket.svg' | asset_url }}"
+            alt=""
+            loading="lazy"
+            width="400"
+            height="600"
+          >
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- else -%}
+    <div class="heat-media__placeholder" role="img" aria-label="{{ slot | escape }} placeholder">
+      {%- if placeholder_asset != blank -%}
+        <img
+          class="heat-media__base"
+          src="{{ placeholder_asset | asset_url }}"
+          alt=""
+          loading="{{ loading | default: 'lazy' }}"
+          width="1600"
+          height="900"
+        >
+        {%- if heat_mode == 'overlay' and animate -%}
+          <div class="heat-media__glow" aria-hidden="true"></div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="responsive-media__placeholder-frame">
+          <div class="responsive-media__placeholder-label">{{ slot }}</div>
+          <div class="responsive-media__placeholder-hint">Replace in Theme Editor</div>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

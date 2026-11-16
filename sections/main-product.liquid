@@ -1,0 +1,523 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_form_id = 'ProductForm-' | append: section.id -%}
+
+<section class="product" data-product-section>
+  <div class="page-width product__layout">
+    <div class="product__gallery" data-product-gallery>
+      <button
+        type="button"
+        class="product__gallery-main inventory-gallery__main"
+        data-gallery-main
+        data-open-slideshow
+        aria-label="Open image slideshow"
+      >
+        {%- if product.featured_media != blank -%}
+          {{
+            product.featured_media
+            | image_url: width: 1600
+            | image_tag:
+              widths: '600, 900, 1200, 1600',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              alt: product.featured_media.alt | default: product.title,
+              loading: 'eager',
+              data-gallery-active: true
+          }}
+          <span class="inventory-gallery__cue">
+            <span class="inventory-gallery__cue-dot"></span>
+            View gallery
+          </span>
+        {%- else -%}
+          <div class="gallery-placeholder">
+            <img src="{{ 'ph-product-placeholder.svg' | asset_url }}" alt="" width="800" height="1000" data-gallery-active>
+          </div>
+        {%- endif -%}
+      </button>
+
+      {%- if product.media.size > 0 -%}
+        <div class="product__thumbs inventory-gallery__thumbs">
+          {%- for media in product.media limit: 8 -%}
+            <button
+              type="button"
+              class="product__thumb{% if forloop.first %} is-active{% endif %}"
+              data-gallery-thumb
+              data-src="{{ media | image_url: width: 1600 }}"
+              data-alt="{{ media.alt | default: product.title | escape }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              {{
+                media
+                | image_url: width: 200
+                | image_tag: alt: media.alt | default: product.title, loading: 'lazy'
+              }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heat_demo_url != blank or section.settings.heat_demo_image != blank -%}
+        <div class="product-heat-demo">
+          <h2 class="product-heat-demo__title">{{ 'products.product.see_the_heat' | t }}</h2>
+          <div class="product-heat-demo__frame" data-cinematic-media>
+            {%- assign rarg_opacity = section.settings.heat_opacity | divided_by: 100.0 -%}
+            {%- assign rarg_alt = product.title | append: ' heating demonstration' -%}
+            {% render 'heat-animation',
+              mode: section.settings.heat_mode,
+              enable_animation: section.settings.enable_heat_animation,
+              desktop_image: section.settings.heat_demo_image,
+              media_url: section.settings.heat_demo_url,
+              overlay_image: section.settings.heat_overlay,
+              heat_color: section.settings.heat_color,
+              opacity: rarg_opacity,
+              duration: section.settings.heat_duration,
+              heat_x: section.settings.heat_x,
+              heat_y: section.settings.heat_y,
+              heat_width: section.settings.heat_width,
+              heat_height: section.settings.heat_height,
+              alt: rarg_alt,
+              loading: 'lazy',
+              slot_label: 'PRODUCT_HEAT_DEMO',
+              placeholder_asset: 'ph-product-placeholder.svg'
+            %}
+          </div>
+          {%- if section.settings.heat_caption != blank -%}
+            <p class="product-heat-demo__caption">{{ section.settings.heat_caption }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      <p class="product__vendor">{{ settings.brand_name | default: shop.name }}</p>
+      <h1 class="product__title">{{ product.title }}</h1>
+      <div class="product__price">
+        {% render 'price', product: product, use_variant: true %}
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="product__description rte">{{ product.description }}</div>
+      {%- endif -%}
+
+      <script type="application/json" data-product-variants-json>
+        {{ product.variants | json }}
+      </script>
+
+      {% form 'product', product, id: product_form_id %}
+        <div data-product-form>
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            {%- assign option_down = option.name | downcase -%}
+            <div class="field" data-option-index="{{ forloop.index0 }}">
+              <label class="field__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+
+              {%- if option_down contains 'zone' or option_down == 'heat spots' -%}
+                <div class="heat-zone-pills" data-heat-pills>
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="heat-zone-pill{% if option.selected_value == value %} is-selected{% endif %}"
+                      data-value="{{ value | escape }}"
+                      data-heat-zones="{{ value | split: ' ' | first | escape }}"
+                      aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                    >
+                      <span class="heat-zone-pill__count">{{ value | split: ' ' | first }}</span>
+                      <span class="heat-zone-pill__map" data-zone-map="{{ value | split: ' ' | first | escape }}" aria-hidden="true"></span>
+                    </button>
+                  {%- endfor -%}
+                </div>
+                <p class="heat-zone-note" data-heat-note>{{ option.selected_value }}</p>
+
+              {%- elsif option_down == 'size' -%}
+                <div class="variant-pills variant-pills--animated" data-size-pills>
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="variant-pill{% if option.selected_value == value %} is-selected{% endif %}"
+                      data-value="{{ value | escape }}"
+                      data-size-pill
+                    >
+                      <span class="variant-pill__ring" aria-hidden="true"></span>
+                      <span class="variant-pill__label">{{ value }}</span>
+                    </button>
+                  {%- endfor -%}
+                </div>
+
+              {%- elsif option.values.size <= 6 -%}
+                <div class="variant-pills">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="variant-pill{% if option.selected_value == value %} is-selected{% endif %}"
+                      data-value="{{ value | escape }}"
+                    >
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <select
+                  id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                  class="field__select"
+                  data-option-select
+                >
+                  {%- for value in option.values -%}
+                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                      {{ value }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- if section.settings.show_default_heat_zones -%}
+            <div class="field" data-heat-option>
+              <span class="field__label">Heat zones</span>
+              <div class="heat-zone-pills" data-heat-pills>
+                {%- assign zones = '2,4,8,9' | split: ',' -%}
+                {%- for z in zones -%}
+                  <button
+                    type="button"
+                    class="heat-zone-pill{% if z == '4' %} is-selected{% endif %}"
+                    data-heat-zones="{{ z }}"
+                    aria-pressed="{% if z == '4' %}true{% else %}false{% endif %}"
+                  >
+                    <span class="heat-zone-pill__count">{{ z }}</span>
+                    <span class="heat-zone-pill__map" data-zone-map="{{ z }}" aria-hidden="true"></span>
+                  </button>
+                {%- endfor -%}
+              </div>
+              <p class="heat-zone-note" data-heat-note>4 zones — balanced core coverage</p>
+              <input type="hidden" name="properties[Heat zones]" value="4" data-heat-input>
+            </div>
+          {%- endif -%}
+        {%- endunless -%}
+
+        <div class="field">
+          <label class="field__label" for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+          <div class="qty" data-qty>
+            <button type="button" class="qty__btn" data-qty-btn="-1" aria-label="Decrease quantity">−</button>
+            <input
+              class="qty__input"
+              type="number"
+              id="Quantity-{{ section.id }}"
+              name="quantity"
+              value="1"
+              min="1"
+            >
+            <button type="button" class="qty__btn" data-qty-btn="1" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <p
+          class="product__availability"
+          data-product-availability
+          data-available="{{ current_variant.available }}"
+        >
+          {%- if current_variant.available -%}
+            {{ 'products.product.in_stock' | t }}
+          {%- else -%}
+            {{ 'products.product.out_of_stock' | t }}
+          {%- endif -%}
+        </p>
+
+        <div class="product__actions">
+          <button
+            type="submit"
+            class="btn btn--dark"
+            data-add-to-cart
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {%- if current_variant.available -%}
+              {{ 'products.product.add_to_cart' | t }}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+
+          {{ form | payment_button }}
+        </div>
+        </div>
+      {% endform %}
+
+      {%- if section.settings.show_size_guide -%}
+        <button type="button" class="product__size-guide" data-size-guide-open>
+          {{ 'products.product.size_guide' | t }}
+        </button>
+      {%- endif -%}
+
+      <div class="product__meta-blocks">
+        <details class="accordion" open>
+          <summary class="accordion__trigger">
+            {{ 'products.product.shipping' | t }}
+            <span class="accordion__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="accordion__content">
+            {{ product.metafields.custom.shipping_info.value | default: settings.shipping_info_default }}
+          </div>
+        </details>
+
+        <details class="accordion">
+          <summary class="accordion__trigger">
+            {{ 'products.product.returns' | t }}
+            <span class="accordion__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="accordion__content">
+            {{ product.metafields.custom.returns_info.value | default: settings.returns_info_default }}
+          </div>
+        </details>
+
+        {%- liquid
+          assign specs = blank
+          assign mf = product.metafields.custom
+        -%}
+        <details class="accordion">
+          <summary class="accordion__trigger">
+            {{ 'products.product.specifications' | t }}
+            <span class="accordion__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="accordion__content">
+            <div class="spec-list">
+              {%- if mf.heating_zones != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Heating zones</span><span>{{ mf.heating_zones.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.heat_settings != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Heat settings</span><span>{{ mf.heat_settings.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.battery_capacity != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Battery capacity</span><span>{{ mf.battery_capacity.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.battery_included != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Battery included</span><span>{{ mf.battery_included.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.tested_runtime != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Tested runtime</span><span>{{ mf.tested_runtime.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.charging_info != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Charging</span><span>{{ mf.charging_info.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.material != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Material</span><span>{{ mf.material.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.washing_instructions != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Washing</span><span>{{ mf.washing_instructions.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.weather_resistance != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Weather resistance</span><span>{{ mf.weather_resistance.value }}</span></div>
+              {%- endif -%}
+              {%- if mf.warranty != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Warranty</span><span>{{ mf.warranty.value }}</span></div>
+              {%- endif -%}
+            </div>
+            {%- unless mf.heating_zones != blank or mf.heat_settings != blank or mf.battery_capacity != blank or mf.material != blank -%}
+              <p>Specifications will appear here when product metafields are configured.</p>
+            {%- endunless -%}
+          </div>
+        </details>
+
+        {%- if mf.care_instructions != blank or product.metafields.custom.care != blank -%}
+          <details class="accordion">
+            <summary class="accordion__trigger">
+              {{ 'products.product.care' | t }}
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="accordion__content">
+              {{ mf.care_instructions.value | default: product.metafields.custom.care.value }}
+            </div>
+          </details>
+        {%- endif -%}
+
+        {%- if mf.faq != blank -%}
+          <details class="accordion">
+            <summary class="accordion__trigger">
+              {{ 'products.product.faq' | t }}
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="accordion__content">
+              {{ mf.faq.value }}
+            </div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slideshow" data-slideshow hidden>
+  <div class="slideshow__overlay" data-slideshow-close></div>
+  <div class="slideshow__panel" role="dialog" aria-modal="true" aria-label="Product gallery">
+    <button type="button" class="slideshow__close icon-btn" data-slideshow-close aria-label="{{ 'general.accessibility.close' | t }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button type="button" class="slideshow__nav slideshow__nav--prev" data-slideshow-prev aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="slideshow__stage">
+      <img class="slideshow__img is-active" data-slideshow-img alt="" width="1199" height="1312">
+      <img class="slideshow__img" data-slideshow-img-next alt="" width="1199" height="1312" aria-hidden="true">
+    </div>
+    <button type="button" class="slideshow__nav slideshow__nav--next" data-slideshow-next aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <div class="slideshow__meta">
+      <p class="slideshow__caption" data-slideshow-caption></p>
+      <div class="slideshow__progress" data-slideshow-progress></div>
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.show_size_guide -%}
+  <div class="size-guide" data-size-guide>
+    <div class="size-guide__overlay" data-size-guide-close></div>
+    <div class="size-guide__panel" role="dialog" aria-modal="true" aria-label="{{ 'products.product.size_guide' | t }}">
+      <div class="size-guide__header">
+        <h2 class="size-guide__title">{{ 'products.product.size_guide' | t }}</h2>
+        <button type="button" class="icon-btn" data-size-guide-close aria-label="{{ 'general.accessibility.close' | t }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      {%- if product.metafields.custom.size_guide != blank -%}
+        {{ product.metafields.custom.size_guide.value }}
+      {%- else -%}
+        <table>
+          <thead>
+            <tr><th>Size</th><th>Chest</th><th>Length</th><th>Sleeve</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>S</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>M</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>L</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>XL</td><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p class="page-placeholder-note">Replace these measurements with product-specific size data via the <code>custom.size_guide</code> metafield.</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_size_guide",
+      "label": "Show size guide",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_default_heat_zones",
+      "label": "Show heat zone selector when product has no Heat Zones option",
+      "default": false,
+      "info": "Creates a line-item property for 2 / 4 / 8 / 9 zones. Prefer a real Shopify variant option named Heat Zones."
+    },
+    {
+      "type": "header",
+      "content": "See the heat"
+    },
+    {
+      "type": "image_picker",
+      "id": "heat_demo_image",
+      "label": "Heat demo image / GIF"
+    },
+    {
+      "type": "text",
+      "id": "heat_demo_url",
+      "label": "Heat demo media URL"
+    },
+    {
+      "type": "text",
+      "id": "heat_caption",
+      "label": "Heat demo caption",
+      "default": "Visualization of heating zones. Actual heat areas match the product design."
+    },
+    {
+      "type": "select",
+      "id": "heat_mode",
+      "label": "Heat mode",
+      "options": [
+        { "value": "prerendered", "label": "Pre-rendered" },
+        { "value": "overlay", "label": "Overlay" }
+      ],
+      "default": "prerendered"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_heat_animation",
+      "label": "Enable overlay animation",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "heat_overlay",
+      "label": "Heat overlay mask"
+    },
+    {
+      "type": "color",
+      "id": "heat_color",
+      "label": "Heat color",
+      "default": "#FF5A1F"
+    },
+    {
+      "type": "range",
+      "id": "heat_opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Opacity",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "heat_duration",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "s",
+      "label": "Duration",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "heat_x",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "label": "Heat X",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "heat_y",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "label": "Heat Y",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "heat_width",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "label": "Heat width",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heat_height",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "label": "Heat height",
+      "default": 50
+    }
+  ]
+}
+{% endschema %}

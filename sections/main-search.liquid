@@ -1,0 +1,45 @@
+<section class="page-shell">
+  <div class="page-width">
+    <h1 class="page-shell__title h2">{{ 'general.search.submit' | t }}</h1>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" style="margin-bottom:2.5rem;max-width:32rem;">
+      <label class="field__label" for="SearchInput">{{ 'general.search.placeholder' | t }}</label>
+      <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
+        <input
+          class="field__input"
+          id="SearchInput"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+        >
+        <button class="btn btn--dark" type="submit">{{ 'general.search.submit' | t }}</button>
+      </div>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 -%}
+        <p>{{ 'general.search.no_results' | t }}</p>
+      {%- else -%}
+        <div class="grid grid--2 grid--3">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- else -%}
+              <a class="product-card" href="{{ item.url }}">
+                <h3 class="product-card__title">{{ item.title }}</h3>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

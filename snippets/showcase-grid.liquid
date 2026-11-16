@@ -1,0 +1,122 @@
+{% comment %}
+  Hover-glow color grid for one Shopify product (one card per color).
+  Params: product, kind ('jacket'|'vest'|'gloves'), anchor, heading, subheading,
+          link_prefix (e.g. '#product-'), heat_label (used when the product has no heat-zone option),
+          show_hint, fallback_title
+{% endcomment %}
+
+{%- liquid
+  assign p = product
+  assign kind = kind | default: 'jacket'
+  if kind == 'jacket'
+    assign base_view = 'unglowfront'
+    assign glow_view = 'glowfront'
+    assign themed_colors = 'black,red,blue' | split: ','
+  else
+    assign base_view = 'unglow'
+    assign glow_view = 'glow'
+    if kind == 'gloves'
+      assign themed_colors = 'black,pink' | split: ','
+    else
+      assign themed_colors = 'black,red,blue' | split: ','
+    endif
+  endif
+
+  assign color_index = -1
+  assign zone_index = -1
+  if p != blank
+    for option in p.options_with_values
+      assign oname = option.name | downcase
+      if oname contains 'color' or oname contains 'colour'
+        assign color_index = forloop.index0
+      elsif oname contains 'zone' or oname contains 'heat'
+        assign zone_index = forloop.index0
+      endif
+    endfor
+  endif
+
+  if color_index >= 0
+    assign color_values = p.options_with_values[color_index].values
+  else
+    assign color_values = themed_colors
+  endif
+-%}
+
+<section class="inventory-section inventory-section--{{ kind }}" id="{{ anchor }}" data-inventory-section>
+  <div class="page-width">
+    <header class="inventory-section__header">
+      <h2 class="inventory-section__title h2">{{ heading }}</h2>
+      {%- if subheading != blank -%}
+        <p class="inventory-section__sub">{{ subheading }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="inventory-grid{% if color_values.size == 2 %} inventory-grid--2{% endif %}">
+      {%- for value in color_values -%}
+        {%- liquid
+          assign vh = value | handleize
+          assign min_price = nil
+          assign zones = ''
+          assign fallback_img = blank
+          if p != blank
+            for v in p.variants
+              if color_index >= 0 and v.options[color_index] != value
+                continue
+              endif
+              if min_price == nil or v.price < min_price
+                assign min_price = v.price
+              endif
+              if fallback_img == blank and v.featured_image != blank
+                assign fallback_img = v.featured_image
+              endif
+              if zone_index >= 0
+                assign zn = v.options[zone_index] | split: ' ' | first
+                assign zones = zones | append: zn | append: ','
+              endif
+            endfor
+          endif
+
+          if zone_index >= 0 and zones != ''
+            assign zone_list = zones | split: ',' | uniq | sort_natural
+            assign heat_text = zone_list | join: ' · ' | append: ' heat zones'
+          else
+            assign heat_text = heat_label
+          endif
+
+          if min_price != nil
+            assign price_text = min_price | money | prepend: 'From '
+          else
+            assign price_text = ''
+          endif
+
+          if themed_colors contains vh
+            assign base_src = kind | append: '-' | append: vh | append: '-' | append: base_view | append: '.webp' | asset_url
+            assign glow_src = kind | append: '-' | append: vh | append: '-' | append: glow_view | append: '.webp' | asset_url
+          elsif fallback_img != blank
+            assign base_src = fallback_img | image_url: width: 900
+            assign glow_src = base_src
+          else
+            assign base_src = 'ph-product-placeholder.svg' | asset_url
+            assign glow_src = base_src
+          endif
+        -%}
+        {%- assign card_title = p.title | default: fallback_title -%}
+        {%- assign card_url = link_prefix | append: vh -%}
+        {% render 'inventory-card',
+          title: card_title,
+          color: vh,
+          color_label: value,
+          url: card_url,
+          image_base: base_src,
+          image_glow: glow_src,
+          price_label: price_text,
+          heat_label: heat_text
+        %}
+      {%- endfor -%}
+    </div>
+
+    {%- if show_hint -%}
+      <p class="inventory-section__hint">Hover to reveal heat. Click to choose your size and heat.</p>
+    {%- endif -%}
+  </div>
+</section>

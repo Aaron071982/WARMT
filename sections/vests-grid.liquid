@@ -1,0 +1,65 @@
+{%- assign grid_anchor = section.settings.section_id | default: 'vests' | handle -%}
+{% render 'showcase-grid',
+  product: section.settings.product,
+  kind: 'vest',
+  anchor: grid_anchor,
+  heading: section.settings.heading,
+  subheading: section.settings.subheading,
+  link_prefix: '#product-vest-',
+  heat_label: section.settings.heat_label,
+  show_hint: section.settings.show_hint,
+  fallback_title: 'Heated Vest'
+%}
+
+{% schema %}
+{
+  "name": "Vests grid",
+  "tag": "section",
+  "class": "section-vests-grid",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Shopify product whose colors, prices and stock power these cards."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "VESTS."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Hover to reveal heat. Choose your color."
+    },
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section anchor ID",
+      "default": "vests",
+      "info": "Used for nav links, e.g. #vests"
+    },
+    {
+      "type": "text",
+      "id": "heat_label",
+      "label": "Card detail line",
+      "default": "",
+      "info": "Shown when the product has no heat-zone option."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hint",
+      "label": "Show interaction hint",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vests grid"
+    }
+  ]
+}
+{% endschema %}

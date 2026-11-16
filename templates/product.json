@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_size_guide": true,
+        "heat_caption": "Visualization of heating zones. Actual heat areas match the product design.",
+        "heat_mode": "prerendered",
+        "enable_heat_animation": true,
+        "show_default_heat_zones": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

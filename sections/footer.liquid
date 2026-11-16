@@ -1,0 +1,79 @@
+<footer class="site-footer">
+  <div class="page-width site-footer__grid">
+    <div>
+      <div class="site-footer__brand">{{ settings.brand_name | default: shop.name }}</div>
+      <p class="site-footer__tagline">{{ settings.brand_tagline }}</p>
+    </div>
+
+    <div>
+      <h2 class="site-footer__heading">Explore</h2>
+      <ul class="site-footer__list list-reset">
+        {%- if section.settings.menu != blank -%}
+          {%- for link in section.settings.menu.links -%}
+            <li><a class="site-footer__link" href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a class="site-footer__link" href="{{ routes.all_products_collection_url }}">Shop</a></li>
+          {%- if pages["about"] != empty -%}<li><a class="site-footer__link" href="/pages/about">About</a></li>{%- endif -%}
+          {%- if pages["our-technology"] != empty -%}<li><a class="site-footer__link" href="/pages/our-technology">Our Technology</a></li>{%- endif -%}
+          {%- if pages["contact"] != empty -%}<li><a class="site-footer__link" href="/pages/contact">Contact</a></li>{%- endif -%}
+        {%- endif -%}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="site-footer__heading">Policies</h2>
+      <ul class="site-footer__list list-reset">
+        {%- if pages["shipping-and-returns"] != empty -%}<li><a class="site-footer__link" href="/pages/shipping-and-returns">Shipping & Returns</a></li>{%- endif -%}
+        <li><a class="site-footer__link" href="/policies/privacy-policy">Privacy Policy</a></li>
+        <li><a class="site-footer__link" href="/policies/terms-of-service">Terms of Service</a></li>
+      </ul>
+
+      {%- if settings.social_instagram != blank or settings.social_x != blank or settings.social_youtube != blank -%}
+        <h2 class="site-footer__heading" style="margin-top:2rem;">Follow</h2>
+        <ul class="site-footer__list list-reset">
+          {%- if settings.social_instagram != blank -%}
+            <li><a class="site-footer__link" href="{{ settings.social_instagram }}">Instagram</a></li>
+          {%- endif -%}
+          {%- if settings.social_x != blank -%}
+            <li><a class="site-footer__link" href="{{ settings.social_x }}">X</a></li>
+          {%- endif -%}
+          {%- if settings.social_youtube != blank -%}
+            <li><a class="site-footer__link" href="{{ settings.social_youtube }}">YouTube</a></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="page-width site-footer__bottom">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_text }}</span>
+    <span>{{ powered_by_link }}</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer menu",
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter (placeholder)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "All rights reserved."
+    }
+  ]
+}
+{% endschema %}

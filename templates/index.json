@@ -1,0 +1,156 @@
+{
+  "sections": {
+    "hero": {
+      "type": "cinematic-hero",
+      "settings": {
+        "headline": "WARMT. REDEFINED.",
+        "supporting_text": "Engineered comfort for wherever life takes you.",
+        "cta_label": "EXPLORE JACKETS",
+        "cta_link": "/#jackets",
+        "text_alignment": "left",
+        "text_color": "#FFFFFF",
+        "show_scroll_indicator": true,
+        "media_alt": "Cinematic heated jacket campaign",
+        "media_position": "center center",
+        "overlay_strength": 35,
+        "section_height": "100svh",
+        "heat_mode": "prerendered",
+        "enable_heat_animation": true
+      }
+    },
+    "city": {
+      "type": "cinematic-story",
+      "settings": {
+        "slot_label": "CITY_CAMPAIGN",
+        "placeholder_asset": "ph-city-campaign.gif",
+        "headline": "THE CITY DOESN'T STOP.",
+        "supporting_text": "NEITHER SHOULD YOU.",
+        "cta_label": "DISCOVER HEATED JACKETS",
+        "cta_link": "/#jackets",
+        "text_alignment": "left",
+        "media_alt": "City heated jacket campaign",
+        "media_position": "center center",
+        "overlay_strength": 30,
+        "section_height": "100svh",
+        "heat_mode": "prerendered"
+      }
+    },
+    "outdoors": {
+      "type": "cinematic-story",
+      "settings": {
+        "slot_label": "OUTDOOR_CAMPAIGN",
+        "placeholder_asset": "ph-outdoor-campaign.gif",
+        "headline": "STAY FOR THE MOMENT.",
+        "supporting_text": "Warmth that keeps pace with the outdoors.",
+        "cta_label": "EXPLORE OUTDOOR WARMTH",
+        "cta_link": "/#jackets",
+        "text_alignment": "left",
+        "media_alt": "Umbrella heated jacket campaign",
+        "media_position": "center 42%",
+        "media_zoom": 82,
+        "overlay_strength": 28,
+        "section_height": "100svh",
+        "heat_mode": "prerendered"
+      }
+    },
+    "jackets": {
+      "type": "inventory-grid",
+      "settings": {
+        "product": "heated-jacket",
+        "heading": "JACKETS.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "section_id": "jackets",
+        "heat_label": "",
+        "show_hint": true
+      }
+    },
+    "jacket_product": {
+      "type": "inventory-product",
+      "settings": {
+        "product": "heated-jacket",
+        "default_color": "black",
+        "description": "A lightweight hooded jacket that heats up in seconds. Carbon-fiber heating across the core and collar, 3 heat levels, unisex sizes S to 6XL."
+      }
+    },
+    "gloves": {
+      "type": "gloves-grid",
+      "settings": {
+        "product": "rechargeable-heated-gloves",
+        "heading": "GLOVES.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "section_id": "gloves",
+        "heat_label": "3 heat levels",
+        "show_hint": true
+      }
+    },
+    "gloves_product": {
+      "type": "gloves-product",
+      "settings": {
+        "product": "rechargeable-heated-gloves",
+        "default_color": "black",
+        "description": "Rechargeable heated gloves that warm the back of your hand and your fingers, with 3 heat levels on the digital display."
+      }
+    },
+    "vest_story": {
+      "type": "cinematic-story",
+      "settings": {
+        "slot_label": "VEST_FIRESIDE",
+        "placeholder_asset": "ph-vest-fireside.gif",
+        "headline": "THE FIRE STAYS WITH YOU.",
+        "supporting_text": "Warmth for the cabin, and the cold beyond it.",
+        "cta_label": "EXPLORE HEATED VESTS",
+        "cta_link": "/#vests",
+        "text_alignment": "left",
+        "media_alt": "Heated vest by the fireside",
+        "media_position": "center center",
+        "overlay_strength": 32,
+        "section_height": "100svh",
+        "heat_mode": "prerendered"
+      }
+    },
+    "vests": {
+      "type": "vests-grid",
+      "settings": {
+        "product": "usb-heated-vest",
+        "heading": "VESTS.",
+        "subheading": "Hover to reveal heat. Choose your color.",
+        "section_id": "vests",
+        "heat_label": "",
+        "show_hint": true
+      }
+    },
+    "vest_product": {
+      "type": "vests-product",
+      "settings": {
+        "product": "usb-heated-vest",
+        "default_color": "black",
+        "description": "A light, warm layer that heats your core at the press of a button. Wear it on its own or under a coat."
+      }
+    },
+    "featured": {
+      "type": "featured-product",
+      "settings": {
+        "product": "power-bank-hand-warmer",
+        "eyebrow": "Add-on",
+        "heading": "POWER FOR THE COLD.",
+        "text": "A rechargeable hand warmer with 3 heat levels that doubles as a 10,000mAh power bank for your heated jacket or phone.",
+        "cta_label": "VIEW PRODUCT",
+        "heat_mode": "prerendered",
+        "enable_heat_animation": false
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "city",
+    "outdoors",
+    "jackets",
+    "jacket_product",
+    "gloves",
+    "gloves_product",
+    "vest_story",
+    "vests",
+    "vest_product",
+    "featured"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "inventory": {
+      "type": "inventory-grid",
+      "settings": {
+        "product": "heated-jacket",
+        "heading": "THE COLLECTION.",
+        "subheading": "Engineered for comfort.",
+        "section_id": "jackets",
+        "heat_label": "",
+        "show_hint": true
+      }
+    },
+    "product": {
+      "type": "inventory-product",
+      "settings": {
+        "product": "heated-jacket",
+        "default_color": "black"
+      }
+    }
+  },
+  "order": [
+    "inventory",
+    "product"
+  ]
+}

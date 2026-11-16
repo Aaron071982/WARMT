@@ -1,0 +1,188 @@
+{%- assign product = section.settings.product -%}
+
+<section class="featured-product">
+  <div class="page-width featured-product__layout">
+    <div class="featured-product__media" data-cinematic-media>
+      {%- if product != blank and product.featured_media != blank -%}
+        {%- assign rarg_opacity = section.settings.heat_opacity | divided_by: 100.0 -%}
+        {% render 'heat-animation',
+          mode: section.settings.heat_mode,
+          enable_animation: section.settings.enable_heat_animation,
+          desktop_image: product.featured_media,
+          media_url: section.settings.media_url,
+          overlay_image: section.settings.heat_overlay,
+          heat_color: section.settings.heat_color,
+          opacity: rarg_opacity,
+          duration: section.settings.heat_duration,
+          heat_x: section.settings.heat_x,
+          heat_y: section.settings.heat_y,
+          heat_width: section.settings.heat_width,
+          heat_height: section.settings.heat_height,
+          position: 'center center',
+          alt: product.title,
+          loading: 'lazy',
+          slot_label: 'FEATURED_PRODUCT',
+          placeholder_asset: 'ph-product-placeholder.svg'
+        %}
+      {%- else -%}
+        <img
+          src="{{ 'ph-product-placeholder.svg' | asset_url }}"
+          alt=""
+          width="800"
+          height="1000"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+      {%- endif -%}
+    </div>
+
+    <div>
+      <p class="featured-product__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="featured-product__title h2">
+        {%- if product != blank -%}
+          {{ product.title }}
+        {%- else -%}
+          {{ section.settings.heading }}
+        {%- endif -%}
+      </h2>
+      <p class="featured-product__text">
+        {{ section.settings.text }}
+      </p>
+      {%- if product != blank -%}
+        <a class="btn" href="{{ product.url }}">{{ section.settings.cta_label }}</a>
+      {%- else -%}
+        <a class="btn" href="{{ routes.all_products_collection_url }}">{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Featured"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Fallback heading",
+      "default": "BUILT FOR THE COLD."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Premium heated apparel designed for everyday comfort."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "VIEW PRODUCT"
+    },
+    {
+      "type": "text",
+      "id": "media_url",
+      "label": "Optional heat demo URL"
+    },
+    {
+      "type": "select",
+      "id": "heat_mode",
+      "label": "Heat mode",
+      "options": [
+        { "value": "prerendered", "label": "Pre-rendered" },
+        { "value": "overlay", "label": "Overlay" }
+      ],
+      "default": "overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_heat_animation",
+      "label": "Enable heat animation",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "heat_overlay",
+      "label": "Heat overlay"
+    },
+    {
+      "type": "color",
+      "id": "heat_color",
+      "label": "Heat color",
+      "default": "#FF5A1F"
+    },
+    {
+      "type": "range",
+      "id": "heat_opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Opacity",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "heat_duration",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "s",
+      "label": "Duration",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "heat_x",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "label": "Heat X",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "heat_y",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "label": "Heat Y",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "heat_width",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "label": "Heat width",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heat_height",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "label": "Heat height",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured product"
+    }
+  ]
+}
+{% endschema %}

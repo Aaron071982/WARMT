@@ -1,0 +1,18 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "",
+        "show_search": true,
+        "show_account": true,
+        "transparent_on_home": true
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

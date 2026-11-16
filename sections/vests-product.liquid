@@ -1,0 +1,56 @@
+{% render 'showcase-product',
+  product: section.settings.product,
+  kind: 'vest',
+  id_prefix: 'product-vest-',
+  default_color: section.settings.default_color,
+  blurb: section.settings.description,
+  fallback_title: 'Heated Vest'
+%}
+
+{% schema %}
+{
+  "name": "Vest product",
+  "tag": "section",
+  "class": "section-vests-product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Variants, prices, stock and Add to cart come from this product."
+    },
+    {
+      "type": "select",
+      "id": "default_color",
+      "label": "Default color",
+      "options": [
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "red",
+          "label": "Red"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        }
+      ],
+      "default": "black"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Short intro",
+      "default": "A light, warm layer that heats your core at the press of a button. Wear it on its own or under a coat.",
+      "info": "Keep this consistent with the product listing. Full product description shows below the buy box."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vest product"
+    }
+  ]
+}
+{% endschema %}
