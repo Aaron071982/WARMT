@@ -1,6 +1,6 @@
-# Heatedclothing-brand
+# Frostbyt
 
-Premium heated apparel brand site — Shopify Online Store 2.0 theme plus campaign and inventory assets.
+Premium heated outerwear brand site — Shopify Online Store 2.0 theme plus campaign and inventory assets.
 
 ## Theme
 
@@ -13,10 +13,11 @@ cd heated-store && python3 -m http.server 8765
 
 ## Source assets
 
-| Folder | Contents |
-|--------|----------|
-| `heated-store/` | Theme (Liquid, CSS, JS, preview, padded inventory media) |
+| Folder / file | Contents |
+|---------------|----------|
+| `heated-store/` | Theme (Liquid, CSS, JS, preview, inventory media, logo, icon) |
 | `inventory/` | Original jacket PNGs (black / red / blue) |
 | `gloves/` | Original glove PNGs (black / pink) |
+| `logo.png` / `icon.png` | Frostbyt wordmark and mountain mark |
+| `handwarmer.png` | Featured hand warmer creative |
 | `*.gif` / `*.png` | Campaign stills and motion references |
-# WARMT

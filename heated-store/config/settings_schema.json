@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Heated Store",
-    "theme_version": "1.0.0",
-    "theme_author": "Heated Apparel",
+    "theme_name": "Frostbyt",
+    "theme_version": "1.1.0",
+    "theme_author": "Frostbyt",
     "theme_documentation_url": "https://shopify.dev/docs/themes",
     "theme_support_url": "https://shopify.dev/docs/themes"
   },
@@ -14,7 +14,7 @@
         "type": "text",
         "id": "brand_name",
         "label": "Brand name",
-        "default": "WARMT"
+        "default": "Frostbyt"
       },
       {
         "type": "image_picker",
@@ -25,11 +25,16 @@
         "type": "range",
         "id": "logo_width",
         "min": 60,
-        "max": 220,
+        "max": 280,
         "step": 4,
         "unit": "px",
         "label": "Logo width",
-        "default": 120
+        "default": 160
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
       },
       {
         "type": "textarea",

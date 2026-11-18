@@ -23,6 +23,8 @@
 
 .site-header__logo {
   justify-self: start;
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-heading);
   font-size: 1.35rem;
   letter-spacing: 0.28em;
@@ -30,10 +32,13 @@
   font-weight: 500;
 }
 
-.site-header__logo img {
+.site-header__logo img,
+.site-header__logo-img {
+  display: block;
   width: auto;
   height: auto;
-  max-height: 2rem;
+  max-height: 2.75rem;
+  max-width: min(42vw, 11rem);
 }
 
 .site-header__nav {
@@ -352,6 +357,14 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   margin-bottom: 1rem;
+}
+
+.site-footer__logo-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 4.5rem;
+  max-width: min(70vw, 14rem);
 }
 
 .site-footer__tagline {

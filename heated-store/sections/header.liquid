@@ -17,13 +17,21 @@
           settings.logo
           | image_url: width: settings.logo_width
           | image_tag:
-            alt: shop.name,
-            widths: '120, 180, 240',
+            class: 'site-header__logo-img',
+            alt: settings.brand_name | default: shop.name,
+            widths: '120, 180, 240, 360',
             height: auto,
             loading: 'eager'
         }}
       {%- else -%}
-        {{ settings.brand_name | default: shop.name }}
+        <img
+          class="site-header__logo-img"
+          src="{{ 'logo.png' | asset_url }}"
+          alt="{{ settings.brand_name | default: 'Frostbyt' | escape }}"
+          width="{{ settings.logo_width | default: 160 }}"
+          height="80"
+          loading="eager"
+        >
       {%- endif -%}
     </a>
 

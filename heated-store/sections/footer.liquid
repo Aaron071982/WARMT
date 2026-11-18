@@ -1,7 +1,29 @@
 <footer class="site-footer">
   <div class="page-width site-footer__grid">
     <div>
-      <div class="site-footer__brand">{{ settings.brand_name | default: shop.name }}</div>
+      <div class="site-footer__brand">
+        {%- if settings.logo != blank -%}
+          {{
+            settings.logo
+            | image_url: width: 220
+            | image_tag:
+              class: 'site-footer__logo-img',
+              alt: settings.brand_name | default: shop.name,
+              widths: '160, 220, 320',
+              height: auto,
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img
+            class="site-footer__logo-img"
+            src="{{ 'logo.png' | asset_url }}"
+            alt="{{ settings.brand_name | default: 'Frostbyt' | escape }}"
+            width="180"
+            height="90"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
       <p class="site-footer__tagline">{{ settings.brand_tagline }}</p>
     </div>
 

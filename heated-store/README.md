@@ -79,7 +79,7 @@ Philosophy: *Cold is the environment. Warmth is the experience.*
 
 Full-screen cinematic sections only — no feature grids or urgency badges.
 
-1. **Cinematic hero** — `WARMT. REDEFINED.`
+1. **Cinematic hero** — `FROSTBYT. REDEFINED.`
 2. **City** — rainy campaign
 3. **Outdoors** — lake / fog campaign
 4. **Jackets grid** — black / red / blue hover-glow inventory

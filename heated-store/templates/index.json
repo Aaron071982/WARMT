@@ -3,7 +3,7 @@
     "hero": {
       "type": "cinematic-hero",
       "settings": {
-        "headline": "WARMT. REDEFINED.",
+        "headline": "FROSTBYT. REDEFINED.",
         "supporting_text": "Engineered comfort for wherever life takes you.",
         "cta_label": "EXPLORE JACKETS",
         "cta_link": "/#jackets",
@@ -47,7 +47,7 @@
         "text_alignment": "left",
         "media_alt": "Umbrella heated jacket campaign",
         "media_position": "center 42%",
-        "media_zoom": 82,
+        "media_zoom": 100,
         "overlay_strength": 28,
         "section_height": "100svh",
         "heat_mode": "prerendered"
@@ -136,11 +136,11 @@
       "type": "featured-product",
       "settings": {
         "eyebrow": "Featured",
-        "heading": "BUILT FOR THE COLD.",
-        "text": "Premium heated apparel designed for everyday comfort.",
+        "heading": "RECHARGEABLE HAND WARMER.",
+        "text": "Three heat settings, long battery life, and pocket-ready warmth for the coldest days.",
         "cta_label": "VIEW PRODUCT",
-        "heat_mode": "overlay",
-        "enable_heat_animation": true
+        "heat_mode": "prerendered",
+        "enable_heat_animation": false
       }
     }
   },
