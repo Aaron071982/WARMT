@@ -247,6 +247,29 @@
         </button>
       {%- endif -%}
 
+      <div class="product__purchase-notes" data-purchase-notes>
+        {%- if product.metafields.custom.package_contents != blank -%}
+          <p><strong>Package includes:</strong> {{ product.metafields.custom.package_contents.value }}</p>
+        {%- endif -%}
+        {%- if product.metafields.custom.battery_included != blank -%}
+          <p><strong>Battery &amp; charger:</strong> {{ product.metafields.custom.battery_included.value }}</p>
+        {%- else -%}
+          <p class="product__purchase-notes-pending">
+            Battery and charger inclusion will appear here once product metafields are set.
+            See <a href="/pages/product-safety-and-care">Product Safety &amp; Care</a>.
+          </p>
+        {%- endif -%}
+        <p class="product__policy-links">
+          <a href="/pages/shipping-and-delivery">Shipping</a>
+          <span aria-hidden="true">·</span>
+          <a href="/pages/returns-refunds-exchanges">Returns</a>
+          <span aria-hidden="true">·</span>
+          <a href="/pages/warranty">Warranty</a>
+          <span aria-hidden="true">·</span>
+          <a href="/pages/product-safety-and-care">Safety &amp; Care</a>
+        </p>
+      </div>
+
       <div class="product__meta-blocks">
         <details class="accordion" open>
           <summary class="accordion__trigger">
@@ -255,6 +278,7 @@
           </summary>
           <div class="accordion__content">
             {{ product.metafields.custom.shipping_info.value | default: settings.shipping_info_default }}
+            <p><a href="/pages/shipping-and-delivery">Full shipping details</a></p>
           </div>
         </details>
 
@@ -265,6 +289,7 @@
           </summary>
           <div class="accordion__content">
             {{ product.metafields.custom.returns_info.value | default: settings.returns_info_default }}
+            <p><a href="/pages/returns-refunds-exchanges">Full returns details</a></p>
           </div>
         </details>
 
@@ -288,8 +313,11 @@
               {%- if mf.battery_capacity != blank -%}
                 <div class="spec-list__row"><span class="spec-list__label">Battery capacity</span><span>{{ mf.battery_capacity.value }}</span></div>
               {%- endif -%}
+              {%- if mf.package_contents != blank -%}
+                <div class="spec-list__row"><span class="spec-list__label">Package contents</span><span>{{ mf.package_contents.value }}</span></div>
+              {%- endif -%}
               {%- if mf.battery_included != blank -%}
-                <div class="spec-list__row"><span class="spec-list__label">Battery included</span><span>{{ mf.battery_included.value }}</span></div>
+                <div class="spec-list__row"><span class="spec-list__label">Battery &amp; charger</span><span>{{ mf.battery_included.value }}</span></div>
               {%- endif -%}
               {%- if mf.tested_runtime != blank -%}
                 <div class="spec-list__row"><span class="spec-list__label">Tested runtime</span><span>{{ mf.tested_runtime.value }}</span></div>
@@ -310,9 +338,10 @@
                 <div class="spec-list__row"><span class="spec-list__label">Warranty</span><span>{{ mf.warranty.value }}</span></div>
               {%- endif -%}
             </div>
-            {%- unless mf.heating_zones != blank or mf.heat_settings != blank or mf.battery_capacity != blank or mf.material != blank -%}
-              <p>Specifications will appear here when product metafields are configured.</p>
+            {%- unless mf.heating_zones != blank or mf.heat_settings != blank or mf.battery_capacity != blank or mf.material != blank or mf.package_contents != blank or mf.battery_included != blank -%}
+              <p>Specifications will appear here when product metafields are configured. Do not invent runtime, certification, or package claims.</p>
             {%- endunless -%}
+            <p><a href="/pages/product-safety-and-care">Product Safety &amp; Care</a></p>
           </div>
         </details>
 

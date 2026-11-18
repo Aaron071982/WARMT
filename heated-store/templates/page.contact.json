@@ -1,8 +1,13 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
-      "settings": {}
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Support",
+        "show_updated_note": false,
+        "show_related_links": true,
+        "outline_html": "<h2>Contact &amp; Business Information outline</h2><ul><li>[REQUIRED: legal business name / trading name]</li><li>[REQUIRED: customer-support email and response expectations]</li><li>[REQUIRED: business / contact address where disclosure is required]</li><li>[REQUIRED: registration / tax identifiers where applicable]</li><li>[REQUIRED: privacy contact if different from support]</li></ul><p class=\"page-placeholder-note\">Use Shopify’s Contact form or a monitored inbox. Do not show a success state unless delivery works.</p>"
+      }
     }
   },
   "order": ["main"]

@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Product",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Product Safety &amp; Care outline</h2><ul><li>[REQUIRED: package contents — battery / charger included or not]</li><li>[REQUIRED: heating zones, settings, and verified runtime conditions]</li><li>[REQUIRED: charging and compatibility information]</li><li>[REQUIRED: care / washing instructions]</li><li>[REQUIRED: safety warnings for heated apparel and batteries]</li><li>[REQUIRED: link or embed of the actual product manual]</li><li>[REQUIRED: manufacturer / importer / responsible person details where applicable]</li><li>[REQUIRED: battery disposal / producer-responsibility information where applicable]</li></ul><p class=\"page-placeholder-note\">Do not invent certifications, medical claims, or untested runtime figures.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}

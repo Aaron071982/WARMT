@@ -43,6 +43,7 @@
 
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'media-controller.js' | asset_url }}" defer></script>
+    <script src="{{ 'privacy-controls.js' | asset_url }}" defer></script>
 
     <script>
       document.documentElement.classList.remove('no-js');
@@ -82,7 +83,7 @@
         --body-scale: {{ settings.body_scale | divided_by: 100.0 }};
         --font-heading: {% if settings.font_heading == 'sans' %}'DM Sans', system-ui, sans-serif{% else %}'Cormorant Garamond', 'Times New Roman', serif{% endif %};
         --font-body: 'DM Sans', system-ui, sans-serif;
-        --header-height: 4.5rem;
+        --header-height: 5.5rem;
       }
     </style>
   </head>
@@ -101,6 +102,8 @@
     {% if settings.cart_drawer_enable %}
       {% render 'cart-drawer' %}
     {% endif %}
+
+    {% render 'cookie-banner' %}
 
     <div id="CartToast" class="cart-toast" hidden role="status" aria-live="polite"></div>
   </body>

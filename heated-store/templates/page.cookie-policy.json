@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Legal &amp; Privacy",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Cookie Policy outline</h2><ul><li>[REQUIRED: necessary cookies used by Shopify / the storefront]</li><li>[REQUIRED: analytics providers actually installed]</li><li>[REQUIRED: marketing / advertising pixels actually installed]</li><li>[REQUIRED: retention periods where known]</li><li>[REQUIRED: how to change preferences via Cookie Preferences]</li></ul><p class=\"page-placeholder-note\">List only tools that are live. Empty optional categories should stay off by default.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}

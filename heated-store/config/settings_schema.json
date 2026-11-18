@@ -24,12 +24,12 @@
       {
         "type": "range",
         "id": "logo_width",
-        "min": 60,
-        "max": 280,
+        "min": 80,
+        "max": 320,
         "step": 4,
         "unit": "px",
         "label": "Logo width",
-        "default": 160
+        "default": 220
       },
       {
         "type": "image_picker",
@@ -41,6 +41,30 @@
         "id": "brand_tagline",
         "label": "Brand tagline",
         "default": "Cold is the environment. Warmth is the experience."
+      },
+      {
+        "type": "text",
+        "id": "legal_business_name",
+        "label": "Legal business name",
+        "info": "Shown in the footer when provided. Leave blank until verified."
+      },
+      {
+        "type": "textarea",
+        "id": "legal_business_address",
+        "label": "Business / contact address",
+        "info": "Shown in the footer when provided. Leave blank until verified."
+      },
+      {
+        "type": "text",
+        "id": "support_email",
+        "label": "Support email",
+        "info": "Customer-facing support contact once monitored."
+      },
+      {
+        "type": "text",
+        "id": "privacy_email",
+        "label": "Privacy email",
+        "info": "Privacy-request destination once monitored."
       }
     ]
   },

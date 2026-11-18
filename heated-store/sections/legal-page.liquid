@@ -1,0 +1,107 @@
+{%- comment -%}
+  Structured customer-information page.
+  Renders Shopify page content when provided.
+  When empty, shows an incomplete-state outline — not inventable legal copy.
+{%- endcomment -%}
+
+<section class="page-shell legal-page" data-legal-page>
+  <div class="page-width page-width--narrow">
+    <header class="legal-page__header">
+      <p class="legal-page__eyebrow">{{ section.settings.eyebrow | default: 'Customer information' }}</p>
+      <h1 class="page-shell__title h2">{{ page.title }}</h1>
+      {%- if section.settings.show_updated_note -%}
+        <p class="legal-page__updated">
+          Effective / updated date:
+          {%- if page.updated_at != blank -%}
+            {{ page.updated_at | date: '%B %d, %Y' }}
+          {%- else -%}
+            <span class="legal-page__missing">[REQUIRED: set when publishing verified copy]</span>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <div class="page-shell__content rte legal-page__content">
+      {%- if page.content != blank -%}
+        {{ page.content }}
+      {%- else -%}
+        <div class="legal-page__incomplete" role="status">
+          <p><strong>This page is not ready for public launch.</strong></p>
+          <p>
+            Verified business, product, shipping, privacy, or warranty details have not been provided yet.
+            Do not treat this outline as a published policy.
+          </p>
+        </div>
+
+        {%- if section.settings.outline_html != blank -%}
+          <div class="legal-page__outline">
+            {{ section.settings.outline_html }}
+          </div>
+        {%- else -%}
+          <div class="legal-page__outline">
+            <h2>What belongs here</h2>
+            <ul>
+              <li>[REQUIRED: legal business name and trading name]</li>
+              <li>[REQUIRED: business country / contact address]</li>
+              <li>[REQUIRED: customer-support and privacy contact details]</li>
+              <li>[REQUIRED: markets served and actual operating practices]</li>
+              <li>[REQUIRED: jurisdiction-specific consumer and privacy notices after legal review]</li>
+            </ul>
+            <p class="page-placeholder-note">
+              Replace this outline in Shopify Admin → Pages with verified copy before publishing.
+            </p>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_related_links -%}
+      <nav class="legal-page__related" aria-label="Related customer information">
+        <h2 class="legal-page__related-title">Related</h2>
+        <ul class="legal-page__related-list list-reset">
+          <li><a href="/pages/shipping-and-delivery">Shipping &amp; Delivery</a></li>
+          <li><a href="/pages/returns-refunds-exchanges">Returns, Refunds &amp; Exchanges</a></li>
+          <li><a href="/pages/warranty">Warranty</a></li>
+          <li><a href="/pages/product-safety-and-care">Product Safety &amp; Care</a></li>
+          <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/pages/cookie-policy">Cookie Policy</a></li>
+          <li><a href="/pages/privacy-choices">Your Privacy Choices</a></li>
+          <li><a href="/pages/accessibility">Accessibility</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+        </ul>
+      </nav>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Legal / info page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Customer information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_updated_note",
+      "label": "Show updated date line",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_links",
+      "label": "Show related links",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "outline_html",
+      "label": "Incomplete-state outline (HTML)",
+      "info": "Shown only when the Shopify page body is empty. Use [REQUIRED: …] markers. Do not invent facts."
+    }
+  ]
+}
+{% endschema %}

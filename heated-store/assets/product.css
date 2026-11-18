@@ -186,6 +186,36 @@
   color: var(--color-heat);
 }
 
+.product__purchase-notes {
+  margin-top: 1.5rem;
+  padding: 1rem 0 0;
+  border-top: 1px solid rgba(11, 11, 11, 0.12);
+  display: grid;
+  gap: 0.65rem;
+  color: rgba(11, 11, 11, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.product__purchase-notes-pending {
+  color: rgba(11, 11, 11, 0.62);
+}
+
+.product__policy-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.product__policy-links a {
+  color: var(--color-bg);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .product__meta-blocks {
   display: grid;
   gap: 0;

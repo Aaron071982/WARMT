@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Product",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Warranty outline</h2><ul><li>[REQUIRED: what the commercial warranty covers]</li><li>[REQUIRED: warranty period]</li><li>[REQUIRED: how to make a claim]</li><li>[REQUIRED: exclusions]</li><li>[REQUIRED: statement that statutory consumer rights are not replaced]</li></ul><p class=\"page-placeholder-note\">Commercial warranty text must be reviewed against destination-market law.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}
