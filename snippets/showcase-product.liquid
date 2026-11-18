@@ -152,7 +152,7 @@
 
     {%- comment -%} Buy box {%- endcomment -%}
     <div class="product__info">
-      <p class="product__vendor">{{ settings.brand_name | default: 'WARMT' }}</p>
+      <p class="product__vendor">{{ settings.brand_name | default: 'Frostbyt' }}</p>
       <h2 class="product__title h1" data-product-title>{{ p.title | default: fallback_title }}</h2>
 
       {%- if p != blank -%}
@@ -261,6 +261,8 @@
         {%- endform -%}
 
         <a class="product__full-link" href="{{ p.url }}">View full product details</a>
+        {%- render 'policy-links' -%}
+
       {%- endif -%}
 
       <div class="product__meta-blocks">

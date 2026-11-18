@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Heated Store",
-    "theme_version": "1.0.0",
-    "theme_author": "Heated Apparel",
+    "theme_name": "Frostbyt",
+    "theme_version": "1.1.0",
+    "theme_author": "Frostbyt",
     "theme_documentation_url": "https://shopify.dev/docs/themes",
     "theme_support_url": "https://shopify.dev/docs/themes"
   },
@@ -14,7 +14,7 @@
         "type": "text",
         "id": "brand_name",
         "label": "Brand name",
-        "default": "WARMT"
+        "default": "Frostbyt"
       },
       {
         "type": "image_picker",
@@ -24,18 +24,47 @@
       {
         "type": "range",
         "id": "logo_width",
-        "min": 60,
-        "max": 220,
+        "min": 80,
+        "max": 320,
         "step": 4,
         "unit": "px",
         "label": "Logo width",
-        "default": 120
+        "default": 220
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
       },
       {
         "type": "textarea",
         "id": "brand_tagline",
         "label": "Brand tagline",
         "default": "Cold is the environment. Warmth is the experience."
+      },
+      {
+        "type": "text",
+        "id": "legal_business_name",
+        "label": "Legal business name",
+        "info": "Shown in the footer when provided. Leave blank until verified."
+      },
+      {
+        "type": "textarea",
+        "id": "legal_business_address",
+        "label": "Business / contact address",
+        "info": "Shown in the footer when provided. Leave blank until verified."
+      },
+      {
+        "type": "text",
+        "id": "support_email",
+        "label": "Support email",
+        "info": "Customer-facing support contact once monitored."
+      },
+      {
+        "type": "text",
+        "id": "privacy_email",
+        "label": "Privacy email",
+        "info": "Privacy-request destination once monitored."
       }
     ]
   },

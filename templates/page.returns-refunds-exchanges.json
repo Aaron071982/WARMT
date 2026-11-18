@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Support",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Returns, Refunds &amp; Exchanges outline</h2><ul><li>[REQUIRED: return window and eligibility]</li><li>[REQUIRED: how to start a return]</li><li>[REQUIRED: refund method and timing]</li><li>[REQUIRED: exchange rules]</li><li>[REQUIRED: non-returnable items, if any]</li><li>[REQUIRED: jurisdiction-specific cancellation / withdrawal rights after legal review]</li></ul><p class=\"page-placeholder-note\">Do not publish until operations match this page.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}

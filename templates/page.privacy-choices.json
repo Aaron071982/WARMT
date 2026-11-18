@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Legal &amp; Privacy",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Your Privacy Choices outline</h2><ul><li>[REQUIRED: how to access Cookie Preferences]</li><li>[REQUIRED: how to submit an access / deletion / correction request]</li><li>[REQUIRED: privacy contact email or address]</li><li>[REQUIRED: sale/share / targeted-advertising opt-out language after legal review for applicable regions]</li><li>[REQUIRED: Global Privacy Control / browser-signal handling as configured in Shopify]</li></ul><p class=\"page-placeholder-note\">Wire requests to a monitored inbox before launch.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}
