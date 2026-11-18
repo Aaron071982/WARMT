@@ -1,0 +1,105 @@
+{%- comment -%}
+  Compact privacy notice + preferences.
+  Integrates with Shopify Customer Privacy API when available.
+  Does not invent tracking categories beyond what the store actually configures.
+{%- endcomment -%}
+
+<div
+  class="privacy-banner"
+  data-privacy-banner
+  hidden
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="privacy-banner-title"
+  aria-describedby="privacy-banner-text"
+>
+  <div class="privacy-banner__inner page-width">
+    <div class="privacy-banner__copy">
+      <h2 id="privacy-banner-title" class="privacy-banner__title">Cookies &amp; privacy</h2>
+      <p id="privacy-banner-text" class="privacy-banner__text">
+        We use necessary cookies to run the store. Optional cookies are used only if you allow them,
+        for purposes such as analytics or marketing when those tools are installed.
+        See the
+        <a href="/pages/cookie-policy">Cookie Policy</a>
+        and
+        <a href="/policies/privacy-policy">Privacy Policy</a>.
+      </p>
+    </div>
+    <div class="privacy-banner__actions">
+      <button type="button" class="btn btn--ghost privacy-banner__btn" data-privacy-reject>
+        Reject optional cookies
+      </button>
+      <button type="button" class="btn btn--ghost privacy-banner__btn" data-privacy-customize>
+        Customize
+      </button>
+      <button type="button" class="btn privacy-banner__btn" data-privacy-accept>
+        Accept optional cookies
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="privacy-prefs" data-privacy-prefs hidden>
+  <div class="privacy-prefs__overlay" data-privacy-prefs-close></div>
+  <div
+    class="privacy-prefs__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="privacy-prefs-title"
+  >
+    <div class="privacy-prefs__header">
+      <h2 id="privacy-prefs-title" class="privacy-prefs__title">Cookie preferences</h2>
+      <button type="button" class="icon-btn" data-privacy-prefs-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="privacy-prefs__body">
+      <p class="privacy-prefs__intro">
+        Necessary cookies stay on. Optional categories below stay off until you choose otherwise.
+        Preferences can be changed any time from Cookie Preferences in the footer.
+      </p>
+
+      <fieldset class="privacy-prefs__group">
+        <legend class="privacy-prefs__legend">Necessary</legend>
+        <label class="privacy-prefs__row">
+          <span>
+            <strong>Always on</strong>
+            <span class="privacy-prefs__hint">Required for cart, checkout, security, and basic store operation.</span>
+          </span>
+          <input type="checkbox" checked disabled aria-disabled="true">
+        </label>
+      </fieldset>
+
+      <fieldset class="privacy-prefs__group">
+        <legend class="privacy-prefs__legend">Analytics</legend>
+        <label class="privacy-prefs__row">
+          <span>
+            <strong>Optional</strong>
+            <span class="privacy-prefs__hint">Helps understand store performance when analytics tools are installed. Off by default.</span>
+          </span>
+          <input type="checkbox" data-privacy-analytics>
+        </label>
+      </fieldset>
+
+      <fieldset class="privacy-prefs__group">
+        <legend class="privacy-prefs__legend">Marketing</legend>
+        <label class="privacy-prefs__row">
+          <span>
+            <strong>Optional</strong>
+            <span class="privacy-prefs__hint">Used for advertising or remarketing when those tools are installed. Off by default.</span>
+          </span>
+          <input type="checkbox" data-privacy-marketing>
+        </label>
+      </fieldset>
+
+      <p class="privacy-prefs__note">
+        Actual tools and providers must match your live Shopify apps, pixels, and Privacy settings.
+        Preferences are applied through Shopify’s customer privacy controls when available.
+      </p>
+    </div>
+    <div class="privacy-prefs__footer">
+      <button type="button" class="btn btn--ghost" data-privacy-prefs-close>Cancel</button>
+      <button type="button" class="btn" data-privacy-save>Save preferences</button>
+    </div>
+  </div>
+</div>

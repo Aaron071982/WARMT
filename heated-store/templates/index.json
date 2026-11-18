@@ -3,7 +3,7 @@
     "hero": {
       "type": "cinematic-hero",
       "settings": {
-        "headline": "WARMT. REDEFINED.",
+        "headline": "FROSTBYT. REDEFINED.",
         "supporting_text": "Engineered comfort for wherever life takes you.",
         "cta_label": "EXPLORE JACKETS",
         "cta_link": "/#jackets",
@@ -47,7 +47,7 @@
         "text_alignment": "left",
         "media_alt": "Umbrella heated jacket campaign",
         "media_position": "center 42%",
-        "media_zoom": 82,
+        "media_zoom": 100,
         "overlay_strength": 30,
         "section_height": "100svh",
         "heat_mode": "prerendered"
@@ -134,8 +134,8 @@
       "settings": {
         "product": "power-bank-hand-warmer",
         "eyebrow": "Add-on",
-        "heading": "POWER FOR THE COLD.",
-        "text": "A rechargeable hand warmer with 3 heat levels that doubles as a 10,000mAh power bank for your heated jacket or phone.",
+        "heading": "RECHARGEABLE HAND WARMER.",
+        "text": "Three heat settings and a built-in 10,000mAh power bank for your heated jacket or phone, pocket-ready for the coldest days.",
         "cta_label": "VIEW PRODUCT",
         "heat_mode": "prerendered",
         "enable_heat_animation": false

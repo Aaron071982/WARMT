@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Support",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Shipping &amp; Delivery outline</h2><ul><li>[REQUIRED: processing / dispatch times]</li><li>[REQUIRED: shipping rates by region]</li><li>[REQUIRED: carrier and transit estimates]</li><li>[REQUIRED: countries / regions served]</li><li>[REQUIRED: customs, duties, and undeliverable-order handling]</li><li>[REQUIRED: order tracking process]</li></ul><p class=\"page-placeholder-note\">Publish only after rates and timelines match live Shopify shipping settings.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}

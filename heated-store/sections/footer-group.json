@@ -5,11 +5,11 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "menu": "footer",
-        "show_newsletter": false,
         "copyright_text": "All rights reserved."
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }

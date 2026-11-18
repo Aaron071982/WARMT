@@ -17,12 +17,20 @@
           settings.logo
           | image_url: width: settings.logo_width
           | image_tag:
-            alt: shop.name,
-            widths: '120, 180, 240',
+            class: 'site-header__logo-img',
+            alt: settings.brand_name | default: shop.name,
+            widths: '120, 180, 240, 360',
             loading: 'eager'
         }}
       {%- else -%}
-        {{ settings.brand_name | default: shop.name }}
+        <img
+          class="site-header__logo-img"
+          src="{{ 'logo.png' | asset_url }}"
+          alt="{{ settings.brand_name | default: 'Frostbyt' | escape }}"
+          width="{{ settings.logo_width | default: 220 }}"
+          height="110"
+          loading="eager"
+        >
       {%- endif -%}
     </a>
 
@@ -36,10 +44,10 @@
           {%- endfor -%}
         {%- else -%}
           <li><a class="site-header__nav-link" href="{{ routes.all_products_collection_url }}">Shop</a></li>
-          <li><a class="site-header__nav-link" href="{% if template.name == 'index' %}#jackets{% else %}{{ routes.root_url }}#jackets{% endif %}">Jackets</a></li>
-          <li><a class="site-header__nav-link" href="{% if template.name == 'index' %}#gloves{% else %}{{ routes.root_url }}#gloves{% endif %}">Gloves</a></li>
-          <li><a class="site-header__nav-link" href="{% if template.name == 'index' %}#vests{% else %}{{ routes.root_url }}#vests{% endif %}">Vests</a></li>
-          {%- if pages["our-technology"] != empty -%}<li><a class="site-header__nav-link" href="/pages/our-technology">Our Technology</a></li>{%- endif -%}
+          <li><a class="site-header__nav-link" href="{% if template.name == 'index' %}#jackets{% else %}/collections/jackets{% endif %}">Jackets</a></li>
+          <li><a class="site-header__nav-link" href="{% if template.name == 'index' %}#gloves{% else %}/collections/accessories{% endif %}">Gloves</a></li>
+          <li><a class="site-header__nav-link" href="{% if template.name == 'index' %}#vests{% else %}/#vests{% endif %}">Vests</a></li>
+          <li><a class="site-header__nav-link" href="/pages/our-technology">Our Technology</a></li>
         {%- endif -%}
       </ul>
     </nav>
@@ -102,10 +110,10 @@
       {%- endfor -%}
     {%- else -%}
       <li><a class="mobile-nav__link" href="{{ routes.all_products_collection_url }}">Shop</a></li>
-      <li><a class="mobile-nav__link" href="{% if template.name == 'index' %}#jackets{% else %}{{ routes.root_url }}#jackets{% endif %}">Jackets</a></li>
-      <li><a class="mobile-nav__link" href="{% if template.name == 'index' %}#gloves{% else %}{{ routes.root_url }}#gloves{% endif %}">Gloves</a></li>
-      <li><a class="mobile-nav__link" href="{% if template.name == 'index' %}#vests{% else %}{{ routes.root_url }}#vests{% endif %}">Vests</a></li>
-      {%- if pages["our-technology"] != empty -%}<li><a class="mobile-nav__link" href="/pages/our-technology">Our Technology</a></li>{%- endif -%}
+      <li><a class="mobile-nav__link" href="{% if template.name == 'index' %}#jackets{% else %}/collections/jackets{% endif %}">Jackets</a></li>
+      <li><a class="mobile-nav__link" href="{% if template.name == 'index' %}#gloves{% else %}/collections/accessories{% endif %}">Gloves</a></li>
+      <li><a class="mobile-nav__link" href="{% if template.name == 'index' %}#vests{% else %}/#vests{% endif %}">Vests</a></li>
+      <li><a class="mobile-nav__link" href="/pages/our-technology">Our Technology</a></li>
     {%- endif -%}
   </ul>
 </nav>

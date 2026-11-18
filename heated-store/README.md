@@ -79,7 +79,7 @@ Philosophy: *Cold is the environment. Warmth is the experience.*
 
 Full-screen cinematic sections only — no feature grids or urgency badges.
 
-1. **Cinematic hero** — `WARMT. REDEFINED.`
+1. **Cinematic hero** — `FROSTBYT. REDEFINED.`
 2. **City** — rainy campaign
 3. **Outdoors** — lake / fog campaign
 4. **Jackets grid** — black / red / blue hover-glow inventory
@@ -116,8 +116,9 @@ Create metafields under namespace `custom` (Product):
 | `heating_zones` | Specs accordion |
 | `heat_settings` | Specs |
 | `battery_capacity` | Specs |
-| `battery_included` | Specs |
-| `tested_runtime` | Specs |
+| `battery_included` | Battery & charger disclosure |
+| `package_contents` | Package contents |
+| `tested_runtime` | Specs (include test conditions) |
 | `charging_info` | Specs |
 | `material` | Specs |
 | `washing_instructions` | Specs |
@@ -135,15 +136,24 @@ Empty metafields are hidden — nothing fabricated is shown.
 
 ## Pages to create in Admin
 
-Create these pages and assign templates where noted:
+Create these pages and assign templates where noted. See [`docs/POLICY_STATUS.md`](./docs/POLICY_STATUS.md) before publishing legal copy.
 
 | Page | Handle | Template |
 |------|--------|----------|
 | About | `about` | `page.about` |
 | Contact | `contact` | `page.contact` |
 | Our Technology | `our-technology` | `page.our-technology` |
-| Shipping and Returns | `shipping-and-returns` | `page.shipping-and-returns` |
+| Shipping & Delivery | `shipping-and-delivery` | `page.shipping-and-delivery` |
+| Returns, Refunds & Exchanges | `returns-refunds-exchanges` | `page.returns-refunds-exchanges` |
+| Warranty | `warranty` | `page.warranty` |
+| Cookie Policy | `cookie-policy` | `page.cookie-policy` |
+| Product Safety & Care | `product-safety-and-care` | `page.product-safety-and-care` |
+| Your Privacy Choices | `privacy-choices` | `page.privacy-choices` |
+| Accessibility | `accessibility` | `page.accessibility` |
+| Shipping and Returns (legacy) | `shipping-and-returns` | `page.shipping-and-returns` |
 | Privacy / Terms | Shopify Policies | native policy pages |
+
+Also set Theme settings → Brand: legal business name, address, support email, privacy email.
 
 Navigation: create a **main-menu** with Shop, Jackets, Accessories, Our Technology.
 

@@ -247,6 +247,16 @@
         </button>
       {%- endif -%}
 
+      <div class="product__purchase-notes" data-purchase-notes>
+        {%- if product.metafields.custom.package_contents != blank -%}
+          <p><strong>Package includes:</strong> {{ product.metafields.custom.package_contents.value }}</p>
+        {%- endif -%}
+        {%- if product.metafields.custom.battery_included != blank -%}
+          <p><strong>Battery &amp; charger:</strong> {{ product.metafields.custom.battery_included.value }}</p>
+        {%- endif -%}
+        {%- render 'policy-links' -%}
+      </div>
+
       <div class="product__meta-blocks">
         {%- liquid
           assign ship_text = product.metafields.custom.shipping_info.value | default: settings.shipping_info_default

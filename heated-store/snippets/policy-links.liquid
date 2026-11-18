@@ -1,0 +1,14 @@
+{%- comment -%} Links to customer-information pages that exist in this store. {%- endcomment -%}
+{%- assign handles = 'shipping-and-delivery,returns-refunds-exchanges,warranty,product-safety-and-care' | split: ',' -%}
+{%- assign labels = 'Shipping,Returns,Warranty,Safety &amp; Care' | split: ',' -%}
+{%- capture links -%}
+  {%- for h in handles -%}
+    {%- if pages[h] != empty -%}<a href="{{ pages[h].url }}">{{ labels[forloop.index0] }}</a>|{%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign link_list = links | split: '|' -%}
+{%- if link_list.size > 0 -%}
+  <p class="product__policy-links">
+    {%- for l in link_list -%}{{ l }}{%- unless forloop.last -%} <span aria-hidden="true">·</span> {% endunless -%}{%- endfor -%}
+  </p>
+{%- endif -%}

@@ -216,6 +216,18 @@ h1, h2, h3, h4, .heading {
   color: var(--color-white);
 }
 
+.btn--ghost {
+  background: transparent;
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  border-color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .btn--heat {
   border-color: var(--color-heat);
   color: var(--color-heat);

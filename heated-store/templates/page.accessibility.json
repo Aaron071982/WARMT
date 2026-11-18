@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "legal-page",
+      "settings": {
+        "eyebrow": "Support",
+        "show_updated_note": true,
+        "show_related_links": true,
+        "outline_html": "<h2>Accessibility outline</h2><ul><li>This storefront aims to support keyboard use, visible focus, and reduced-motion preferences.</li><li>[REQUIRED: accessibility help contact route]</li><li>[REQUIRED: known limitations and remediation timeline, if any]</li><li>[REQUIRED: any formal accessibility statement after review]</li></ul><p class=\"page-placeholder-note\">Do not claim WCAG conformance without an appropriate assessment.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}
