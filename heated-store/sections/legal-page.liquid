@@ -9,15 +9,8 @@
     <header class="legal-page__header">
       <p class="legal-page__eyebrow">{{ section.settings.eyebrow | default: 'Customer information' }}</p>
       <h1 class="page-shell__title h2">{{ page.title }}</h1>
-      {%- if section.settings.show_updated_note -%}
-        <p class="legal-page__updated">
-          Effective / updated date:
-          {%- if page.updated_at != blank -%}
-            {{ page.updated_at | date: '%B %d, %Y' }}
-          {%- else -%}
-            <span class="legal-page__missing">[REQUIRED: set when publishing verified copy]</span>
-          {%- endif -%}
-        </p>
+      {%- if section.settings.show_updated_note and page.content != blank and page.published_at != blank -%}
+        <p class="legal-page__updated">Effective: {{ page.published_at | date: '%B %d, %Y' }}</p>
       {%- endif -%}
     </header>
 
@@ -54,6 +47,36 @@
         {%- endif -%}
       {%- endif -%}
     </div>
+
+
+    {%- if section.settings.show_contact_form -%}
+      <div class="legal-page__contact-form">
+        {%- form 'contact', id: 'ContactForm' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="form-status" role="status">Thanks, your message was sent. We'll reply by email.</p>
+          {%- elsif form.errors -%}
+            <div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>
+          {%- endif -%}
+          <div class="field">
+            <label class="field__label" for="ContactForm-name">Name</label>
+            <input class="field__input" id="ContactForm-name" type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ContactForm-email">Email <span aria-hidden="true">*</span></label>
+            <input class="field__input" id="ContactForm-email" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ContactForm-order">Order number (if you have one)</label>
+            <input class="field__input" id="ContactForm-order" type="text" name="contact[order_number]" value="{{ form.order_number }}">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ContactForm-body">Message <span aria-hidden="true">*</span></label>
+            <textarea class="field__input" id="ContactForm-body" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+          </div>
+          <button type="submit" class="btn btn--dark">Send message</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
 
     {%- if section.settings.show_related_links -%}
       <nav class="legal-page__related" aria-label="Related customer information">
@@ -95,6 +118,12 @@
       "id": "show_related_links",
       "label": "Show related links",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_form",
+      "label": "Show contact form",
+      "default": false
     },
     {
       "type": "html",

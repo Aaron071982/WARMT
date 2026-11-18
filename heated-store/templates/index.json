@@ -22,7 +22,7 @@
       "type": "cinematic-story",
       "settings": {
         "slot_label": "CITY_CAMPAIGN",
-        "placeholder_asset": "placeholder-media/city-campaign.mp4",
+        "placeholder_asset": "ph-city-campaign.mp4",
         "headline": "THE CITY DOESN'T STOP.",
         "supporting_text": "NEITHER SHOULD YOU.",
         "cta_label": "DISCOVER HEATED JACKETS",
@@ -39,7 +39,7 @@
       "type": "cinematic-story",
       "settings": {
         "slot_label": "OUTDOOR_CAMPAIGN",
-        "placeholder_asset": "placeholder-media/outdoor-campaign.mp4",
+        "placeholder_asset": "ph-outdoor-campaign.mp4",
         "headline": "STAY FOR THE MOMENT.",
         "supporting_text": "Warmth that keeps pace with the outdoors.",
         "cta_label": "EXPLORE OUTDOOR WARMTH",
@@ -48,7 +48,7 @@
         "media_alt": "Umbrella heated jacket campaign",
         "media_position": "center 42%",
         "media_zoom": 100,
-        "overlay_strength": 28,
+        "overlay_strength": 30,
         "section_height": "100svh",
         "heat_mode": "prerendered"
       }
@@ -56,49 +56,47 @@
     "jackets": {
       "type": "inventory-grid",
       "settings": {
+        "product": "heated-jacket",
         "heading": "JACKETS.",
         "subheading": "Hover to reveal heat. Choose your color.",
-        "price_label": "Select color & heat zones",
         "section_id": "jackets",
-        "black_link": "/#product-black",
-        "red_link": "/#product-red",
-        "blue_link": "/#product-blue",
+        "heat_label": "",
         "show_hint": true
       }
     },
     "jacket_product": {
       "type": "inventory-product",
       "settings": {
+        "product": "heated-jacket",
         "default_color": "black",
-        "price_label": "Price set in Shopify",
-        "description": "Premium heated puffer with selectable heat-zone configurations. Choose 2, 4, 8, or 9 zones for the warmth you need."
+        "description": "A lightweight hooded jacket with built-in carbon-fiber heating. Warm in seconds at the press of a button, 3 heat levels, unisex sizes S to 6XL.",
+        "size_note": "Runs 1\u20132 sizes small. We recommend ordering one size up."
       }
     },
     "gloves": {
       "type": "gloves-grid",
       "settings": {
+        "product": "rechargeable-heated-gloves",
         "heading": "GLOVES.",
         "subheading": "Hover to reveal heat. Choose your color.",
         "section_id": "gloves",
-        "price_label": "Select color",
-        "black_link": "/#product-gloves-black",
-        "pink_link": "/#product-gloves-pink",
+        "heat_label": "3 heat levels",
         "show_hint": true
       }
     },
     "gloves_product": {
       "type": "gloves-product",
       "settings": {
+        "product": "rechargeable-heated-gloves",
         "default_color": "black",
-        "price_label": "Price set in Shopify",
-        "description": "Heated gloves with dual-zone warmth across the palm and back of hand. Choose black or pink."
+        "description": "Rechargeable heated gloves that warm the back of your hand and your fingers, with 3 heat levels on the digital display."
       }
     },
     "vest_story": {
       "type": "cinematic-story",
       "settings": {
         "slot_label": "VEST_FIRESIDE",
-        "placeholder_asset": "placeholder-media/vest-fireside.mp4",
+        "placeholder_asset": "ph-vest-fireside.mp4",
         "headline": "THE FIRE STAYS WITH YOU.",
         "supporting_text": "Warmth for the cabin, and the cold beyond it.",
         "cta_label": "EXPLORE HEATED VESTS",
@@ -106,7 +104,7 @@
         "text_alignment": "left",
         "media_alt": "Heated vest by the fireside",
         "media_position": "center center",
-        "overlay_strength": 32,
+        "overlay_strength": 30,
         "section_height": "100svh",
         "heat_mode": "prerendered"
       }
@@ -114,30 +112,30 @@
     "vests": {
       "type": "vests-grid",
       "settings": {
+        "product": "usb-heated-vest",
         "heading": "VESTS.",
         "subheading": "Hover to reveal heat. Choose your color.",
         "section_id": "vests",
-        "price_label": "Select color",
-        "black_link": "/#product-vest-black",
-        "red_link": "/#product-vest-red",
-        "blue_link": "/#product-vest-blue",
+        "heat_label": "",
         "show_hint": true
       }
     },
     "vest_product": {
       "type": "vests-product",
       "settings": {
+        "product": "usb-heated-vest",
         "default_color": "black",
-        "price_label": "Price set in Shopify",
-        "description": "Heated vest with warmth across the collar and core. Choose black, red, or blue."
+        "description": "A light, warm layer that heats your core at the press of a button. Wear it on its own or under a coat.",
+        "size_note": "Runs 1\u20132 sizes small. Order one or two sizes up."
       }
     },
     "featured": {
       "type": "featured-product",
       "settings": {
-        "eyebrow": "Featured",
+        "product": "power-bank-hand-warmer",
+        "eyebrow": "Add-on",
         "heading": "RECHARGEABLE HAND WARMER.",
-        "text": "Three heat settings, long battery life, and pocket-ready warmth for the coldest days.",
+        "text": "Three heat settings and a built-in 10,000mAh power bank for your heated jacket or phone, pocket-ready for the coldest days.",
         "cta_label": "VIEW PRODUCT",
         "heat_mode": "prerendered",
         "enable_heat_animation": false

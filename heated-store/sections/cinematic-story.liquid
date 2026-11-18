@@ -6,7 +6,7 @@
   assign position = section.settings.media_position | default: 'center center'
   assign heat_mode = section.settings.heat_mode | default: 'prerendered'
   assign slot = section.settings.slot_label | default: 'CAMPAIGN'
-  assign placeholder = section.settings.placeholder_asset | default: 'placeholder-media/city-campaign.mp4'
+  assign placeholder = section.settings.placeholder_asset | default: 'ph-city-campaign.mp4'
   assign media_zoom = section.settings.media_zoom | default: 100
   assign zoom_factor = media_zoom | divided_by: 100.0
   assign zoom_class = ''
@@ -21,6 +21,8 @@
   data-cinematic-media
 >
   <div class="cinematic__media {% if zoom_class != blank %}is-zoomed-out{% endif %}">
+    {%- assign rarg_opacity = section.settings.heat_opacity | divided_by: 100.0 -%}
+    {%- assign rarg_glow = section.settings.heat_glow | divided_by: 100.0 -%}
     {% render 'heat-animation',
       mode: heat_mode,
       enable_animation: section.settings.enable_heat_animation,
@@ -32,8 +34,8 @@
       poster_image: section.settings.poster_image,
       overlay_image: section.settings.heat_overlay,
       heat_color: section.settings.heat_color,
-      opacity: section.settings.heat_opacity | divided_by: 100.0,
-      glow: section.settings.heat_glow | divided_by: 100.0,
+      opacity: rarg_opacity,
+      glow: rarg_glow,
       duration: section.settings.heat_duration,
       heat_x: section.settings.heat_x,
       heat_y: section.settings.heat_y,
@@ -96,14 +98,14 @@
       "id": "placeholder_asset",
       "label": "Built-in placeholder asset",
       "options": [
-        { "value": "placeholder-media/city-campaign.mp4", "label": "City campaign" },
-        { "value": "placeholder-media/outdoor-campaign.mp4", "label": "Outdoor campaign" },
-        { "value": "placeholder-media/vest-fireside.mp4", "label": "Vest fireside" },
-        { "value": "placeholder-media/hero-city.mp4", "label": "Hero city" },
-        { "value": "placeholder-media/everyday-placeholder.svg", "label": "Everyday SVG" },
-        { "value": "placeholder-media/wellness-placeholder.svg", "label": "Wellness SVG" }
+        { "value": "ph-city-campaign.mp4", "label": "City campaign" },
+        { "value": "ph-outdoor-campaign.mp4", "label": "Outdoor campaign" },
+        { "value": "ph-everyday-placeholder.svg", "label": "Everyday SVG" },
+        { "value": "ph-wellness-placeholder.svg", "label": "Wellness SVG" },
+        { "value": "ph-hero-city.mp4", "label": "Hero city" },
+        { "value": "ph-vest-fireside.mp4", "label": "Vest fireside" }
       ],
-      "default": "placeholder-media/city-campaign.mp4"
+      "default": "ph-city-campaign.mp4"
     },
     {
       "type": "textarea",

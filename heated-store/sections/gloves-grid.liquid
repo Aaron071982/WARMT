@@ -1,48 +1,15 @@
-{%- liquid
-  assign heading = section.settings.heading | default: 'GLOVES.'
-  assign subheading = section.settings.subheading | default: 'Hover to reveal heat. Choose your color.'
-  assign section_anchor = section.settings.section_id | default: 'gloves' | handle
-  assign black_base = 'inventory/gloves/black-gloveunglow.png' | asset_url
-  assign black_glow = 'inventory/gloves/black-gloveglow.png' | asset_url
-  assign pink_base = 'inventory/gloves/pink-gloveunglow.png' | asset_url
-  assign pink_glow = 'inventory/gloves/pink-gloveglow.png' | asset_url
--%}
-
-<section class="inventory-section inventory-section--gloves" id="{{ section_anchor }}" data-inventory-section>
-  <div class="page-width">
-    <header class="inventory-section__header">
-      <h2 class="inventory-section__title h2">{{ heading }}</h2>
-      {%- if subheading != blank -%}
-        <p class="inventory-section__sub">{{ subheading }}</p>
-      {%- endif -%}
-    </header>
-
-    <div class="inventory-grid inventory-grid--2">
-      {% render 'inventory-card',
-        title: 'Heated Gloves',
-        color: 'black',
-        url: section.settings.black_link | default: '#product-gloves-black',
-        image_base: black_base,
-        image_glow: black_glow,
-        price_label: section.settings.price_label,
-        heat_label: 'Heated palm & back'
-      %}
-      {% render 'inventory-card',
-        title: 'Heated Gloves',
-        color: 'pink',
-        url: section.settings.pink_link | default: '#product-gloves-pink',
-        image_base: pink_base,
-        image_glow: pink_glow,
-        price_label: section.settings.price_label,
-        heat_label: 'Heated palm & back'
-      %}
-    </div>
-
-    {%- if section.settings.show_hint -%}
-      <p class="inventory-section__hint">Hover to reveal heat.</p>
-    {%- endif -%}
-  </div>
-</section>
+{%- assign grid_anchor = section.settings.section_id | default: 'gloves' | handle -%}
+{% render 'showcase-grid',
+  product: section.settings.product,
+  kind: 'gloves',
+  anchor: grid_anchor,
+  heading: section.settings.heading,
+  subheading: section.settings.subheading,
+  link_prefix: '#product-gloves-',
+  heat_label: section.settings.heat_label,
+  show_hint: section.settings.show_hint,
+  fallback_title: 'Heated Gloves'
+%}
 
 {% schema %}
 {
@@ -50,6 +17,12 @@
   "tag": "section",
   "class": "section-gloves-grid",
   "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Shopify product whose colors, prices and stock power these cards."
+    },
     {
       "type": "text",
       "id": "heading",
@@ -66,23 +39,15 @@
       "type": "text",
       "id": "section_id",
       "label": "Section anchor ID",
-      "default": "gloves"
+      "default": "gloves",
+      "info": "Used for nav links, e.g. #gloves"
     },
     {
       "type": "text",
-      "id": "price_label",
-      "label": "Price label",
-      "default": "Select color"
-    },
-    {
-      "type": "url",
-      "id": "black_link",
-      "label": "Black gloves link"
-    },
-    {
-      "type": "url",
-      "id": "pink_link",
-      "label": "Pink gloves link"
+      "id": "heat_label",
+      "label": "Card detail line",
+      "default": "3 heat levels",
+      "info": "Shown when the product has no heat-zone option."
     },
     {
       "type": "checkbox",

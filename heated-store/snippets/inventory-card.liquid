@@ -1,6 +1,6 @@
 {% comment %}
   Inventory product card with unglow → glow hover flip.
-  Params: title, color, url, image_base, image_glow, price_label, heat_label
+  Params: title, color, color_label, url, image_base, image_glow, price_label, heat_label
 {% endcomment %}
 
 {%- liquid
@@ -50,7 +50,7 @@
 
   <div class="inventory-card__meta">
     <h3 class="inventory-card__title">{{ card_title }}</h3>
-    <p class="inventory-card__color">{{ card_color | capitalize }}</p>
+    <p class="inventory-card__color">{{ color_label | default: card_color | capitalize }}</p>
     {%- if price_text != blank -%}
       <p class="inventory-card__price">{{ price_text }}</p>
     {%- endif -%}

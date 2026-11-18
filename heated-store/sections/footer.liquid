@@ -10,7 +10,6 @@
               class: 'site-footer__logo-img',
               alt: settings.brand_name | default: shop.name,
               widths: '180, 240, 320',
-              height: auto,
               loading: 'lazy'
           }}
         {%- else -%}
@@ -29,7 +28,7 @@
         {%- if settings.legal_business_name != blank -%}
           {{ settings.legal_business_name }}
           {%- if settings.legal_business_address != blank -%}<br>{{ settings.legal_business_address | newline_to_br }}{%- endif -%}
-        {%- else -%}
+        {%- elsif request.design_mode -%}
           <span class="site-footer__missing">Seller identification: add legal business name in Theme settings before launch.</span>
         {%- endif -%}
       </p>
@@ -50,7 +49,7 @@
       <h2 class="site-footer__heading">Product</h2>
       <ul class="site-footer__list list-reset">
         <li><a class="site-footer__link" href="{{ routes.all_products_collection_url }}">Shop</a></li>
-        <li><a class="site-footer__link" href="/pages/our-technology">Our Technology</a></li>
+        {%- if pages['our-technology'] != empty -%}<li><a class="site-footer__link" href="/pages/our-technology">Our Technology</a></li>{%- endif -%}
         <li><a class="site-footer__link" href="/pages/product-safety-and-care">Safety &amp; Care</a></li>
         <li><a class="site-footer__link" href="/pages/about">About</a></li>
       </ul>

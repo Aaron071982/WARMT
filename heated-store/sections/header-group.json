@@ -5,12 +5,14 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu",
+        "menu": "",
         "show_search": true,
         "show_account": true,
         "transparent_on_home": true
       }
     }
   },
-  "order": ["header"]
+  "order": [
+    "header"
+  ]
 }

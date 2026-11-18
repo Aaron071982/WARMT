@@ -209,14 +209,12 @@
       {
         "type": "textarea",
         "id": "shipping_info_default",
-        "label": "Default shipping information",
-        "default": "Shipping details will be confirmed at checkout. Replace this text with your actual shipping policy."
+        "label": "Default shipping information"
       },
       {
         "type": "textarea",
         "id": "returns_info_default",
-        "label": "Default returns information",
-        "default": "Return policy details are editable in theme settings. Replace this placeholder with your actual returns policy."
+        "label": "Default returns information"
       }
     ]
   }

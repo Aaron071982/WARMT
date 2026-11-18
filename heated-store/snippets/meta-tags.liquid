@@ -28,7 +28,7 @@
       {% endif %}
       "brand": {
         "@type": "Brand",
-        "name": {{ product.vendor | default: shop.name | json }}
+        "name": {{ settings.brand_name | default: shop.name | json }}
       },
       "offers": {
         "@type": "Offer",
