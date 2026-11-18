@@ -9,15 +9,8 @@
     <header class="legal-page__header">
       <p class="legal-page__eyebrow">{{ section.settings.eyebrow | default: 'Customer information' }}</p>
       <h1 class="page-shell__title h2">{{ page.title }}</h1>
-      {%- if section.settings.show_updated_note -%}
-        <p class="legal-page__updated">
-          Effective / updated date:
-          {%- if page.updated_at != blank -%}
-            {{ page.updated_at | date: '%B %d, %Y' }}
-          {%- else -%}
-            <span class="legal-page__missing">[REQUIRED: set when publishing verified copy]</span>
-          {%- endif -%}
-        </p>
+      {%- if section.settings.show_updated_note and page.content != blank and page.published_at != blank -%}
+        <p class="legal-page__updated">Effective: {{ page.published_at | date: '%B %d, %Y' }}</p>
       {%- endif -%}
     </header>
 

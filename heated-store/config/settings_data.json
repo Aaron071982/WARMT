@@ -17,6 +17,8 @@
     "page_width": 1440,
     "cart_drawer_enable": true,
     "shipping_info_default": "",
-    "returns_info_default": ""
+    "returns_info_default": "",
+    "support_email": "frostbytadmin@gmail.com",
+    "privacy_email": "frostbytadmin@gmail.com"
   }
 }
