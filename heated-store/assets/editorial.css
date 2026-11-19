@@ -678,8 +678,8 @@ html.privacy-prefs-open {
 /* Collection editorial */
 .collection-hero {
   padding: 4.5rem 0 2.5rem;
-  background: var(--color-editorial);
-  color: var(--color-bg);
+  background: var(--color-bg);
+  color: var(--color-white);
 }
 
 .collection-hero__title {
@@ -687,14 +687,14 @@ html.privacy-prefs-open {
 }
 
 .collection-hero__sub {
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.62);
   max-width: 36ch;
   font-weight: 300;
 }
 
 .collection-grid-section {
-  background: var(--color-editorial);
-  color: var(--color-bg);
+  background: var(--color-bg);
+  color: var(--color-white);
   padding: 1rem 0 5rem;
 }
 
@@ -714,7 +714,7 @@ html.privacy-prefs-open {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  background: #d8d8d6;
+  background: #0e0e0e;
   margin-bottom: 1rem;
 }
 
