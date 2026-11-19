@@ -19,6 +19,8 @@
     "shipping_info_default": "",
     "returns_info_default": "",
     "support_email": "frostbytadmin@gmail.com",
-    "privacy_email": "frostbytadmin@gmail.com"
+    "privacy_email": "frostbytadmin@gmail.com",
+    "enable_motion": true,
+    "enable_snow": true
   }
 }

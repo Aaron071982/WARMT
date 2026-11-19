@@ -40,10 +40,19 @@
     {{ 'animations.css' | asset_url | stylesheet_tag }}
     {{ 'product.css' | asset_url | stylesheet_tag }}
     {{ 'inventory.css' | asset_url | stylesheet_tag }}
+    {%- if settings.enable_motion != false -%}
+      {{ 'frostbyt-motion.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
 
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'media-controller.js' | asset_url }}" defer></script>
     <script src="{{ 'privacy-controls.js' | asset_url }}" defer></script>
+    {%- if settings.enable_motion != false -%}
+      <script>
+        window.frostbytMotion = { enabled: true, snow: {% if settings.enable_snow == false %}false{% else %}true{% endif %} };
+      </script>
+      <script src="{{ 'frostbyt-motion.js' | asset_url }}" defer></script>
+    {%- endif -%}
 
     <script>
       document.documentElement.classList.remove('no-js');

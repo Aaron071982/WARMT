@@ -227,6 +227,7 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.description || data.message || 'Cart error');
         await this.refresh();
+        document.dispatchEvent(new CustomEvent('frostbyt:cart-added', { detail: data }));
         if (window.theme.cartDrawer) this.open();
         else this.toast('Added to cart');
         return data;

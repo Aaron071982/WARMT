@@ -135,8 +135,14 @@
         "id": "font_heading",
         "label": "Heading font",
         "options": [
-          { "value": "editorial", "label": "Editorial (Cormorant Garamond + fallbacks)" },
-          { "value": "sans", "label": "Modern sans (DM Sans + fallbacks)" }
+          {
+            "value": "editorial",
+            "label": "Editorial (Cormorant Garamond + fallbacks)"
+          },
+          {
+            "value": "sans",
+            "label": "Modern sans (DM Sans + fallbacks)"
+          }
         ],
         "default": "editorial"
       },
@@ -215,6 +221,25 @@
         "type": "textarea",
         "id": "returns_info_default",
         "label": "Default returns information"
+      }
+    ]
+  },
+  {
+    "name": "Motion",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_motion",
+        "label": "Enable Frostbyt motion effects",
+        "default": true,
+        "info": "Frost-to-heat hero intro, scroll heat bar, thermal card scans, letter reveals, cursor glow and add-to-cart embers. Visitors who prefer reduced motion get a calm version automatically."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_snow",
+        "label": "Snowfall in the hero",
+        "default": true,
+        "info": "Flakes melt away from the cursor."
       }
     ]
   }
