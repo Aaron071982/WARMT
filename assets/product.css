@@ -3,8 +3,8 @@
    ========================================================================== */
 
 .product {
-  background: var(--color-editorial);
-  color: var(--color-bg);
+  background: var(--color-bg);
+  color: var(--color-white);
   padding: 2rem 0 5rem;
 }
 
@@ -35,7 +35,7 @@
 .product__gallery-main {
   position: relative;
   aspect-ratio: 4 / 5;
-  background: #d8d8d6;
+  background: #0e0e0e;
   overflow: hidden;
 }
 
@@ -55,7 +55,7 @@
 .product__thumb {
   aspect-ratio: 1;
   overflow: hidden;
-  background: #d8d8d6;
+  background: #111;
   border: 1px solid transparent;
   opacity: 0.75;
   transition: opacity 0.25s ease, border-color 0.25s ease;
@@ -64,7 +64,7 @@
 .product__thumb.is-active,
 .product__thumb:hover {
   opacity: 1;
-  border-color: var(--color-bg);
+  border-color: var(--color-heat);
 }
 
 .product__thumb img {
@@ -106,7 +106,7 @@
 
 .product__description {
   margin-bottom: 2rem;
-  color: rgba(11, 11, 11, 0.78);
+  color: rgba(255, 255, 255, 0.78);
   font-weight: 300;
   line-height: 1.7;
 }
@@ -121,6 +121,12 @@
   margin-bottom: 2rem;
 }
 
+.product .field__input,
+.product .field__select,
+.product .qty {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
 .variant-pills {
   display: flex;
   flex-wrap: wrap;
@@ -131,8 +137,9 @@
   min-width: 3rem;
   min-height: 2.75rem;
   padding: 0.5rem 0.9rem;
-  border: 1px solid rgba(11, 11, 11, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   background: transparent;
+  color: inherit;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -141,9 +148,9 @@
 
 .variant-pill:hover,
 .variant-pill.is-selected {
-  border-color: var(--color-bg);
-  background: var(--color-bg);
-  color: var(--color-white);
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-bg);
 }
 
 .variant-pill:disabled {
@@ -172,6 +179,19 @@
   gap: 0.75rem;
 }
 
+.product .btn--dark,
+.inventory-product .btn--dark {
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.product .btn--dark:hover,
+.inventory-product .btn--dark:hover {
+  background: var(--color-white);
+  color: var(--color-bg);
+  border-color: var(--color-white);
+}
+
 .product__size-guide {
   justify-self: start;
   font-size: 0.75rem;
@@ -189,16 +209,16 @@
 .product__purchase-notes {
   margin-top: 1.5rem;
   padding: 1rem 0 0;
-  border-top: 1px solid rgba(11, 11, 11, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   display: grid;
   gap: 0.65rem;
-  color: rgba(11, 11, 11, 0.82);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 0.95rem;
   line-height: 1.5;
 }
 
 .product__purchase-notes-pending {
-  color: rgba(11, 11, 11, 0.62);
+  color: rgba(255, 255, 255, 0.58);
 }
 
 .product__policy-links {
@@ -211,7 +231,7 @@
 }
 
 .product__policy-links a {
-  color: var(--color-bg);
+  color: var(--color-white);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
@@ -219,12 +239,12 @@
 .product__meta-blocks {
   display: grid;
   gap: 0;
-  border-top: 1px solid rgba(11, 11, 11, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   margin-top: 2rem;
 }
 
 .accordion {
-  border-bottom: 1px solid rgba(11, 11, 11, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .accordion__trigger {
@@ -249,7 +269,7 @@
 
 .accordion__content {
   padding: 0 0 1.25rem;
-  color: rgba(11, 11, 11, 0.75);
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 300;
   font-size: 0.95rem;
   line-height: 1.65;
@@ -265,7 +285,7 @@
   grid-template-columns: 1fr 1.2fr;
   gap: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(11, 11, 11, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.9rem;
 }
 
@@ -346,8 +366,9 @@
   width: min(100%, 36rem);
   max-height: min(90svh, 40rem);
   overflow: auto;
-  background: var(--color-editorial);
-  color: var(--color-bg);
+  background: #121212;
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 2rem;
   transform: translateY(12px);
   opacity: 0;
